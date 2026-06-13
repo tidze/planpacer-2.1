@@ -1,0 +1,104 @@
+SHA256:+DiY3wvvV6TuJJhbpZisF/zLDA0zPMSvHdkr4UvCOqU
+SHA256:+DiY3wvvV6TuJJhbpZisF/zLDA0zPMSvHdkr4UvCOqU (Ed25519)
+
+Web-based planner for organizing tasks, schedules, and personal productivity.
+--------------------------------------------------------------------------------------
+A personal productivity and reflection platform that helps users track time, activities, mood, and progress over time.
+--------------------------------------------------------------------------------------
+The prediction angle is interesting too, but I'd treat it as a later feature.
+For example:
+"Based on previous off-days after a work shift, there is a 70% chance you will spend the afternoon sleeping."
+or
+"When you work on Laravel for at least 15 minutes before opening social media, your average productive time doubles."
+Notice that these predictions are less "You will do X tomorrow" and more:
+"Here's what usually happens."
+That feels more useful and less creepy.
+######################################## 1405 03 21 New ideas for future ^
+
+# Older ideas for future
+# Admin Panel for myself for sending emails and such
+# Add Static Graph with changable starting and ending timepoint V1 @
+# Add Google Graph to the website for each task (at the end of the day what did you do? sum)
+# Change the task description inputs so that it would show them based on category inputs @
+# Add Dynamic Scroller Graph V2
+# Add a remaining time of the day
+# Add Color for each category type @
+# Add pagination to the table tasks @
+# Fix Jquery import only one main page
+# Fix targetDate does not work on change while updating tasks
+# Bug ending clock time picker always switches to to hour when even when clicked on minute section but after edit changes
+# Fix targetDate onchange is not affecting timepoints
+# Make All the clocktime pickers component into only one component
+# Add timezone table to the database
+# Add User_id to the task table @
+# Add a Streak since when you had video/unknown
+# Add this to github @
+# Dockerize this app
+# Add Email Verification
+# Add Sketchy Theme to the calendar
+# Add Animation to the for helping the user to undrestand how things are done
+# Add initial guidance for the user, like a popup window or sth
+# Notification and stuff like that
+# Problem of editing a task and it would interfere with another task's duration
+# Problem How to merge Databases? From phone local save to windows ? what if it was locally saved?
+# Category Combiner
+# Shows warning when the user select same date for ending point and starting point
+# Make Notification PopUp Style
+
+#1 Make Edit button work for Every task
+#1 Make Website Livetime interactive using livewire
+
+@Every thing lower that 2 minutes i count it as "showing up"
+
+    "tailwindCSS.includeLanguages": {
+        "html": "html",
+        "javascript": "javascript",
+        "css": "css",
+        "php": "php",
+        "blade": "html",
+    },
+    "editor.quickSuggestions": {
+        "strings": true
+    },
+    "css.validate": false,
+    "editor.inlineSuggest.enabled": true,
+    "tailwindCSS.emmetCompletions": true,
+
+
+
+Here are some name suggestions for your task and time-tracking web application:
+
+TaskTrack
+TimeStack
+DayPlanr
+WorkWatch
+TimeWise
+TaskTempo
+DaySprint
+TimePilot
+TaskChrono
+PlanPacer
+
+SELECT category_id, COUNT(`category_id`) FROM `tasks` WHERE `user_id` = 2 GROUP BY category_id;
+SELECT category_id, COUNT(`category_id`) FROM `tasks` WHERE `user_id` = 2 GROUP BY category_id
+ORDER BY `COUNT(``category_id``)` DESC
+
+
+[ 0 => "video" =>[
+    0=>['data','date','daty']
+  ]
+]
+
+
+
+GitTrash:
+
+  "repositories": [
+        {
+        "type": "composer",
+        "url": "https://mirror2.chabokan.net/composer/"
+        },
+        {
+        "packagist.org": false
+        }
+    ],
