@@ -7,16 +7,16 @@
 
         <div class="w-full flex flex-col lg:flex-row">
             <div class="w-full flex flex-col lg:flex-1 lg:w-1/2" id="task-container">
-                @livewire('task')
+                <livewire:task />
                 <div id="hashure-div" class="hidden lg:block border-4 border-gray-200 flex-auto" style="background: repeating-linear-gradient(-45deg, #ffffffaa, #ffffffaa 4px, #ffffffdd 0, #ffffff00 11px)"></div>
             </div>
             <div class="flex lg:flex-1" id="custom-chart-container">
-                @livewire('custom-chart')
+                <livewire:custom-chart />
             </div>
         </div>
 
         <div class="w-full lg:w-full">
-            @livewire('custom-graph-x')
+            <livewire:custom-graph-x />
         </div>
     </div>
 

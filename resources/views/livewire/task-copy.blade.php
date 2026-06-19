@@ -321,24 +321,6 @@
         let sortedCategoriesByCategory_ENCODED = @json($sortedCategoriesByCategory_ENCODED);
         var sortedCategoriesByCategory_ENCODED_Parsed = (JSON.parse(sortedCategoriesByCategory_ENCODED));
 
-        Livewire.hook('component.initialized', (component) => {
-            $('.startingTimepoint').clockTimePicker({
-                autosize: true,
-                fonts: {
-                    fontFamily: 'Rubik'
-                }
-            });
-            $('.endingTimepoint').clockTimePicker({
-                fonts: {
-                    fontFamily: 'Rubik'
-                }
-            });
-            setDateForToday("#targetDate");
-            copyDate("#targetDate", "#startingDate");
-            copyDate("#targetDate", "#endingDate");
-            // console.log('component.initialized');
-        });
-
         // Onclick event
         $(document).ready(function() {
 
@@ -353,19 +335,6 @@
             }
         }
 
-        Livewire.hook('element.updated', (el, component) => {
-            $('.startingTimepoint').clockTimePicker({
-                autosize: true,
-                fonts: {
-                    fontFamily: 'Rubik'
-                }
-            });
-            $('.endingTimepoint').clockTimePicker({
-                fonts: {
-                    fontFamily: 'Rubik'
-                }
-            });
-        });
         // input range wasn't working in chrome so I added this part
         document.querySelectorAll('input[type="range"]').forEach((input) => {
             input.addEventListener('mousedown', () => window.getSelection().removeAllRanges());

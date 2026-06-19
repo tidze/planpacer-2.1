@@ -320,23 +320,11 @@
 
 @push('script')
     <script>
-        // console.log('Task\'s Script Loaded.')
         // The variables for category on click, shows each description for that specific category
         let sortedCategoriesByCategory_ENCODED = @json($sortedCategoriesByCategory_ENCODED);
         var sortedCategoriesByCategory_ENCODED_Parsed = (JSON.parse(sortedCategoriesByCategory_ENCODED));
 
-        Livewire.hook('component.initialized', (component) => {
-            $('.startingTimepoint').clockTimePicker({
-                autosize: true,
-                fonts: {
-                    fontFamily: 'Rubik'
-                }
-            });
-            $('.endingTimepoint').clockTimePicker({
-                fonts: {
-                    fontFamily: 'Rubik'
-                }
-            });
+        document.addEventListener('component.init', () => {
             setDateForToday("#targetDate");
             copyDate("#targetDate", "#startingDate");
             copyDate("#targetDate", "#endingDate");
@@ -357,19 +345,6 @@
             }
         }
 
-        Livewire.hook('element.updated', (el, component) => {
-            $('.startingTimepoint').clockTimePicker({
-                autosize: true,
-                fonts: {
-                    fontFamily: 'Rubik'
-                }
-            });
-            $('.endingTimepoint').clockTimePicker({
-                fonts: {
-                    fontFamily: 'Rubik'
-                }
-            });
-        });
         // input range wasn't working in chrome so I added this part
         document.querySelectorAll('input[type="range"]').forEach((input) => {
             input.addEventListener('mousedown', () => window.getSelection().removeAllRanges());

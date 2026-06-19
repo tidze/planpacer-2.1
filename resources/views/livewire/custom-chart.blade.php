@@ -304,39 +304,6 @@
 @push('script')
     <script>
         // console.log('CustomChart Script Loaded.')
-        Livewire.hook('component.initialized', (component) => {
-            $('#c_startingHourpoint').clockTimePicker({
-                autosize: true,
-                fonts: {
-                    fontFamily: 'Rubik'
-                }
-            });
-            $('#c_endingHourpoint').clockTimePicker({
-                autosize: true,
-                fonts: {
-                    fontFamily: 'Rubik'
-                }
-            });
-            // setDateForToday("#c_targetDate");
-            // copyDate("#c_targetDate", "#c_startingDate");
-            // copyDate("#c_targetDate", "#c_endingDate");
-        });
-
-        Livewire.hook('element.updated', (el, component) => {
-            $('#c_startingHourpoint').clockTimePicker({
-                autosize: true,
-                fonts: {
-                    fontFamily: 'Rubik'
-                }
-            });
-            $('#c_endingHourpoint').clockTimePicker({
-                autosize: true,
-                onModeSwitch: function(MINUTE) {},
-                fonts: {
-                    fontFamily: 'Rubik'
-                }
-            });
-        });
 
         $("#c_targetDate").on("change", () => {
             copyDate("#c_targetDate", "#c_startingDate");

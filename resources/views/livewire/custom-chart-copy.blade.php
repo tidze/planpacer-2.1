@@ -113,36 +113,7 @@
 @push('script')
     <script>
         console.log('CustomChart Script Loaded.')
-        Livewire.hook('component.initialized', (component) => {
-            $('.startingHourpoint').clockTimePicker({
-                autosize: true,
-                fonts: {
-                    fontFamily: 'Rubik'
-                }
-            });
-            $('.endingHourpoint').clockTimePicker({
-                autosize: true,
-                fonts: {
-                    fontFamily: 'Rubik'
-                }
-            });
-        });
-
-        Livewire.hook('element.updated', (el, component) => {
-            $('.startingHourpoint').clockTimePicker({
-                autosize: true,
-                fonts: {
-                    fontFamily: 'Rubik'
-                }
-            });
-            $('.endingHourpoint').clockTimePicker({
-                autosize: true,
-                onModeSwitch: function(MINUTE) {},
-                fonts: {
-                    fontFamily: 'Rubik'
-                }
-            });
-        });
+        
         $("#startingHourpoint").on("change", () => {
             giveDateObject("#startingDate", "#startingHourpoint", "#startingDatepoint_unix");
             document.getElementById("startingDatepoint_unix").dispatchEvent(new Event('input'));

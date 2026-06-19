@@ -1,3 +1,0 @@
-<div>
-    duck
-</div>

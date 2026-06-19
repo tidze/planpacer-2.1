@@ -1,6 +1,12 @@
 SHA256:+DiY3wvvV6TuJJhbpZisF/zLDA0zPMSvHdkr4UvCOqU
 SHA256:+DiY3wvvV6TuJJhbpZisF/zLDA0zPMSvHdkr4UvCOqU (Ed25519)
 
+# Fix the login registration after the removeing breeze and installing fortify
+# Add Captcha
+# Add Install on desktop
+# Add Ai talk to automatically add tasks while always holding the backdoor open for manulization
+# How to send a report? In what format? Is json format good enough?
+# How to inject Ai calls to it?
 Web-based planner for organizing tasks, schedules, and personal productivity.
 --------------------------------------------------------------------------------------
 A personal productivity and reflection platform that helps users track time, activities, mood, and progress over time.
@@ -65,7 +71,6 @@ That feels more useful and less creepy.
     "tailwindCSS.emmetCompletions": true,
 
 
-
 Here are some name suggestions for your task and time-tracking web application:
 
 TaskTrack
@@ -83,12 +88,10 @@ SELECT category_id, COUNT(`category_id`) FROM `tasks` WHERE `user_id` = 2 GROUP 
 SELECT category_id, COUNT(`category_id`) FROM `tasks` WHERE `user_id` = 2 GROUP BY category_id
 ORDER BY `COUNT(``category_id``)` DESC
 
-
 [ 0 => "video" =>[
     0=>['data','date','daty']
   ]
 ]
-
 
 
 GitTrash:

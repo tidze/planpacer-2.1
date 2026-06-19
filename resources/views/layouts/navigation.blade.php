@@ -12,17 +12,17 @@
 
                 <!-- Navigation Links -->
                 <div class="space-x-8 -my-px ml-10 flex debug-borde">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                    <x-nav-link href="#" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('profile.edit')" :active="request()->routeIs('profile.edit')">
+                    <x-nav-link href="#" :active="request()->routeIs('profile.edit')">
                         {{ __('Settings') }}
                     </x-nav-link>
 
                     <!-- Authentication -->
-                    <form method="POST" action="{{ route('logout') }}" class="p-0 ">
+                    <form method="POST" action="route('logout')" class="p-0 ">
                         @csrf
-                        <x-nav-link :href="route('logout')" class="h-full" onclick="event.preventDefault();
+                        <x-nav-link href="#" class="h-full" onclick="event.preventDefault();
                                                 this.closest('form').submit();">
                             {{ __('Log Out') }}
                         </x-nav-link>

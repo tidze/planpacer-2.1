@@ -50,33 +50,6 @@
 
 @push('script')
     <script>
-        Livewire.hook('component.initialized', (component) => {
-            $('.startingDatepoint').clockTimePicker({
-                autosize: true,
-                fonts: {
-                    fontFamily: 'Rubik'
-                }
-            });
-            $('.endingDatepoint').clockTimePicker({
-                fonts: {
-                    fontFamily: 'Rubik'
-                }
-            });
-        });
-
-        Livewire.hook('element.updated', (el, component) => {
-            $('.startingDatepoint').clockTimePicker({
-                autosize: true,
-                fonts: {
-                    fontFamily: 'Rubik'
-                }
-            });
-            $('.endingDatepoint').clockTimePicker({
-                fonts: {
-                    fontFamily: 'Rubik'
-                }
-            });
-        });
         $("#startingDatepoint").on("change", () => {
             giveDateObject("#startingDate", "#startingDatepoint", "#startingDatepoint_unix");
             document.getElementById("startingDatepoint_unix").dispatchEvent(new Event('input'));
