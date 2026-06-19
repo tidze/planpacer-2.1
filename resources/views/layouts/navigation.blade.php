@@ -15,18 +15,22 @@
                     <x-nav-link href="#" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+
                     <x-nav-link href="#" :active="request()->routeIs('profile.edit')">
                         {{ __('Settings') }}
                     </x-nav-link>
 
                     <!-- Authentication -->
-                    <form method="POST" action="route('logout')" class="p-0 ">
+                    <form class="flex justify-center" method="POST" action="{{ url('/logout') }}">
                         @csrf
-                        <x-nav-link href="#" class="h-full" onclick="event.preventDefault();
-                                                this.closest('form').submit();">
-                            {{ __('Log Out') }}
-                        </x-nav-link>
+                        <button
+                            class="relative font-mono text-xs text-pink-500 hover:text-cyan-400 uppercase tracking-widest transition
+           after:absolute after:left-0 after:bottom-0 after:w-full after:h-1 after:transition
+           after:bg-transparent hover:after:bg-cyan-600">
+                            [ Terminate_Session ]
+                        </button>
                     </form>
+
                 </div>
             </div>
         </div>

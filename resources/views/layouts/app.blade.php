@@ -36,10 +36,10 @@
 </head>
 
 <body class="font-sans antialiased">
-    <div class="min-h-screen bg-gray-900">
-        @include('layouts.navigation')
+    <div class="min-h-screen bg-gray-900 flex flex-col justify-between">
 
         @auth
+            @include('layouts.navigation')
             <div class="bg-gray-800 text-white max-w-6xl mx-auto lg:px-0 mb-1">
                 <div class="text-yellow-400 border-yellow-700 border-l-8 p-2 bg-yellow-400 bg-opacity-30">
                     Welcome <span class="text-white font-semibold">{{ Auth::user()->name }}</span>!

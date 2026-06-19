@@ -12,7 +12,7 @@
         }
 
         .debug-border * {
-            border: 1px solid #3e35e0};
+            border: 1px solid #3e35e0;
             box-sizing: border-box;
         }
 
@@ -58,9 +58,11 @@
                 <a href="{{ route('dashboard') }}" class="bg-cyan-500 px-6 py-3 transition hover:bg-indigo-500">
                     Login
                 </a>
-                <a href="{{ route('dashboard') }}" class="bg-cyan-500 px-6 py-3 transition hover:bg-indigo-500">
+                <a href="{{ route('/register') }}" class="bg-cyan-500 px-6 py-3 transition hover:bg-indigo-500">
                     Register
                 </a>
+
+                {{-- action="{{ url('/logout') }}" --}}
                 <a href="#" class="border border-slate-700 px-6 py-3 font-medium text-slate-300 transition hover:bg-white/5">
                     Try it
                 </a>
