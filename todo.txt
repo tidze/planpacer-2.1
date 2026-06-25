@@ -1,6 +1,3 @@
-SHA256:+DiY3wvvV6TuJJhbpZisF/zLDA0zPMSvHdkr4UvCOqU
-SHA256:+DiY3wvvV6TuJJhbpZisF/zLDA0zPMSvHdkr4UvCOqU (Ed25519)
-
 # Fix the login registration after the removeing breeze and installing fortify
 # Add Captcha
 # Add Install on desktop
@@ -22,7 +19,7 @@ That feels more useful and less creepy.
 ######################################## 1405 03 21 New ideas for future ^
 
 # Older ideas for future
-# Admin Panel for myself for sending emails and such
+# Admin Panel for myself for sending emails and seeing users online and stuff
 # Add Static Graph with changable starting and ending timepoint V1 @
 # Add Google Graph to the website for each task (at the end of the day what did you do? sum)
 # Change the task description inputs so that it would show them based on category inputs @

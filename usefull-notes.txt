@@ -38,3 +38,16 @@ $ php artisan route:list
 $ php artisan cache:clear && php artisan route:clear && php artisan view:clear && php artisan config:clear
 
 $ php artisan about
+
+tree app /f
+tree bootstrap /f
+tree config /f
+tree database /f
+tree public /f
+tree resources /f
+tree routes /f
+tree storage /f
+tree stubs /f
+tree tests /f
+
+ls -la
