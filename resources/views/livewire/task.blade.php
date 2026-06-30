@@ -1,27 +1,33 @@
-<div class="relative border-4 border-white text-white p-1 pb-0 flex-1" >
+<div class="relative border-4 border-white text-white px-1 pb-0 flex-1" >
+
+    {{-- A simple debugger. It's helping me remember what component I am on better. --}}
+    <div class="absolute border-4 border-white text-yellow-500 bg-black left-1/2 -translate-x-1/2 -translate-y-full z-10 flex flex-col">
+        <span class="whitespace-nowrap">resources\views\livewire\task.blade.php</span>
+        <span>{{get_class($this)}}.php</span>
+    </div>
+
     <div wire:loading class="bg-blue-400 bg-opacity-30 animate-pulse absolute w-full h-full z-0 -m-1"></div>
 
-    {{-- <livewire:time-picker/> --}}
     <div class="relative z-50">
         {{-- Components Debugger Information --}}
         <p class="text-amber-600 text-[12px]">
-            {{-- taskCategory= <span class='text-amber-100'>{{ ($taskCategory ?? 'Not Set') }}</span> <br> --}}
-            {{-- taskDescription= <span class="text-amber-100">{{ $taskDescription ?? 'Not Set'}}</span><br> --}}
-            {{-- desiredDuration= <span class="text-amber-100">{{ $desiredDuration ?? 'Not Set'}}</span><br> --}}
-            {{-- startingTimepoint_unix= <span class="text-amber-100">{{ $startingTimepoint_unix ?? 'Not Set'}}</span><br> --}}
-            {{-- endingTimepoint_unix= <span class="text-amber-100">{{ $endingTimepoint_unix ?? 'Not Set'}}</span><br> --}}
-            {{-- startingTimepoint= <span class="text-amber-100">{{ $startingTimepoint ?? 'Not Set'}}</span><br> --}}
-            {{-- endingTimepoint= <span class="text-amber-100">{{ $endingTimepoint ?? 'Not Set'}}</span><br> --}}
-            {{-- startingDatepoint= <span class="text-amber-100">{{ $startingDatepoint ?? 'Not set'}}</span><br> --}}
-            {{-- endingDatepoint= <span class="text-amber-100">{{ $endingDatepoint ?? 'Not set'}}</span><br> --}}
-            {{-- targetTaskIdEdit= <span class="text-amber-100">{{ $targetTaskIdEdit??'Not set' }}</span><br> --}}
-            {{-- category_distinct_desc= <span class="text-amber-100">{{ print_r($category_distinct_desc)??'Not set' }}</span><br> --}}
-            {{-- category_description_distinct_desc= <span class="text-amber-100">{{ print_r($category_description_distinct_desc)??'Not set' }}</span><br> --}}
-            {{-- sortedCategoriesByCategory= <pre class="text-amber-100">{{ print_r($sortedCategoriesByCategory)??'Not set' }}</pre><br> --}}
-            {{-- taskDone= <span class="text-amber-100">{{ $taskDone ?? 'Not     set' }}</span><br> --}}
-            {{-- detector= <span class="text-amber-100">{{ $detector??'Not Set' }}</span><br> --}}
-            {{-- date_default_timezone_get=<span class="text-amber-100">{{ date_default_timezone_get() }}</span><br> --}}
-            {{-- timezone= <span class="text-amber-100">{{ ($timezone??'Not Set')}}</span><br> --}}
+            taskCategory= <span class='text-amber-100'>{{ ($taskCategory ?? 'Not Set') }}</span> <br>
+            taskDescription= <span class="text-amber-100">{{ $taskDescription ?? 'Not Set'}}</span><br>
+            desiredDuration= <span class="text-amber-100">{{ $desiredDuration ?? 'Not Set'}}</span><br>
+            startingTimepoint_unix= <span class="text-amber-100">{{ $startingTimepoint_unix ?? 'Not Set'}}</span><br>
+            endingTimepoint_unix= <span class="text-amber-100">{{ $endingTimepoint_unix ?? 'Not Set'}}</span><br>
+            startingTimepoint= <span class="text-amber-100">{{ $startingTimepoint ?? 'Not Set'}}</span><br>
+            endingTimepoint= <span class="text-amber-100">{{ $endingTimepoint ?? 'Not Set'}}</span><br>
+            startingDatepoint= <span class="text-amber-100">{{ $startingDatepoint ?? 'Not set'}}</span><br>
+            endingDatepoint= <span class="text-amber-100">{{ $endingDatepoint ?? 'Not set'}}</span><br>
+            targetTaskIdEdit= <span class="text-amber-100">{{ $targetTaskIdEdit??'Not set' }}</span><br>
+            category_distinct_desc= <span class="text-amber-100">{{ print_r(isset($category_distinct_desc)) ?? 'Not set' }}</span><br>
+            category_description_distinct_desc= <span class="text-amber-100">{{ print_r(isset($category_description_distinct_desc))??'Not set' }}</span><br>
+            sortedCategoriesByCategory= <pre class="text-amber-100">{{ print_r(isset($sortedCategoriesByCategory))??'Not set' }}</pre><br>
+            taskDone= <span class="text-amber-100">{{ $taskDone ?? 'Not     set' }}</span><br>
+            detector= <span class="text-amber-100">{{ $detector??'Not Set' }}</span><br>
+            date_default_timezone_get=<span class="text-amber-100">{{ date_default_timezone_get() }}</span><br>
+            timezone= <span class="text-amber-100">{{ ($timezone??'Not Set')}}</span><br>
             {{-- @if ($errors->any()) --}}
             {{-- <div class="alert alert-danger"> --}}
             {{-- <ul> --}}
@@ -34,16 +40,17 @@
         </p>
         <input type="hidden" id="targetTaskIdEdit" name="targetTaskIdEdit" wire:model.defer="targetTaskIdEdit" class="w-32 border-2 border-indigo-500" value="{{ $targetTaskIdEdit }}" readonly>
         {{-- <label for="targetTaskIdEdit">targetTaskId</label>
-    @error('targetTaskIdEdit')
-        <span class="text-red-500 text-[9px]">{{ $message }}</span>
-    @enderror
-    <br>
-    @empty($targetTaskIdEdit)
-        <p>targetTaskIdEdit is empty</p>
-    @else
-        <p>targetTaskIdEdit <span class="underline">Not</span> empty</p>
-    @endempty
-    <br> --}}
+        @error('targetTaskIdEdit')
+            <span class="text-red-500 text-[9px]">{{ $message }}</span>
+        @enderror
+        <br>
+        @empty($targetTaskIdEdit)
+            <p>targetTaskIdEdit is empty</p>
+        @else
+            <p>targetTaskIdEdit <span class="underline">Not</span> empty</p>
+        @endempty
+        <br> --}}
+        {{-- Now Here is the actual form begins --}}
         <div class="flex items-center justify-center">
             <div id="targetDateContainer" class="flex items-center justify-center p-1">
                 <input type="date" id="targetDate" class="inline-flex border-2 rounded-xl border-gray-500 bg-gray-800" value="{{ $startingDatepoint }}">
@@ -72,12 +79,12 @@
                         <input {{-- wire:ignore --}} id="startingDate" type="date" class="border-2 rounded-xl border-gray-500 bg-gray-800" value="{{ $startingDatepoint }}">
                     </div>
                     <div class="basis-2/5 flex">
-                        <input
-                        class = "inline-block w-40 bg-black text-center startingTimepoint border-2 h-full rounded-xl border-gray-500"
-                           id = "startingTimepoint"
-             wire:model.defer = "startingTimepoint"
-                         type = "text"
-                        value = "{{$startingTimepoint}}" />
+                            <input
+                            class = "inline-block w-40 bg-black text-center startingTimepoint border-2 h-full rounded-xl border-gray-500"
+                            id = "startingTimepoint"
+                wire:model.defer = "startingTimepoint"
+                            type = "text"
+                            value = "{{$startingTimepoint}}" />
                     </div>
                     <div id="setNowTimeForStartingHourAndMinute"
                     class="text-[14px] text-gray-400 bg-gray-800 inline-flex justify-center items-center border-2 border-gray-500 rounded-xl px-2 py-2 hover:bg-gray-700 cursor-pointer active:border-gray-50 active:text-white select-none">
@@ -115,7 +122,7 @@
                 </div>
                 {{-- Component `Full Duration` --}}
                 <div class="flex py-2">
-                    <input class="flex-1 bg-black text-center p-0 text-[16px] rounded-md" id="fullDuration_obj" wire:model="fullDuration_obj" type="text" value="sdf" readonly />
+                    <input class="flex-1 bg-black text-center p-0 text-[16px] rounded-md" id="fullDuration_obj" type="text" value="sdf" readonly />
                     <label class="px-2 py-1 text-[16px]" for="fullDuration">Full Duration</label>
                 </div>
                 {{-- Component `Desired Duration input range` --}}
@@ -312,7 +319,6 @@
                 {{-- </div> --}}
                 {{-- Loading State Animations END --}}
             </div>
-
         </div>
 
     </div>

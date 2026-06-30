@@ -1,22 +1,29 @@
 <div class="relative border-4 border-yellow-700 box-border flex-1 text-white text-[10px]">
+
+    {{-- A simple debugger. It's helping me remember what component I am on better. --}}
+    <div class="absolute border-4 border-yellow-700 text-yellow-500 text-base bg-black left-1/2 -translate-x-1/2 -translate-y-full z-10 flex flex-col">
+        <span class="whitespace-nowrap">resources\views\livewire\custom-chart.blade.php</span>
+        <span>{{get_class($this)}}.php</span>
+    </div>
+
     <div wire:loading class="bg-blue-400 bg-opacity-30 animate-pulse absolute w-full h-full"></div>
     {{-- Components Debugger Information --}}
     <div class="text-yellow-500 text-[11px] w-full">
-        {{-- date_default_timezone_get=<span class="text-amber-100">{{ date_default_timezone_get() }}</span><br> --}}
-        {{-- $c_startingDatepoint_unix = <span class="text-yellow-100">{{ isset($c_startingDatepoint_unix) ? substr($c_startingDatepoint_unix,0,10)+12600 . ' ' . date('Y-m-d H:i', substr($c_startingDatepoint_unix,0,10)+12600) : 'Not Set' }}</span> <br> --}}
-        {{-- $c_endingDatepoint_unix = <span class="text-yellow-100">{{ isset($c_endingDatepoint_unix) ? substr($c_endingDatepoint_unix,0,10)+12600 . ' ' . date('Y-m-d H:i', substr($c_endingDatepoint_unix,0,10)+12600) : 'Not Set' }}</span><br> --}}
-        {{-- $c_startingDate = <span class="text-yellow-100">{{ isset($c_startingDate) ? $c_startingDate : 'Not Set' }}</span><br> --}}
-        {{-- $c_endingDate = <span class="text-yellow-100">{{ isset($c_endingDate) ? $c_endingDate : 'Not Set' }}</span><br> --}}
-        {{-- $c_startingHourpoint = <span class="text-yellow-100">{{ isset($c_startingHourpoint) ? $c_startingHourpoint : 'Not Set' }}</span><br> --}}
-        {{-- $c_endingHourpoint = <span class="text-yellow-100">{{ isset($c_endingHourpoint) ? $c_endingHourpoint : 'Not Set' }}</span><br> --}}
-        {{-- $c_targetTaskIdForEdit = <span class="text-yellow-100">{{ isset($c_targetTaskIdForEdit) ? $c_targetTaskIdForEdit : 'Not Set' }}</span><br> --}}
-        {{-- $now = <span class="text-yellow-100">{{ var_dump($now) }}</span><br> --}}
-        {{-- $dailyTasks --> =<pre class="text-yellow-100">{{ isset($dailyTasks) ? print_r($dailyTasks) : 'Not Set' }}</pre><br> --}}
-        {{-- $taskSumOfDurations = <span class="text-yellow-100">{{ print_r($taskSumOfDurations) }}</span><br> --}}
-        {{-- $c_flattened --> =<span class="text-yellow-100">{{ isset($c_flattened) ? print_r($c_flattened) : 'Not Set' }}</span><br> --}}
+        date_default_timezone_get=<span class="text-amber-100">{{ date_default_timezone_get() }}</span><br>
+        $c_startingDatepoint_unix = <span class="text-yellow-100">{{ isset($c_startingDatepoint_unix) ? substr($c_startingDatepoint_unix,0,10)+12600 . ' ' . date('Y-m-d H:i', substr($c_startingDatepoint_unix,0,10)+12600) : 'Not Set' }}</span> <br>
+        $c_endingDatepoint_unix = <span class="text-yellow-100">{{ isset($c_endingDatepoint_unix) ? substr($c_endingDatepoint_unix,0,10)+12600 . ' ' . date('Y-m-d H:i', substr($c_endingDatepoint_unix,0,10)+12600) : 'Not Set' }}</span><br>
+        $c_startingDate = <span class="text-yellow-100">{{ isset($c_startingDate) ? $c_startingDate : 'Not Set' }}</span><br>
+        $c_endingDate = <span class="text-yellow-100">{{ isset($c_endingDate) ? $c_endingDate : 'Not Set' }}</span><br>
+        $c_startingHourpoint = <span class="text-yellow-100">{{ isset($c_startingHourpoint) ? $c_startingHourpoint : 'Not Set' }}</span><br>
+        $c_endingHourpoint = <span class="text-yellow-100">{{ isset($c_endingHourpoint) ? $c_endingHourpoint : 'Not Set' }}</span><br>
+        $c_targetTaskIdForEdit = <span class="text-yellow-100">{{ isset($c_targetTaskIdForEdit) ? $c_targetTaskIdForEdit : 'Not Set' }}</span><br>
+        $now = <span class="text-yellow-100">{{ var_dump($now) }}</span><br>
+        $dailyTasks --> =<pre class="text-yellow-100">{{ isset($dailyTasks) ? print_r($dailyTasks) : 'Not Set' }}</pre><br>
+        $taskSumOfDurations = <span class="text-yellow-100">{{ print_r($taskSumOfDurations) }}</span><br>
+        $c_flattened --> =<span class="text-yellow-100">{{ isset($c_flattened) ? print_r($c_flattened) : 'Not Set' }}</span><br>
         {{-- $flattened = <span class="text-yellow-100">{{ var_dump($flattened) }}</span><br> --}}
-        {{-- timezone= <span class="text-yellow-100">{{ $timezone ?? 'Not Set' }}</span><br> --}}
-        {{-- $is_date_different = <span class="text-yellow-100">{{ isset($is_date_different) ? $is_date_different : 'Not Set' }}</span><br> --}}
+        timezone= <span class="text-yellow-100">{{ $timezone ?? 'Not Set' }}</span><br>
+        $is_date_different = <span class="text-yellow-100">{{ isset($is_date_different) ? $is_date_different : 'Not Set' }}</span><br>
     </div>
     <div class="relative z-20 flex flex-col text-base">
         {{-- <span id="c_customDebug" class="inline-block border border-amber-600 p-0.5 rounded hover:bg-yellow-500 hover:text-black cursor-pointer" wire:click>c_customDebug</span> --}}

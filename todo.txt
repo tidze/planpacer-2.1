@@ -32,7 +32,7 @@ That feels more useful and less creepy.
 # Bug ending clock time picker always switches to to hour when even when clicked on minute section but after edit changes
 # Fix targetDate onchange is not affecting timepoints
 # Make All the clocktime pickers component into only one component
-# Add timezone table to the database
+# ✰✰✰ Add timezone table to the database + Fix the timezone evaluate based on user's device browser
 # Add User_id to the task table @
 # Add a Streak since when you had video/unknown
 # Add this to github @

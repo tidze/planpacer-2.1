@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Livewire;
 
 use Livewire\Component;
 use Illuminate\Http\Request;
@@ -38,15 +38,19 @@ class Task extends Component
     public function mount()
     {
         $dateTime = new DateTime();
+        // Warning! You need to change this timezone line. And make it retrieve from users location.
         $dateTime->setTimezone(new DateTimeZone('asia/tehran'));
 
         $dateTime->setTime($dateTime->format('H'), $dateTime->format('i'), 0);
-
-        $this->endingTimepoint_unix = $dateTime->format('U');
         $this->startingTimepoint_unix = $dateTime->format('U');
-        // the starting time for "clock time picker" ought to be current time. for now we leave it at 00:00
         $this->startingTimepoint = $dateTime->format('H:i');;
+        $this->startingDatepoint = $dateTime->format('Y-m-d');
+
+        // the starting time for "clock time picker" ought to be current time. for now we leave it at 00:00
+        $this->endingTimepoint_unix = $dateTime->format('U');
         $this->endingTimepoint = $dateTime->format('H:i');;
+        $this->endingDatepoint = $dateTime->format('Y-m-d');
+
         $this->desiredDuration = 0;
         $this->taskCategory = '';
         $this->taskDescription = '';

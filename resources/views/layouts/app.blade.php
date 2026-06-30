@@ -9,7 +9,6 @@
     <title>{{ config('app.name', 'Laravel Default Value') }}</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @stack('script-head')
-
     <style>
         .debug-border {
             border: 1px solid tomato;

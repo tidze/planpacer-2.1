@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Livewire;
 
 use App\Models\Task as TaskModel;
 use Illuminate\Support\Facades\Auth;

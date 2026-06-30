@@ -21,6 +21,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        
+        Livewire::componentHook('render', function ($component, $view) {
+
+            if (app()->environment('local')) {
+                $view->with('__debug_view', $view->getName());
+                dd("duck");
+            }
+        });
     }
 }

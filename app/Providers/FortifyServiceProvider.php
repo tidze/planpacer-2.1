@@ -53,12 +53,16 @@ class FortifyServiceProvider extends ServiceProvider
             );
         });
         Fortify::loginView(function () {
-            return view('auth.login');
+            // Merge the new-design blade with teh original step by step. Don't forget to do this later.
+            // return view('auth.login');
+            return view('auth.login-new-design');
         });
         Fortify::registerView(function () {
-            return view('auth.register');
+            // Merge the new-design blade with teh original step by step. Don't forget to do this later.
+            // return view('auth.register');
+            return view('auth.register-new-design');
         });
-      
+
 
     }
 }
