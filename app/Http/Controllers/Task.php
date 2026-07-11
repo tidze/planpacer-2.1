@@ -64,7 +64,6 @@ class Task extends Controller
         $taskModel = new TaskModel;
         $retrievedCategory = Task::checkForExistingCategory($category, $description);
         $taskModel->category_id = $retrievedCategory->id;
-        $taskModel->desired_duration = $request->input('desiredDuration');
         $taskModel->starting_time = $request->input('startingTimepoint_obj');
         $taskModel->ending_time = $request->input('endingTimepoint_obj');
         $taskModel->save();

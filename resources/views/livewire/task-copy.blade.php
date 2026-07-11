@@ -19,7 +19,6 @@
             {{-- category_description_distinct_desc= <span class="text-amber-100">{{ print_r($category_description_distinct_desc)??'Not set' }}</span><br> --}}
             {{-- sortedCategoriesByCategory= <pre class="text-amber-100">{{ print_r($sortedCategoriesByCategory)??'Not set' }}</pre><br> --}}
             {{-- taskDone= <span class="text-amber-100">{{ $taskDone ?? 'Not     set' }}</span><br> --}}
-            {{-- detector= <span class="text-amber-100">{{ $detector??'Not Set' }}</span><br> --}}
             {{-- date_default_timezone_get=<span class="text-amber-100">{{ date_default_timezone_get() }}</span><br> --}}
             {{-- timezone= <span class="text-amber-100">{{ ($timezone??'Not Set')}}</span><br> --}}
             {{-- @if ($errors->any()) --}}

@@ -10,6 +10,9 @@ use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Illuminate\Support\Facades\DB;
 use App\Models\Task as TaskModel;
+use Livewire\Attributes\On;
+use Carbon\Carbon;
+
 
 
 class CustomChart extends Component
@@ -43,10 +46,12 @@ class CustomChart extends Component
     public $endingDatetime;
     public $tasksSortedByDescription_Sum;
 
+    public string $c_timezone;
+
     public function mount()
     {
         $date = new DateTime();
-        $date->setTimezone(new DateTimeZone('asia/tehran'));
+        $date->setTimezone(new DateTimeZone('Asia/Tehran'));
         $date->setTime(7, 0, 0);
         // $this->startingDatetime = $date;
         $this->c_startingDatepoint_unix = $date->format('U');
@@ -251,13 +256,9 @@ class CustomChart extends Component
         // dd($this->now);
     }
 
-    public function getTimeAndDate()
-    {
-    }
+    public function getTimeAndDate() {}
 
-    public function setTimeAndDate()
-    {
-    }
+    public function setTimeAndDate() {}
 
     public function isDateDifferent_Changer()
     {
@@ -267,7 +268,7 @@ class CustomChart extends Component
     public function prevPeriod()
     {
         $date = new DateTime();
-        $date->setTimezone(new DateTimeZone('asia/tehran'));
+        $date->setTimezone(new DateTimeZone('Asia/Tehran'));
         $date->setTimestamp(substr($this->c_startingDatepoint_unix, 0, 10));
         $date->sub(new DateInterval('P1D'));
         $this->c_startingDatepoint_unix = $date->format('U');
@@ -285,7 +286,7 @@ class CustomChart extends Component
     public function nextPeriod()
     {
         $date = new DateTime();
-        $date->setTimezone(new DateTimeZone('asia/tehran'));
+        $date->setTimezone(new DateTimeZone('Asia/Tehran'));
         $date->setTimestamp(substr($this->c_startingDatepoint_unix, 0, 10));
         $date->add(new DateInterval('P1D'));
         $this->c_startingDatepoint_unix = $date->format('U');
@@ -314,7 +315,7 @@ class CustomChart extends Component
     public function calcNow()
     {
         $date = new DateTime();
-        $date->setTimezone(new DateTimeZone('asia/tehran'));
+        $date->setTimezone(new DateTimeZone('Asia/Tehran'));
         $date->setTimestamp(time());
         $this->now['unix'] = $date->format('U');
 

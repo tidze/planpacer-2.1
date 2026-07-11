@@ -51,3 +51,5 @@ tree stubs /f
 tree tests /f
 
 ls -la
+
+$ php artisan migrate:status

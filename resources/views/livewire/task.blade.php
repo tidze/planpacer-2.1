@@ -1,43 +1,50 @@
-<div class="relative border-4 border-white text-white px-1 pb-0 flex-1" >
-
-    {{-- A simple debugger. It's helping me remember what component I am on better. --}}
-    <div class="absolute border-4 border-white text-yellow-500 bg-black left-1/2 -translate-x-1/2 -translate-y-full z-10 flex flex-col">
-        <span class="whitespace-nowrap">resources\views\livewire\task.blade.php</span>
-        <span>{{get_class($this)}}.php</span>
-    </div>
+<div class="relative border-4 border-slate-600 text-white flex-1">
 
     <div wire:loading class="bg-blue-400 bg-opacity-30 animate-pulse absolute w-full h-full z-0 -m-1"></div>
+    @env('local')
+        <div class="bg-black border border-amber-600 p-2">
 
-    <div class="relative z-50">
-        {{-- Components Debugger Information --}}
-        <p class="text-amber-600 text-[12px]">
-            taskCategory= <span class='text-amber-100'>{{ ($taskCategory ?? 'Not Set') }}</span> <br>
-            taskDescription= <span class="text-amber-100">{{ $taskDescription ?? 'Not Set'}}</span><br>
-            desiredDuration= <span class="text-amber-100">{{ $desiredDuration ?? 'Not Set'}}</span><br>
-            startingTimepoint_unix= <span class="text-amber-100">{{ $startingTimepoint_unix ?? 'Not Set'}}</span><br>
-            endingTimepoint_unix= <span class="text-amber-100">{{ $endingTimepoint_unix ?? 'Not Set'}}</span><br>
-            startingTimepoint= <span class="text-amber-100">{{ $startingTimepoint ?? 'Not Set'}}</span><br>
-            endingTimepoint= <span class="text-amber-100">{{ $endingTimepoint ?? 'Not Set'}}</span><br>
-            startingDatepoint= <span class="text-amber-100">{{ $startingDatepoint ?? 'Not set'}}</span><br>
-            endingDatepoint= <span class="text-amber-100">{{ $endingDatepoint ?? 'Not set'}}</span><br>
-            targetTaskIdEdit= <span class="text-amber-100">{{ $targetTaskIdEdit??'Not set' }}</span><br>
-            category_distinct_desc= <span class="text-amber-100">{{ print_r(isset($category_distinct_desc)) ?? 'Not set' }}</span><br>
-            category_description_distinct_desc= <span class="text-amber-100">{{ print_r(isset($category_description_distinct_desc))??'Not set' }}</span><br>
-            sortedCategoriesByCategory= <pre class="text-amber-100">{{ print_r(isset($sortedCategoriesByCategory))??'Not set' }}</pre><br>
-            taskDone= <span class="text-amber-100">{{ $taskDone ?? 'Not     set' }}</span><br>
-            detector= <span class="text-amber-100">{{ $detector??'Not Set' }}</span><br>
-            date_default_timezone_get=<span class="text-amber-100">{{ date_default_timezone_get() }}</span><br>
-            timezone= <span class="text-amber-100">{{ ($timezone??'Not Set')}}</span><br>
-            {{-- @if ($errors->any()) --}}
-            {{-- <div class="alert alert-danger"> --}}
-            {{-- <ul> --}}
-            {{-- @foreach ($errors->all() as $error) --}}
-            {{-- <li>{{ $error }}</li> --}}
-            {{-- @endforeach --}}
-            {{-- </ul> --}}
-            {{-- </div> --}}
-            {{-- @endif --}}
-        </p>
+            {{-- A simple debugger. It's helping me remember what component I am on better. --}}
+            <div class="flex flex-col border border-yellow-600 px-1 text-yellow-500 bg-black text-xs">
+                <span class="whitespace-nowrap">resources\views\livewire\task.blade.php</span>
+                <span>{{ get_class($this) }}.php</span>
+            </div>
+
+            {{-- Components Debugger Information --}}
+            <div class="text-amber-600 text-[12px]">
+                taskCategory= <span class='text-amber-100'>{{ $taskCategory ?? 'Not Set' }}</span> <br>
+                taskDescription= <span class="text-amber-100">{{ $taskDescription ?? 'Not Set' }}</span><br>
+                desiredDuration= <span class="text-amber-100">{{ $desiredDuration ?? 'Not Set' }}</span><br>
+                startingTimepoint_unix= <span class="text-amber-100">{{ $startingTimepoint_unix ?? 'Not Set' }}</span><br>
+                endingTimepoint_unix= <span class="text-amber-100">{{ $endingTimepoint_unix ?? 'Not Set' }}</span><br>
+                startingTimepoint= <span class="text-amber-100">{{ $startingTimepoint ?? 'Not Set' }}</span><br>
+                endingTimepoint= <span class="text-amber-100">{{ $endingTimepoint ?? 'Not Set' }}</span><br>
+                startingDatepoint= <span class="text-amber-100">{{ $startingDatepoint ?? 'Not set' }}</span><br>
+                endingDatepoint= <span class="text-amber-100">{{ $endingDatepoint ?? 'Not set' }}</span><br>
+                targetTaskIdEdit= <span class="text-amber-100">{{ $targetTaskIdEdit ?? 'Not set' }}</span><br>
+                category_distinct_desc= <span class="text-amber-100">{{ print_r(isset($category_distinct_desc)) ?? 'Not set' }}</span><br>
+                category_description_distinct_desc= <span class="text-amber-100">{{ print_r(isset($category_description_distinct_desc)) ?? 'Not set' }}</span><br>
+                sortedCategoriesByCategory=
+                <pre class="text-amber-100">{{ print_r(isset($sortedCategoriesByCategory)) ?? 'Not set' }}</pre><br>
+                taskDone= <span class="text-amber-100">{{ $taskDone ?? 'Not set' }}</span><br>
+                date_default_timezone_get=<span class="text-amber-100">{{ date_default_timezone_get() }}</span><br>
+                timezone= <span class="text-amber-100">{{ $timezone ?? 'Not Set' }}</span><br>
+                {{-- @if ($errors->any()) --}}
+                {{-- <div class="alert alert-danger"> --}}
+                {{-- <ul> --}}
+                {{-- @foreach ($errors->all() as $error) --}}
+                {{-- <li>{{ $error }}</li> --}}
+                {{-- @endforeach --}}
+                {{-- </ul> --}}
+                {{-- </div> --}}
+                {{-- @endif --}}
+            </div>
+
+        </div>
+    @endenv
+
+    <div class="relative z-50 p-2">
+
         <input type="hidden" id="targetTaskIdEdit" name="targetTaskIdEdit" wire:model.defer="targetTaskIdEdit" class="w-32 border-2 border-indigo-500" value="{{ $targetTaskIdEdit }}" readonly>
         {{-- <label for="targetTaskIdEdit">targetTaskId</label>
         @error('targetTaskIdEdit')
@@ -76,19 +83,15 @@
                 <div class="flex">
                     {{-- for input date overlay to be clickable every where --}}
                     <div id="startingDateContainer" class="basis-2/5 inline-block border rounded-xl border-transparent">
-                        <input {{-- wire:ignore --}} id="startingDate" type="date" class="border-2 rounded-xl border-gray-500 bg-gray-800" value="{{ $startingDatepoint }}">
+                        <input {{-- wire:ignore --}} id="startingDate" type="date" class="w-36 border-2 rounded-xl border-gray-500 bg-gray-800" value="{{ $startingDatepoint }}">
                     </div>
                     <div class="basis-2/5 flex">
-                            <input
-                            class = "inline-block w-40 bg-black text-center startingTimepoint border-2 h-full rounded-xl border-gray-500"
-                            id = "startingTimepoint"
-                wire:model.defer = "startingTimepoint"
-                            type = "text"
-                            value = "{{$startingTimepoint}}" />
+                        <input class = "inline-block w-32 bg-black text-center startingTimepoint border-2 h-full rounded-xl border-gray-500" id = "startingTimepoint" wire:model.defer = "startingTimepoint" type = "text"
+                            value = "{{ $startingTimepoint }}" />
                     </div>
                     <div id="setNowTimeForStartingHourAndMinute"
-                    class="text-[14px] text-gray-400 bg-gray-800 inline-flex justify-center items-center border-2 border-gray-500 rounded-xl px-2 py-2 hover:bg-gray-700 cursor-pointer active:border-gray-50 active:text-white select-none">
-                    Now
+                        class="text-[14px] text-gray-400 bg-gray-800 inline-flex justify-center items-center border-2 border-gray-500 rounded-xl px-2 py-2 hover:bg-gray-700 cursor-pointer active:border-gray-50 active:text-white select-none">
+                        Now
                     </div>
                     <label class="basis-1/5 self-center" for="startingTimepoint">Start</label>
 
@@ -102,15 +105,15 @@
                 {{-- Component endingTimepoint --}}
                 <div class="flex">
                     <div id="endingDateContainer" class="basis-2/5 inline-block border rounded-xl border-transparent">
-                        <input {{-- wire:ignore --}} id="endingDate" type="date" class="border-2 rounded-xl border-gray-500 bg-gray-800" value="{{ $endingDatepoint }}">
+                        <input {{-- wire:ignore --}} id="endingDate" type="date" class="w-36 border-2 rounded-xl border-gray-500 bg-gray-800" value="{{ $endingDatepoint }}">
                     </div>
                     <div class="basis-2/5 flex">
-                        <input class="w-40 bg-black text-center endingTimepoint border-2 h-full rounded-xl border-gray-500" id="endingTimepoint" wire:model.defer="endingTimepoint" type="text"
+                        <input class="w-32 bg-black text-center endingTimepoint border-2 h-full rounded-xl border-gray-500" id="endingTimepoint" wire:model.defer="endingTimepoint" type="text"
                             value={{ $endingTimepoint }} onchange="" />
                     </div>
                     <div id="setNowTimeForEndingHourAndMinute"
-                    class="text-[14px] text-gray-400 bg-gray-800 inline-flex justify-center items-center border-2 border-gray-500 rounded-xl px-2 py-2 hover:bg-gray-700 cursor-pointer active:border-gray-50 active:text-white select-none">
-                    Now
+                        class="text-[14px] text-gray-400 bg-gray-800 inline-flex justify-center items-center border-2 border-gray-500 rounded-xl px-2 py-2 hover:bg-gray-700 cursor-pointer active:border-gray-50 active:text-white select-none">
+                        Now
                     </div>
                     <label class="basis-1/5 self-center" for="endingTimepoint">End</label>
 
@@ -156,12 +159,13 @@
                     {{-- Component `Select Category` --}}
                     <div class="flex w-full overflow-auto pb-2">
                         {{-- @foreach ($category_distinct_desc as $category) --}}
-                            {{-- <div class="py-1 px-2 border border-l-4 border-white text-white cursor-pointer rounded-lg mr-1 select-none whitespace-nowrap categoryAutoSetter" style="">{{ $category->category }} --}}
-                            {{-- </div> --}}
+                        {{-- <div class="py-1 px-2 border border-l-4 border-white text-white cursor-pointer rounded-lg mr-1 select-none whitespace-nowrap categoryAutoSetter" style="">{{ $category->category }} --}}
+                        {{-- </div> --}}
                         {{-- @endforeach --}}
 
                         @for ($i = 0; $i < count($sortedCategoriesByCategory_ArrayKeys); $i++)
-                            <div class="py-1 px-2 border border-l-4 border-white text-white cursor-pointer rounded-lg mr-1 select-none whitespace-nowrap categoryAutoSetter" style="">{{$sortedCategoriesByCategory_ArrayKeys[$i]}}</div>
+                            <div class="py-1 px-2 border border-l-4 border-white text-white cursor-pointer rounded-lg mr-1 select-none whitespace-nowrap categoryAutoSetter" style="">
+                                {{ $sortedCategoriesByCategory_ArrayKeys[$i] }}</div>
                         @endfor
                     </div>
 
@@ -180,9 +184,9 @@
                     <div class="flex w-full overflow-auto pb-2 descriptionAutoSetterContainer">
                         @foreach ($categories as $category)
                             {{-- @foreach ($tasksOfTheCategory as $task) --}}
-                                <div class="py-1 px-2 border border-l-4 border-l-transparent cursor-pointer rounded-lg mr-1 select-none whitespace-nowrap descriptionAutoSetter"
-                                    style="border-color:{{ $category['color'] }};color:{{ $category['color'] }}">
-                                    {{ $category['description'] }}</div>
+                            <div class="py-1 px-2 border border-l-4 border-l-transparent cursor-pointer rounded-lg mr-1 select-none whitespace-nowrap descriptionAutoSetter"
+                                style="border-color:{{ $category['color'] }};color:{{ $category['color'] }}">
+                                {{ $category['description'] }}</div>
                             {{-- @endforeach --}}
                         @endforeach
                     </div>
@@ -409,12 +413,12 @@
             document.querySelector("#targetDate").showPicker();
         });
 
-        $('#switchHours').on('click',()=>{
-            let $startingTimepoint =  $('#startingTimepoint').val();
+        $('#switchHours').on('click', () => {
+            let $startingTimepoint = $('#startingTimepoint').val();
             $('#startingTimepoint').val($('#endingTimepoint').val());
             $('#endingTimepoint').val($startingTimepoint);
 
-            let $startingTimepoint_unix =  $('#startingTimepoint_unix').val();
+            let $startingTimepoint_unix = $('#startingTimepoint_unix').val();
             $('#startingTimepoint_unix').val($('#endingTimepoint_unix').val());
             $('#endingTimepoint_unix').val($startingTimepoint_unix);
 
@@ -423,17 +427,17 @@
         });
 
         /*
-        * Creates a new date from given date(dateInput param) and hour(input param) input and puts it in output(output param).
-        * Parameters: dateInput - input[type=date] 2023-06-09
-        *             input     - input[type=text] 02:00
-        *             output    - input[type=text] 1654889000 unix
-        */
+         * Creates a new date from given date(dateInput param) and hour(input param) input and puts it in output(output param).
+         * Parameters: dateInput - input[type=date] 2023-06-09
+         *             input     - input[type=text] 02:00
+         *             output    - input[type=text] 1654889000 unix
+         */
         function giveDateObject(dateInput, input, output) {
             input = String(input);
             output = String(output);
 
             // Getting the day, month, year from targetDate input and creating a date
-            let purifiedDate = $(dateInput).val().replaceAll('-', '');  // 2023-06-09 => 20230609
+            let purifiedDate = $(dateInput).val().replaceAll('-', ''); // 2023-06-09 => 20230609
             let year = purifiedDate.slice(0, 4); // 20230609 => 2023
 
             // And do not forget that js month is starting from '0'
@@ -518,9 +522,9 @@
         }
 
         /*
-        * Sets date for today. format: 2023-06-04
-        * Parameters: targetInput - input[type=date]
-        */
+         * Sets date for today. format: 2023-06-04
+         * Parameters: targetInput - input[type=date]
+         */
         function setDateForToday(targetInput) {
             let newDate = new Date();
             let day = ("0" + newDate.getDate()).slice(-2);
@@ -539,11 +543,13 @@
 
             $(".descriptionAutoSetterContainer").html('');
             $.each(arr, function(index, value) {
-                $(".descriptionAutoSetterContainer").append('<div class="py-1 px-2 border border-l-4 border-l-transparent cursor-pointer rounded-lg mr-1 select-none whitespace-nowrap descriptionAutoSetter" style="border-color: ' + value.color + '; color: ' + value.color + ';">' + value.description + '</div>');
+                $(".descriptionAutoSetterContainer").append(
+                    '<div class="py-1 px-2 border border-l-4 border-l-transparent cursor-pointer rounded-lg mr-1 select-none whitespace-nowrap descriptionAutoSetter" style="border-color: ' + value.color +
+                    '; color: ' + value.color + ';">' + value.description + '</div>');
             });
             $('.descriptionAutoSetter').on('click', function() {
                 $('#taskDescription').val($(this).text().trim());
-                    document.getElementById("taskDescription").dispatchEvent(new Event('input'));
+                document.getElementById("taskDescription").dispatchEvent(new Event('input'));
             });
             document.getElementById("taskCategory").dispatchEvent(new Event('input'));
 
@@ -582,7 +588,5 @@
             document.getElementById("endingTimepoint_unix").dispatchEvent(new Event('input'));
             setFullDuration();
         });
-
-
     </script>
 @endpush

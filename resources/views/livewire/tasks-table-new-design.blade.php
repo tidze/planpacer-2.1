@@ -133,7 +133,6 @@
                                     <div style="background-color:{{ $task->color }}" class="w-full h-4"></div>
                                 </td>
                                 <td class="px-2 py-0">
-                                    {{ $task->desired_duration }}
                                 </td>
                                 {{-- <td class="px-2 py-0"> --}}
                                 {{-- {{ $task->starting_time }} --}}

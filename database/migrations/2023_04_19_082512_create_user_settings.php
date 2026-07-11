@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('starting_minute')->default('00');
             $table->string('ending_hour')->default('23');
             $table->string('ending_minute')->default('59');
-            $table->string('timezone')->nullable();
         });
     }
 

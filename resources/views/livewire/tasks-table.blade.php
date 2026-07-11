@@ -1,40 +1,48 @@
 <div class="relative shadow-md box-border border-4 border-teal-800">
 
-    <div class="absolute border-4 border-teal-800 text-teal-600 bg-black left-1/2 -translate-x-1/2 -translate-y-full z-10 flex flex-col">
-        <span class="whitespace-nowrap">resources\views\livewire\tasks-table.blade.php</span>
-        <span>{{get_class($this)}}.php</span>
-    </div>
+    @env('local')
+        <div class="bg-black border border-teal-800 p-2">
+
+            <div class="flex flex-col border border-teal-800 text-teal-600 text-sm">
+                <span class="whitespace-nowrap">view: resources\views\livewire\tasks-table.blade.php</span>
+                <span>controller: {{ get_class($this) }}.php</span>
+            </div>
+
+            <div class="text-xs text-teal-600">
+                $targetTaskIdEdit = <span class="text-teal-300">{{isset($targetTaskIdEdit) ? $targetTaskIdEdit : 'Not Set' }}</span><br>
+                {{-- <span>$allTasks = {{isset($allTasks) ? $allTasks: 'Not Set' }}</span> --}}
+            </div>
+
+        </div>
+    @endenv
 
     <div wire:loading class="bg-blue-400 bg-opacity-30 animate-pulse absolute w-full h-full z-0 "></div>
+
     <div class="relative z-50">
 
-        <p class="text-[10px] text-white">
-            {{-- <span>$targetTaskIdEdit = {{isset($targetTaskIdEdit) ? $targetTaskIdEdit : 'Not Set' }}</span><br> --}}
-            {{-- <span>$allTasks = {{isset($allTasks) ? $allTasks: 'Not Set' }}</span> --}}
-        </p>
 
         {{-- Loading State Animations --}}
         <div class="w-full flex flex-col border-t-4 border-b-0 border-teal-800" wire:loading.class="p-1">
-        <div class="mb-1 flex w-full justify-center items-center" wire:loading wire:target="edit">
-        <div class="w-full flex justify-center items-center animate-pulse border-l-8 border-blue-700 bg-blue-400 bg-opacity-30 p-2 pt-4 text-blue-400">
-        <div class="inline-block h-8 w-8 animate-bounce rounded-full border border-blue-600 text-center leading-7">▲</div>
-        </div>
-        </div>
-        <div class="mb-1 flex w-full justify-center items-center" wire:loading wire:target="confirmDelete">
-        <div class="w-full flex justify-center items-center animate-pulse border-l-8 border-blue-700 bg-blue-400 bg-opacity-30 p-2 text-blue-400">
-        Checking The Task ...
-        </div>
-        </div>
-        <div class="mb-1 flex w-full justify-center items-center" wire:loading wire:target="deleteTask">
-        <div class="w-full flex justify-center items-center animate-pulse border-l-8 border-blue-700 bg-blue-400 bg-opacity-30 p-2 text-blue-400">
-        Deleting ...
-        </div>
-        </div>
-        <div class="flex w-full justify-center items-center" wire:loading>
-        <div class="w-full flex justify-center items-center animate-pulse border-l-8 border-blue-700 bg-blue-400 bg-opacity-30 p-2 text-blue-400">
-        Re-Rendering ...
-        </div>
-        </div>
+            <div class="mb-1 flex w-full justify-center items-center" wire:loading wire:target="edit">
+                <div class="w-full flex justify-center items-center animate-pulse border-l-8 border-blue-700 bg-blue-400 bg-opacity-30 p-2 pt-4 text-blue-400">
+                    <div class="inline-block h-8 w-8 animate-bounce rounded-full border border-blue-600 text-center leading-7">▲</div>
+                </div>
+            </div>
+            <div class="mb-1 flex w-full justify-center items-center" wire:loading wire:target="confirmDelete">
+                <div class="w-full flex justify-center items-center animate-pulse border-l-8 border-blue-700 bg-blue-400 bg-opacity-30 p-2 text-blue-400">
+                    Checking The Task ...
+                </div>
+            </div>
+            <div class="mb-1 flex w-full justify-center items-center" wire:loading wire:target="deleteTask">
+                <div class="w-full flex justify-center items-center animate-pulse border-l-8 border-blue-700 bg-blue-400 bg-opacity-30 p-2 text-blue-400">
+                    Deleting ...
+                </div>
+            </div>
+            <div class="flex w-full justify-center items-center" wire:loading>
+                <div class="w-full flex justify-center items-center animate-pulse border-l-8 border-blue-700 bg-blue-400 bg-opacity-30 p-2 text-blue-400">
+                    Re-Rendering ...
+                </div>
+            </div>
         </div>
 
         {{-- They need to be together: `w-screen` & `overflow-x-auto` --}}
@@ -44,7 +52,7 @@
                 <thead class="uppercase bg-gray-50 dark:bg-gray-700 text-white">
                     <tr class="">
                         {{-- <th scope="col" class="px-1 py-0"> --}}
-                            {{-- Edit --}}
+                        {{-- Edit --}}
                         {{-- </th> --}}
                         {{-- <th s cope="col" class="px-1 py-0"> --}}
                         {{-- id --}}
@@ -90,12 +98,19 @@
                 <tbody>
                     @isset($allTasks)
                         @forelse ($allTasks as $task)
-                            <tr @if ($task->id == $targetTaskIdEdit) @class(['box-border','border','border-indigo-500','bg-gray-900','text-indigo-500','bg-indigo-900','bg-opacity-20']) @endif
-                                class="box-border border-b bg-gray-900 border-gray-700 border text-teal-600">
+                            <tr @if ($task->id == $targetTaskIdEdit) @class([
+                                'box-border',
+                                'border',
+                                'border-indigo-500',
+                                'bg-gray-900',
+                                'text-indigo-500',
+                                'bg-indigo-900',
+                                'bg-opacity-20',
+                            ]) @endif class="box-border border-b bg-gray-900 border-gray-700 border text-teal-600">
                                 {{-- <td class="px-4 py-0"> --}}
-                                    {{-- <form wire:submit.prevent="edit({{ $task->id }})"> --}}
-                                        {{-- <button type="submit" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</button> --}}
-                                    {{-- </form> --}}
+                                {{-- <form wire:submit.prevent="edit({{ $task->id }})"> --}}
+                                {{-- <button type="submit" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</button> --}}
+                                {{-- </form> --}}
                                 {{-- </td> --}}
                                 {{-- <td scope="row" class="box-border hover:box-content px-2 py-1 font-medium whitespace-nowrap text-white"> --}}
                                 {{-- {{ $task->id }} --}}
@@ -133,7 +148,7 @@
                                     <div style="background-color:{{ $task->color }}" class="w-full h-4"></div>
                                 </td>
                                 <td class="px-2 py-0">
-                                    {{ $task->desired_duration }}
+                                    {{-- {{ $task->desired_duration }} --}}
                                 </td>
                                 {{-- <td class="px-2 py-0"> --}}
                                 {{-- {{ $task->starting_time }} --}}
@@ -144,9 +159,9 @@
 
                             </tr>
                         @empty
-                        <div class="bg-gray-500 bg-opacity-20 border-l-8 border-gray-600 text-gray-500 p-2">
-                            There are no tasks recorded yet ¯\_(ツ)_/¯
-                        </div>
+                            <div class="bg-gray-500 bg-opacity-20 border-l-8 border-gray-600 text-gray-500 p-2">
+                                There are no tasks recorded yet ¯\_(ツ)_/¯
+                            </div>
                         @endforelse
                     @endisset
 
@@ -154,7 +169,7 @@
             </table>
         </div>
         @isset($allTasks)
-        {{ $allTasks->links('livewire.pagination-livewire-simple') }}
+            {{ $allTasks->links('livewire.pagination-livewire-simple') }}
         @endisset
     </div>
 </div>

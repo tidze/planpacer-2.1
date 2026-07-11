@@ -16,7 +16,7 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
 
-                    <x-nav-link href="{{ route('profile.edit') }}" :active="request()->routeIs('profile.edit')">
+                    <x-nav-link href="{{ route('profile.settings') }}" :active="request()->routeIs('profile.settings')">
                         {{ __('Settings') }}
                     </x-nav-link>
 
@@ -24,10 +24,11 @@
                     <form class="flex justify-center" method="POST" action="{{ url('/logout') }}">
                         @csrf
                         <button
-                            class="relative font-mono text-xs text-pink-500 hover:text-cyan-400 uppercase tracking-widest transition
-           after:absolute after:left-0 after:bottom-0 after:w-full after:h-1 after:transition
-           after:bg-transparent hover:after:bg-cyan-600">
-                            [ Terminate_Session ]
+                            class="inline-flex items-center px-1 pt-1
+                            border-b-2 border-transparent text-sm font-medium leading-5
+                            text-gray-400 hover:text-gray-300 hover:border-gray-700
+                            focus:outline-none focus:text-gray-300 focus:border-gray-700 transition duration-150 ease-in-out">
+                            logout
                         </button>
                     </form>
 

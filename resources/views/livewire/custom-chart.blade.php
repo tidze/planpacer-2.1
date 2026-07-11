@@ -1,30 +1,38 @@
 <div class="relative border-4 border-yellow-700 box-border flex-1 text-white text-[10px]">
 
-    {{-- A simple debugger. It's helping me remember what component I am on better. --}}
-    <div class="absolute border-4 border-yellow-700 text-yellow-500 text-base bg-black left-1/2 -translate-x-1/2 -translate-y-full z-10 flex flex-col">
-        <span class="whitespace-nowrap">resources\views\livewire\custom-chart.blade.php</span>
-        <span>{{get_class($this)}}.php</span>
-    </div>
-
     <div wire:loading class="bg-blue-400 bg-opacity-30 animate-pulse absolute w-full h-full"></div>
-    {{-- Components Debugger Information --}}
-    <div class="text-yellow-500 text-[11px] w-full">
-        date_default_timezone_get=<span class="text-amber-100">{{ date_default_timezone_get() }}</span><br>
-        $c_startingDatepoint_unix = <span class="text-yellow-100">{{ isset($c_startingDatepoint_unix) ? substr($c_startingDatepoint_unix,0,10)+12600 . ' ' . date('Y-m-d H:i', substr($c_startingDatepoint_unix,0,10)+12600) : 'Not Set' }}</span> <br>
-        $c_endingDatepoint_unix = <span class="text-yellow-100">{{ isset($c_endingDatepoint_unix) ? substr($c_endingDatepoint_unix,0,10)+12600 . ' ' . date('Y-m-d H:i', substr($c_endingDatepoint_unix,0,10)+12600) : 'Not Set' }}</span><br>
-        $c_startingDate = <span class="text-yellow-100">{{ isset($c_startingDate) ? $c_startingDate : 'Not Set' }}</span><br>
-        $c_endingDate = <span class="text-yellow-100">{{ isset($c_endingDate) ? $c_endingDate : 'Not Set' }}</span><br>
-        $c_startingHourpoint = <span class="text-yellow-100">{{ isset($c_startingHourpoint) ? $c_startingHourpoint : 'Not Set' }}</span><br>
-        $c_endingHourpoint = <span class="text-yellow-100">{{ isset($c_endingHourpoint) ? $c_endingHourpoint : 'Not Set' }}</span><br>
-        $c_targetTaskIdForEdit = <span class="text-yellow-100">{{ isset($c_targetTaskIdForEdit) ? $c_targetTaskIdForEdit : 'Not Set' }}</span><br>
-        $now = <span class="text-yellow-100">{{ var_dump($now) }}</span><br>
-        $dailyTasks --> =<pre class="text-yellow-100">{{ isset($dailyTasks) ? print_r($dailyTasks) : 'Not Set' }}</pre><br>
-        $taskSumOfDurations = <span class="text-yellow-100">{{ print_r($taskSumOfDurations) }}</span><br>
-        $c_flattened --> =<span class="text-yellow-100">{{ isset($c_flattened) ? print_r($c_flattened) : 'Not Set' }}</span><br>
-        {{-- $flattened = <span class="text-yellow-100">{{ var_dump($flattened) }}</span><br> --}}
-        timezone= <span class="text-yellow-100">{{ $timezone ?? 'Not Set' }}</span><br>
-        $is_date_different = <span class="text-yellow-100">{{ isset($is_date_different) ? $is_date_different : 'Not Set' }}</span><br>
-    </div>
+
+    @env('local')
+        <div class="bg-black border border-yellow-500 p-2">
+
+            {{-- A simple debugger. It's helping me remember what component I am on better. --}}
+            <div class="flex flex-col border border-yellow-700 text-yellow-500 text-base bg-black text-xs">
+                <span class="whitespace-nowrap">view: resources\views\livewire\custom-chart.blade.php</span>
+                <span>controller: {{ get_class($this) }}.php</span>
+            </div>
+
+            {{-- Components Debugger Information --}}
+            <div class="text-yellow-500 text-[11px] w-full">
+                date_default_timezone_get=<span class="text-amber-100">{{ date_default_timezone_get() }}</span><br>
+                $c_startingDatepoint_unix = <span class="text-yellow-100">{{ isset($c_startingDatepoint_unix) ? substr($c_startingDatepoint_unix, 0, 10) + 12600 . ' ' . date('Y-m-d H:i', substr($c_startingDatepoint_unix, 0, 10) + 12600) : 'Not Set' }}</span> <br>
+                $c_endingDatepoint_unix = <span class="text-yellow-100">{{ isset($c_endingDatepoint_unix) ? substr($c_endingDatepoint_unix, 0, 10) + 12600 . ' ' . date('Y-m-d H:i', substr($c_endingDatepoint_unix, 0, 10) + 12600) : 'Not Set' }}</span><br>
+                $c_startingDate = <span class="text-yellow-100">{{ isset($c_startingDate) ? $c_startingDate : 'Not Set' }}</span><br>
+                $c_endingDate = <span class="text-yellow-100">{{ isset($c_endingDate) ? $c_endingDate : 'Not Set' }}</span><br>
+                $c_startingHourpoint = <span class="text-yellow-100">{{ isset($c_startingHourpoint) ? $c_startingHourpoint : 'Not Set' }}</span><br>
+                $c_endingHourpoint = <span class="text-yellow-100">{{ isset($c_endingHourpoint) ? $c_endingHourpoint : 'Not Set' }}</span><br>
+                $c_targetTaskIdForEdit = <span class="text-yellow-100">{{ isset($c_targetTaskIdForEdit) ? $c_targetTaskIdForEdit : 'Not Set' }}</span><br>
+                $now = <span class="text-yellow-100">{{ var_dump($now) }}</span><br>
+                $dailyTasks --> =
+                <pre class="text-yellow-100 max-h-64 overflow-auto">{{ isset($dailyTasks) ? print_r($dailyTasks) : 'Not Set' }}</pre><br>
+                $taskSumOfDurations = <span class="text-yellow-100">{{ print_r($taskSumOfDurations) }}</span><br>
+                $c_flattened --> =<span class="text-yellow-100">{{ isset($c_flattened) ? print_r($c_flattened) : 'Not Set' }}</span><br>
+                {{-- $flattened = <span class="text-yellow-100">{{ var_dump($flattened) }}</span><br> --}}
+                timezone= <span class="text-yellow-100">{{ $timezone ?? 'Not Set' }}</span><br>
+                $is_date_different = <span class="text-yellow-100">{{ isset($is_date_different) ? $is_date_different : 'Not Set' }}</span><br>
+            </div>
+            
+        </div>
+    @endenv
     <div class="relative z-20 flex flex-col text-base">
         {{-- <span id="c_customDebug" class="inline-block border border-amber-600 p-0.5 rounded hover:bg-yellow-500 hover:text-black cursor-pointer" wire:click>c_customDebug</span> --}}
         {{-- <br> --}}
@@ -219,15 +227,31 @@
                             </div>
                             {{-- The Starting point is 100% off by Y Axis so i added translate transform --}}
                             {{-- I don't know why, but the @class needs to be before the class="". (because the `if statement` not going to work otherwise) --}}
-                            <div @if ($c_targetTaskIdForEdit_ == $_task['id']) @class(['bg-white','bg-opacity-50' ,'w-full', 'h-full','cursor-pointer']) @endif class="w-full h-full cursor-pointer"
-                                wire:click="edit({{ $_task['id'] }})"></div>
+                            <div @if ($c_targetTaskIdForEdit_ == $_task['id']) @class([
+                                'bg-white',
+                                'bg-opacity-50',
+                                'w-full',
+                                'h-full',
+                                'cursor-pointer',
+                            ]) @endif class="w-full h-full cursor-pointer" wire:click="edit({{ $_task['id'] }})"></div>
 
                             <div class="absolute flex flex-row -translate-x-full">
                                 <div class=" -translate-y-[30%] mx-1 flex flex-col justify-center items-center">
-                                    <div @if ($c_targetTaskIdForEdit_ == $_task['id']) @class(['text-teal-500','text-[14px]']) @endif class="text-white-500 text-[14px]">
+                                    <div @if ($c_targetTaskIdForEdit_ == $_task['id']) @class(['text-teal-500', 'text-[14px]']) @endif class="text-white-500 text-[14px]">
                                         {{ $_task['description'] }}
                                     </div>
-                                    <div @if ($c_targetTaskIdForEdit_ == $_task['id']) @class(['bg-teal-500','bg-opacity-40','text-teal-500','text-[12px]', 'inline-flex' ,'font-medium', 'underline', 'cursor-pointer','relative' ,'z-10']) @endif
+                                    <div @if ($c_targetTaskIdForEdit_ == $_task['id']) @class([
+                                        'bg-teal-500',
+                                        'bg-opacity-40',
+                                        'text-teal-500',
+                                        'text-[12px]',
+                                        'inline-flex',
+                                        'font-medium',
+                                        'underline',
+                                        'cursor-pointer',
+                                        'relative',
+                                        'z-10',
+                                    ]) @endif
                                         class="text-[12px] inline-flex font-medium text-blue-600 dark:text-gray-500 hover:underline cursor-pointer relative z-10" wire:click="edit({{ $_task['id'] }})">Edit</div>
                                 </div>
 
@@ -258,51 +282,27 @@
         @endforeach
         {{-- This if statement needs fix. --}}
         @if ($now['visible'] == 'visible')
-            <div class="text-sm">Used <span class="text-amber-400">{{ substr(array_sum($taskSumOfDurations) / 60 / 60,0,4) }}</span> h <span> &nbsp; | &nbsp; </span><span
-                    class="text-amber-600">{{ substr((array_sum($taskSumOfDurations) / 60 / 60 / (($c_endingDatepoint_unix - $c_startingDatepoint_unix) / 60 / 60)) * 100,0,4) }}</span> % </div>
-            <div class="text-sm">Remained <span class="text-amber-400">{{ substr(($c_endingDatepoint_unix - $now['unix']) / 60 / 60,0,4)  }}</span> h <span> &nbsp; | &nbsp;
+            <div class="text-sm">Used <span class="text-amber-400">{{ substr(array_sum($taskSumOfDurations) / 60 / 60, 0, 4) }}</span> h <span> &nbsp; | &nbsp; </span><span
+                    class="text-amber-600">{{ substr((array_sum($taskSumOfDurations) / 60 / 60 / (($c_endingDatepoint_unix - $c_startingDatepoint_unix) / 60 / 60)) * 100, 0, 4) }}</span> % </div>
+            <div class="text-sm">Remained <span class="text-amber-400">{{ substr(($c_endingDatepoint_unix - $now['unix']) / 60 / 60, 0, 4) }}</span> h <span> &nbsp; | &nbsp;
                 </span><span
-                    class="text-amber-600">{{
-
-                                substr((($c_endingDatepoint_unix - $now['unix']) /
-                                ($c_endingDatepoint_unix - $c_startingDatepoint_unix)
-                                * 100),0,4)
-
-                            }}</span> %
+                    class="text-amber-600">{{ substr((($c_endingDatepoint_unix - $now['unix']) / ($c_endingDatepoint_unix - $c_startingDatepoint_unix)) * 100, 0, 4) }}</span>
+                %
             </div>
-            <div class="text-sm">Unknown <span class="text-amber-400">{{
-                    substr(
-                        ($now['unix']
-                        - $c_startingDatepoint_unix
-                        - array_sum($taskSumOfDurations))/60/60
-                        ,0,4)
-                     }}</span> h <span> &nbsp; | &nbsp;
-            </span><span class="text-amber-600">
-                {{
-
-            substr(
-                    (
-                        (
-                            $now['unix']
-                            - $c_startingDatepoint_unix
-                            - array_sum($taskSumOfDurations)
-                        )
-                        /
-                        (
-                            $c_endingDatepoint_unix
-                            -
-                            $c_startingDatepoint_unix
-                        )
-                        *100
-                    ),0,4)
-                }}</span> %
-        </div>
+            <div class="text-sm">Unknown <span
+                    class="text-amber-400">{{ substr(($now['unix'] - $c_startingDatepoint_unix - array_sum($taskSumOfDurations)) / 60 / 60, 0, 4) }}</span>
+                h <span> &nbsp; | &nbsp;
+                </span><span class="text-amber-600">
+                    {{ substr((($now['unix'] - $c_startingDatepoint_unix - array_sum($taskSumOfDurations)) / ($c_endingDatepoint_unix - $c_startingDatepoint_unix)) * 100, 0, 4) }}</span>
+                %
+            </div>
         @endif
     @endisset
     {{-- TasksCategory Description --}}
     @isset($tasksSortedByDescription_Sum)
         @foreach ($tasksSortedByDescription_Sum as $category => $duration_sum)
-            <div class="text-sm text-gray-300">{{$category}}<span class="text-orange-400">{{$duration_sum/60}}</span><span> m </span><span class="text-amber-400">{{substr($duration_sum/60/60,0,4)}}</span><span> h </span></div>
+            <div class="text-sm text-gray-300">{{ $category }}<span class="text-orange-400">{{ $duration_sum / 60 }}</span><span> m </span><span
+                    class="text-amber-400">{{ substr($duration_sum / 60 / 60, 0, 4) }}</span><span> h </span></div>
         @endforeach
     @endisset
 </div>

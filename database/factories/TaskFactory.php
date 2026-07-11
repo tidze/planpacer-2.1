@@ -20,7 +20,6 @@ class TaskFactory extends Factory
         $rand_end = mt_rand($rand_start,1694110660);
         return [
             'category_id' => 1,
-            'desired_duration' => 0,
             'starting_time' => $rand_start,
             'ending_time' => $rand_end,
         ];

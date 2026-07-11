@@ -1,28 +1,39 @@
 <div class="relative border-4 border-emerald-700">
 
-    {{-- A simple debugger. It's helping me remember what component I am on better. --}}
-    <div class="absolute border-4 border-emerald-700 text-emerald-500 text-base bg-black left-0 -translate-y-full z-10 flex flex-col">
-        <span class="whitespace-nowrap">resources\views\livewire\custom-graph-x.blade.php</span>
-        <span>{{get_class($this)}}.php</span>
-    </div>
-
     <div wire:loading class="bg-blue-400 bg-opacity-30 animate-pulse absolute w-full h-full z-0 "></div>
+
     <div class="relative z-50">
+        @env('local')
+            <div class="bg-black p-2 border border-emerald-700">
+
+                {{-- A simple debugger. It's helping me remember what component I am on better. --}}
+                <div class="flex flex-col px-1 border border-emerald-700 text-emerald-500 text-xs bg-black">
+                    <span class="whitespace-nowrap">view: resources\views\livewire\custom-graph-x.blade.php</span>
+                    <span>controller: {{ get_class($this) }}.php</span>
+                </div>
+
+                {{-- Components Debugger Information --}}
+                <div class="text-teal-600 text-[12px]">
+                    $x_startingDatepoint_unix = <span
+                        class="text-teal-100">{{ isset($x_startingDatepoint_unix) ? $x_startingDatepoint_unix . ' ' . date('Y-m-d H:i', substr($x_startingDatepoint_unix, 0, 10)) : 'Not Set' }}</span> <br>
+                    $x_endingDatepoint_unix = <span class="text-teal-100">{{ isset($x_endingDatepoint_unix) ? $x_endingDatepoint_unix . ' ' . date('Y-m-d H:i', substr($x_endingDatepoint_unix, 0, 10)) : 'Not Set' }}</span><br>
+                    $x_startingDate = <span class="text-teal-100">{{ isset($x_startingDate) ? $x_startingDate : 'Not Set' }}</span><br>
+                    $x_endingDate = <span class="text-teal-100">{{ isset($x_endingDate) ? $x_endingDate : 'Not Set' }}</span><br>
+                    $x_startingHour = <span class="text-teal-100">{{ isset($x_startingHour) ? $x_startingHour : 'Not Set' }}</span><br>
+                    $x_endingHour = <span class="text-teal-100">{{ isset($x_endingHour) ? $x_endingHour : 'Not Set' }}</span><br>
+                    $x_tasksGraphArray --> =
+                    <pre class="text-teal-100 text-[10px] max-h-40 overflow-auto">{{ isset($x_tasksGraphArray) ? print_r($x_tasksGraphArray) : 'Not Set' }}</pre><br>
+                    $seperatedTasksByDay --> =''
+                    <pre class="text-teal-100 text-[10px] max-h-40 overflow-auto">{{ isset($seperatedTasksByDay) ? print_r($seperatedTasksByDay) : 'Not Set' }}</pre><br>
+                    $seperatedCategoriesByDay_Sum --> =''
+                    <pre class="text-teal-100 text-[10px] max-h-40 overflow-auto">{{ isset($seperatedCategoriesByDay_Sum) ? print_r($seperatedCategoriesByDay_Sum) : 'Not Set' }}</pre><br>
+                    $x_flattened = <span class="text-teal-100">{{ var_dump($x_flattened) }}</span><br>
+                </div>
+
+            </div>
+        @endenv
 
         <div>
-            {{-- Components Debugger Information --}}
-            <p class="text-teal-600 text-[12px]">
-                {{-- $x_startingDatepoint_unix = <span class="text-teal-100">{{ isset($x_startingDatepoint_unix) ? $x_startingDatepoint_unix .' '. date('Y-m-d H:i',substr($x_startingDatepoint_unix,0,10)) : 'Not Set' }}</span> <br> --}}
-                {{-- $x_endingDatepoint_unix = <span class="text-teal-100">{{ isset($x_endingDatepoint_unix) ? $x_endingDatepoint_unix .' '. date('Y-m-d H:i',substr($x_endingDatepoint_unix,0,10)): 'Not Set' }}</span><br> --}}
-                {{-- $x_startingDate = <span class="text-teal-100">{{ isset($x_startingDate) ? $x_startingDate : 'Not Set' }}</span><br> --}}
-                {{-- $x_endingDate = <span class="text-teal-100">{{ isset($x_endingDate) ? $x_endingDate : 'Not Set' }}</span><br> --}}
-                {{-- $x_startingHour = <span class="text-teal-100">{{ isset($x_startingHour) ? $x_startingHour : 'Not Set' }}</span><br> --}}
-                {{-- $x_endingHour = <span class="text-teal-100">{{ isset($x_endingHour) ? $x_endingHour : 'Not Set' }}</span><br> --}}
-                {{-- $x_tasksGraphArray --> = <pre class="text-teal-100 text-[10px]">{{ isset($x_tasksGraphArray) ? print_r($x_tasksGraphArray) : 'Not Set' }}</pre><br> --}}
-                {{-- $seperatedTasksByDay --> =''  <pre class="text-teal-100 text-[10px]">{{ isset($seperatedTasksByDay) ? print_r($seperatedTasksByDay) : 'Not Set' }}</pre><br> --}}
-                {{-- $seperatedCategoriesByDay_Sum --> =''  <pre class="text-teal-100 text-[10px]">{{ isset($seperatedCategoriesByDay_Sum) ? print_r($seperatedCategoriesByDay_Sum) : 'Not Set' }}</pre><br> --}}
-                {{-- $x_flattened = <span class="text-teal-100">{{ var_dump($x_flattened) }}</span><br> --}}
-            </p>
             <div class="relative z-20 flex flex-col items-center text-white">
                 {{-- Component x_startingTimepoint --}}
                 <div class="flex w-full">
@@ -74,6 +85,7 @@
 
         {{-- Days Graph Chart --}}
         <div class="flex flex-col items-center p-1 w-full overflow-x-auto">
+
             {{-- <div id="x_flattenTasksGraph" class="relative z-10 text-amber-600 text-[9px] w-60 text-center
             inline-block border border-amber-600 p-0.5 rounded
             hover:bg-yellow-500 hover:text-black cursor-pointer" wire:click="x_flattenTasksGraph">
@@ -128,16 +140,15 @@
 
                     <div class="text-white text-[12px] flex flex-wrap justify-start w-full">
                         @isset($seperatedCategoriesByDay_Sum)
-                            @foreach($seperatedCategoriesByDay_Sum[$day] as $category => $duration)
+                            @foreach ($seperatedCategoriesByDay_Sum[$day] as $category => $duration)
                                 <div class="">
-                                    <span class="whitespace-nowrap">{{$category}}</span>
-                                    <span class="text-amber-400">{{substr($duration/60/60,0,4)}}</span> h
+                                    <span class="whitespace-nowrap">{{ $category }}</span>
+                                    <span class="text-amber-400">{{ substr($duration / 60 / 60, 0, 4) }}</span> h
                                     <span>/&nbsp;</span>
                                 </div>
                             @endforeach
                         @endisset
                     </div>
-
                 @endforeach
             @endisset
         </div>

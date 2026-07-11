@@ -1,4 +1,13 @@
-# Fix the login registration after the removeing breeze and installing fortify
+✓ 1405/04/10 21:31 Fixed html auto rename tagger
+✓ 1405/04/11 23:11 Removed DesiredDuration from the whole code base
+Fixed the Debugging information for all the old views of components.
+Switched back to old views for now, till the new ones works finally. 
+~ Fixing Documentation on code Blocks
+~ Making the task-new-desing work with the controller and model.
+
+# Fix "Add task"/"Update task" do not add a task conflicting, repeatable, replacable tasks
+# Fix the "remember me" in the login form
+# Fix the login registration after the Foveing breeze and installing fortify
 # Add Captcha
 # Add Install on desktop
 # Add Ai talk to automatically add tasks while always holding the backdoor open for manulization

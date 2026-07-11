@@ -1,0 +1,14 @@
+Difficulty Rank	Task	Status
+ (Hardest)
+    ☐ Fix the Task component completely.
+        Don't mess around with files. If something works, it works.
+        First make it work, get some dopamine, then comment, refactor, and improve readability.
+	☐ Make the CustomGraph component work fully.
+	☐ Make the old CustomGraph component compatible with the new backend.
+	☐ Fix SSH on the J5 Prime (Termux) so VS Code can connect to it.
+	☐ Redesign with ai, the frontend of the components in the PlanPacer Settings tab.
+	☐ Check the Jobinja website, review job postings, and review/update your résumé.
+	☐ Launch the PlanPacer server, then add today's task(s).
+	☐ Write a strict set of diet rules for yourself.
+	☐ Have a conversation with yourself about getting back into night running/jogging
+ (Easiest)

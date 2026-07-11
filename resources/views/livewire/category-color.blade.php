@@ -1,27 +1,36 @@
 <div class="relative border-4 border-sky-400">
-    <div wire:loading class="bg-blue-400 bg-opacity-30 animate-pulse absolute w-full h-full z-0 "></div>
 
-    {{-- A simple debugger. It's helping me remember what component I am on better. --}}
-    <div class="absolute border-4 border-sky-400 text-sky-500 bg-black left-1/2 -translate-x-1/2 -translate-y-full z-10 flex flex-col">
-        <span class="whitespace-nowrap">resources\views\livewire\category-color.blade.php</span>
-        <span>{{get_class($this)}}.php</span>
-    </div>
+    <div wire:loading class="bg-blue-400 bg-opacity-30 animate-pulse absolute w-full h-full z-0"></div>
+
+    @env('local')
+        <div class="bg-black border border-sky-500 p-2">
+
+            {{-- A simple debugger. It's helping me remember what component I am on better. --}}
+            <div class="flex flex-col border border-sky-400 text-sky-500 text-sm">
+                <span class="whitespace-nowrap">view: resources\views\livewire\category-color.blade.php</span>
+                <span>controller: {{ get_class($this) }}.php</span>
+            </div>
+
+            {{-- Components Debugger Information --}}
+            <div class="text-sky-600 text-[12px]">
+                $user_id = <span class="text-sky-100">{{ isset($user_id) ? $user_id : 'Not Set' }}</span><br>
+                $targetCategoryId = <span class="text-sky-100">{{ isset($targetCategoryId) ? $targetCategoryId : 'Not Set' }}</span> <br>
+                $categoryId = <span class="text-sky-100">{{ isset($categoryId) ? $categoryId : 'Not Set' }}</span><br>
+                $category = <span class="text-sky-100">{{ isset($category) ? $category : 'Not Set' }}</span><br>
+                $categoryDescription = <span class="text-sky-100">{{ isset($categoryDescription) ? $categoryDescription : 'Not Set' }}</span><br>
+                $categoryColor = <span class="text-sky-100">{{ isset($categoryColor) ? $categoryColor : 'Not Set' }}</span><br>
+                $x_endingHourpoint = <span class="text-sky-100">{{ isset($x_endingHourpoint) ? $x_endingHourpoint : 'Not Set' }}</span><br>
+                $$x_tasksGraphArray --> =
+                <pre class="text-sky-100">{{ isset($x_tasksGraphArray) ? print_r($x_tasksGraphArray) : 'Not Set' }}</pre><br>
+                $x_flattened = <span class="text-sky-100">{{ isset($x_flattened) ? var_dump($x_flattened) : 'Not Set' }}</span><br>
+            </div>
+
+        </div>
+    @endenv
+
     <div class="relative z-50">
 
-        {{-- I added this class empty div because of livewire multiple root elements detected --}}
-        <div>
-            <p class="text-teal-600 text-[12px]">
-                {{-- $user_id = <span class="text-teal-100">{{ isset($user_id) ? $user_id : 'Not Set' }}</span><br> --}}
-                {{-- $targetCategoryId = <span class="text-teal-100">{{ isset($targetCategoryId) ? $targetCategoryId : 'Not Set' }}</span> <br> --}}
-                {{-- $categoryId = <span class="text-teal-100">{{ isset($categoryId) ? $categoryId : 'Not Set' }}</span><br> --}}
-                {{-- $category = <span class="text-teal-100">{{ isset($category) ? $category : 'Not Set' }}</span><br> --}}
-                {{-- $categoryDescription = <span class="text-teal-100">{{ isset($categoryDescription) ? $categoryDescription : 'Not Set' }}</span><br> --}}
-                {{-- $categoryColor = <span class="text-teal-100">{{ isset($categoryColor) ? $categoryColor : 'Not Set' }}</span><br> --}}
-                {{-- $x_endingHourpoint = <span class="text-teal-100">{{ isset($x_endingHourpoint) ? $x_endingHourpoint : 'Not Set' }}</span><br> --}}
-                {{-- $$x_tasksGraphArray --> = <pre class="text-teal-100">{{ isset($x_tasksGraphArray) ? print_r($x_tasksGraphArray) : 'Not Set' }}</pre><br> --}}
-                {{-- $x_flattened = <span class="text-teal-100">{{ var_dump($x_flattened) }}</span><br> --}}
-            </p>
-        </div>
+
         <div class="p-1">
             <div>
                 <input class="bg-black text-white w-52" type="hidden" name="targetCategoryId" id="targetCategoryId" value="{{ isset($targetCategoryId) ? $targetCategoryId : '' }}" wire:model.defer="targetCategoryId">
@@ -119,8 +128,8 @@
 
 @push('script')
     {{-- <script> --}}
-        {{-- $('#categoryColor').on('change', function() { --}}
-            {{-- console.log($('#categoryColor').val()); --}}
-        {{-- }); --}}
+    {{-- $('#categoryColor').on('change', function() { --}}
+    {{-- console.log($('#categoryColor').val()); --}}
+    {{-- }); --}}
     {{-- </script> --}}
 @endpush

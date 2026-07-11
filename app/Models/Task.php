@@ -18,7 +18,6 @@ class Task extends Model
     protected $primaryKey = 'id';
     protected $fillable = [
         'category_id',
-        'desired_duration',
         'starting_time',
         'ending_time',
     ];

@@ -1,8 +1,9 @@
 <x-app-layout>
     <div class="flex justify-center items-center h-screen bg-gradient-to-br from-slate-950 to-slate-900">
-        <div class="relative w-full max-w-sm p-6 bg-slate-900 border border-slate-700 rounded-xl shadow-2xl">
+        <div class="relative w-full max-w-sm p-6 bg-slate-900 border border-slate-700 rounded-xl shadow-2xl overflow-hidden">
             <!-- Subtle decorative accent -->
-            <div class="absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-amber-400 to-amber-600 rounded-t-xl"></div>
+            <div class="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-amber-400 to-amber-600 rounded-xl"></div>
+
 
             <!-- Brand section -->
             <div class="text-center mb-6 mt-1">
@@ -74,27 +75,22 @@
                         placeholder="••••••••••••">
                 </div>
 
-                <!-- Return to Login link -->
-                <div class="text-center text-xs pt-0.5">
-                    <a href="{{ url('/login') }}" class="text-amber-400 hover:text-amber-300 font-medium hover:underline transition-colors">
-                        ← Return to Login
-                    </a>
-                </div>
-
                 <!-- Submit button -->
                 <button type="submit"
                     class="w-full bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-900 font-semibold py-2.5 px-4 rounded-lg shadow-lg shadow-amber-500/20 text-sm">
                     Create Account
                 </button>
 
-                <!-- Login link -->
-                <div class="text-center text-xs text-slate-400 mt-1.5">
-                    Already have an account?
-                    <a href="{{ url('/login') }}" class="text-amber-400 hover:text-amber-300 font-semibold hover:underline transition-colors ml-1">
-                        Sign in here
+                <!-- Return to Login link -->
+                <div class="text-center text-xs pt-0.5">
+                    <a href="{{ url('/login') }}" class="text-amber-400 hover:text-amber-300 font-medium hover:underline transition-colors">
+                        Return to Login
                     </a>
                 </div>
+
             </form>
+
+
 
             <!-- Footer with Laravel Fortify info -->
             <div class="mt-5 text-center border-t border-slate-800 pt-4">
