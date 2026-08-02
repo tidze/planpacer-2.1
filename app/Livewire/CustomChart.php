@@ -13,8 +13,6 @@ use App\Models\Task as TaskModel;
 use Livewire\Attributes\On;
 use Carbon\Carbon;
 
-
-
 class CustomChart extends Component
 {
     // 1681892041 ▼

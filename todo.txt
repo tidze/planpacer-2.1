@@ -1,82 +1,96 @@
-✓ 1405/04/10 21:31 Fixed html auto rename tagger
-✓ 1405/04/11 23:11 Removed DesiredDuration from the whole code base
-Fixed the Debugging information for all the old views of components.
-Switched back to old views for now, till the new ones works finally. 
-~ Fixing Documentation on code Blocks
-~ Making the task-new-desing work with the controller and model.
-
-# Fix "Add task"/"Update task" do not add a task conflicting, repeatable, replacable tasks
-# Fix the "remember me" in the login form
-# Fix the login registration after the Foveing breeze and installing fortify
-# Add Captcha
-# Add Install on desktop
-# Add Ai talk to automatically add tasks while always holding the backdoor open for manulization
-# How to send a report? In what format? Is json format good enough?
-# How to inject Ai calls to it?
+-------------------------------About this App-------------------------------
 Web-based planner for organizing tasks, schedules, and personal productivity.
---------------------------------------------------------------------------------------
-A personal productivity and reflection platform that helps users track time, activities, mood, and progress over time.
---------------------------------------------------------------------------------------
-The prediction angle is interesting too, but I'd treat it as a later feature.
-For example:
+This is a personal productivity and reflection platform that helps users track time, activities, mood, and progress over time.
+
+And NO, this is not another to-do app list. It's a life analytic tool. Which helps people(like me) to undrestand where did
+my time went.
+
+It points to your personal productivity, and again NO, this is not about scheduling, this is more about
+what you did in the past, and judges you give you realistic feedback. (Yes its harsh. Drop all the sugercoat if you wanna be someone who stands out)
+
+A later feature:
+Example:>
 "Based on previous off-days after a work shift, there is a 70% chance you will spend the afternoon sleeping."
 or
 "When you work on Laravel for at least 15 minutes before opening social media, your average productive time doubles."
 Notice that these predictions are less "You will do X tomorrow" and more:
 "Here's what usually happens."
 That feels more useful and less creepy.
-######################################## 1405 03 21 New ideas for future ^
 
-# Older ideas for future
-# Admin Panel for myself for sending emails and seeing users online and stuff
+-------------------------------To-Do-------------------------------
+~ Fixing Documentation on code Blocks
+~ Making the task-new-desing work with the controller and model.
+~ Timezone asynconus with $wire.set() So how does I am still getting "Asia/Tehran" timezone?
+
+# READMEs, don't just write setup instructions—explain why you chose your database schema,
+how you handled authentication/security, and how you solved edge cases.
+AI agents talk to each other cleanly.
+# Fix Black theme on settings tab
+# Fix "Add task"/"Update task" do not add a task conflicting, repeatable, replacable tasks
+# Fix the "remember me" in the login form
+# Fix the login registration after the Removeing breeze and installing fortify
+# Add Install on desktop
+# Add Log in with google option
+# Add Captcha
+# Add Ai talk to automatically add tasks while always holding the backdoor open for manulization
+# How to send a report? In what format? Is json format good enough?
+# How to inject Ai calls to it?
+
+----------Upcoming_Features----------
+~ ✰✰✰ Add timezone table to the database + Fix the timezone evaluate based on user's device browser
+# ✰✰ Fix Update function in the task-new-design.blade.php
+# ✰✰✰ Add a feature where duplicate or overlapping tasks are not permitted
+# Admin Panel for website owner(I mean myself :D) for sending emails and seeing users online and stuff
 # Add Static Graph with changable starting and ending timepoint V1 @
-# Add Google Graph to the website for each task (at the end of the day what did you do? sum)
-# Change the task description inputs so that it would show them based on category inputs @
+# Add Google/CustomMade Graph to the website for each task (at the end of the day what did you do? sum)
 # Add Dynamic Scroller Graph V2
-# Add a remaining time of the day
-# Add Color for each category type @
-# Add pagination to the table tasks @
-# Fix Jquery import only one main page
-# Fix targetDate does not work on change while updating tasks
-# Bug ending clock time picker always switches to to hour when even when clicked on minute section but after edit changes
-# Fix targetDate onchange is not affecting timepoints
-# Make All the clocktime pickers component into only one component
-# ✰✰✰ Add timezone table to the database + Fix the timezone evaluate based on user's device browser
-# Add User_id to the task table @
-# Add a Streak since when you had video/unknown
-# Add this to github @
-# Dockerize this app
-# Add Email Verification
-# Add Sketchy Theme to the calendar
-# Add Animation to the for helping the user to undrestand how things are done
-# Add initial guidance for the user, like a popup window or sth
-# Notification and stuff like that
-# Problem of editing a task and it would interfere with another task's duration
+# Add a foodAttempt(put what you eat daily)
+# Instead of asking the user,let PlanPacer discover it => Typical day starts: (11:05), Typical day ends: (03:04)
+# observed_days_count, last_observed_at If you ever decide to recalculate analytics in a background job, you'll know when they were last updated.
+
+----------Discarded----------
+X Make All the clocktime pickers component into only one component
+
+----------System_Design----------
 # Problem How to merge Databases? From phone local save to windows ? what if it was locally saved?
-# Category Combiner
-# Shows warning when the user select same date for ending point and starting point
+
+----------Authentication----------
+# Add Email Verification
+
+----------Optional----------
+# Notification and stuff like that
 # Make Notification PopUp Style
+# Dockerize this app
+# Add initial guidance for the user, like a popup window or sth
+# Add Sketchy Theme to the calendar
+# Shows warning when the user select same date for ending point and starting point
+? Bug ending clock time picker always switches to to hour when even when clicked on minute section but after edit changes
+? Fix targetDate onchange is not affecting timepoints
+? Problem of editing a task and it would interfere with another task's duration
+? Category Combiner(I don't know what this is... You meant group categories? You could do that with color though)
 
-#1 Make Edit button work for Every task
-#1 Make Website Livetime interactive using livewire
+----------Done----------
+✓ 1405/04/20 23:30 Switched back to old views for now, till the new ones works finally.
+✓ 1405/04/20 23:30 Fixed the Debugging information for all the old views of components.
+✓ 1405/04/11 23:11 Removed DesiredDuration from the whole code base
+✓ 1405/04/10 21:31 Fixed html auto rename tagger
+✓ Change the task description inputs so that it would show them based on category inputs @
+✓ Add a remaining time of the day
+✓ Add Color for each category type @
+✓ Add pagination to the table tasks @
+✓ Fix Jquery import only one main page
+✓ Fix targetDate does not work on change while updating tasks
+✓ Add User_id to the task table @
+✓ Add a Streak since when you had video/unknown(like duolingo?)
+✓ Add this project to github @
+✓ Add Animation to the for helping the user to undrestand how things are done (livewire wire:loading)
+✓ Make Edit button work for Every task
+✓ Make Website Livetime interactive using livewire
 
+----------Notes----------
 @Every thing lower that 2 minutes i count it as "showing up"
 
-    "tailwindCSS.includeLanguages": {
-        "html": "html",
-        "javascript": "javascript",
-        "css": "css",
-        "php": "php",
-        "blade": "html",
-    },
-    "editor.quickSuggestions": {
-        "strings": true
-    },
-    "css.validate": false,
-    "editor.inlineSuggest.enabled": true,
-    "tailwindCSS.emmetCompletions": true,
-
-
+----------Website name Ideas----------
 Here are some name suggestions for your task and time-tracking web application:
 
 TaskTrack
@@ -90,24 +104,9 @@ TimePilot
 TaskChrono
 PlanPacer
 
+----------Abandonded_SQL_Queries----------
 SELECT category_id, COUNT(`category_id`) FROM `tasks` WHERE `user_id` = 2 GROUP BY category_id;
 SELECT category_id, COUNT(`category_id`) FROM `tasks` WHERE `user_id` = 2 GROUP BY category_id
 ORDER BY `COUNT(``category_id``)` DESC
 
-[ 0 => "video" =>[
-    0=>['data','date','daty']
-  ]
-]
 
-
-GitTrash:
-
-  "repositories": [
-        {
-        "type": "composer",
-        "url": "https://mirror2.chabokan.net/composer/"
-        },
-        {
-        "packagist.org": false
-        }
-    ],

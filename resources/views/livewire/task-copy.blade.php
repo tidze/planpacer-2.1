@@ -529,8 +529,8 @@
                     document.getElementById("taskDescription").dispatchEvent(new Event('input'));
             });
             document.getElementById("taskCategory").dispatchEvent(new Event('input'));
-
         });
+
         $('.descriptionAutoSetter').on('click', function() {
             $('#taskDescription').val($(this).text().trim());
             document.getElementById("taskDescription").dispatchEvent(new Event('input'));

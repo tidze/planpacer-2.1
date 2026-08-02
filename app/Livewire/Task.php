@@ -12,54 +12,62 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Livewire\Attributes\On;
-
+use DateInterval;
 
 class Task extends Component
 {
+    // I don't remember why I put this here
     protected $layout = null;
 
-    public $taskCategory;
-    public $taskDescription;
+    /* Task Form */
     public $startingTimepoint_unix;
     public $endingTimepoint_unix;
-    // when does your "task" starts and when does it ends?
-    public $startingTimepoint;
-    public $endingTimepoint;
-    // when does your "day" starts and when does it ends? task history : today , yesterday or from 4 days ago till now
+    public $taskCategory;
+    public $taskDescription;
+    public $taskDone;
+
+    /* Local */
+    // 2023-04-19 ▼
     public $startingDatepoint;
     public $endingDatepoint;
+
+    // 00:00 ▼
+    public $startingTimepoint;
+    public $endingTimepoint;
+
+    // The id for the task, user about to edit
     public $targetTaskIdEdit;
-    public $taskDone;
 
     // since we're calling editTask from tasks-table component's controller we need to register our function controller
     protected $listeners = ['editTask'];
 
-    public string $timezone;
+    // The timezone already being set after the livewire component has landed via $wire.set();
+    public string $timezone = 'UTC';
 
-    public string $starting_time_local;
-    public string $ending_time_local;
-
-    public int $duration;
+    public DateTime $dateTime;
 
     public function mount()
     {
-        $dateTime = new DateTime();
-        // Warning! You need to change this timezone line. And make it retrieve from users location.
-        $dateTime->setTimezone(new DateTimeZone($this->timezone));
+        // dd($this->timezone);
+        $this->dateTime = new DateTime();
+        $this->dateTime->setTimezone(new DateTimeZone($this->timezone));
 
-        $dateTime->setTime($dateTime->format('H'), $dateTime->format('i'), 0);
-        $this->startingTimepoint_unix = $dateTime->format('U');
-        $this->startingTimepoint = $dateTime->format('H:i');;
-        $this->startingDatepoint = $dateTime->format('Y-m-d');
+        // I don't want seconds involved, so I pass the seconds = 0
+        $this->dateTime->setTime($this->dateTime->format('H'), $this->dateTime->format('i'), 0);
 
-        // the starting time for "clock time picker" ought to be current time. for now we leave it at 00:00
-        $this->endingTimepoint_unix = $dateTime->format('U');
-        $this->endingTimepoint = $dateTime->format('H:i');;
-        $this->endingDatepoint = $dateTime->format('Y-m-d');
+        $this->startingTimepoint_unix = $this->dateTime->format('U');
+        $this->startingTimepoint = $this->dateTime->format('H:i');;
+        $this->startingDatepoint = $this->dateTime->format('Y-m-d');
 
-        $this->taskCategory = '';
-        $this->taskDescription = '';
-        $this->taskDone = false;
+        $this->endingTimepoint_unix = $this->dateTime->format('U');
+        $this->endingTimepoint = $this->dateTime->format('H:i');;
+        $this->endingDatepoint = $this->dateTime->format('Y-m-d');
+
+        // $this->taskCategory = '';
+        // $this->taskDescription = '';
+
+        // I already put the database column "taskDone" default, to true. But I leave it just incase
+        $this->taskDone = true;
     }
 
     public function render()
@@ -70,7 +78,7 @@ class Task extends Component
         $sortedCategoriesByCategory_ENCODED = json_encode($sortedCategoriesByCategory);
         $sortedCategoriesByCategory_ArrayKeys = array_keys($sortedCategoriesByCategory);
         // dd('$sortedCategoriesByCategory_ENCODED',$sortedCategoriesByCategory_ENCODED,'$sortedCategoriesByCategory',$sortedCategoriesByCategory,'$sortedCategoriesByCategory_ArrayKeys',$sortedCategoriesByCategory_ArrayKeys,'$result',$result ,'$categories',$categories);
-        return view('livewire.task', [
+        return view('livewire.task-new-design', [
             'sortedCategoriesByCategory' => $sortedCategoriesByCategory,
             'sortedCategoriesByCategory_ENCODED' => $sortedCategoriesByCategory_ENCODED,
             'sortedCategoriesByCategory_ArrayKeys' => $sortedCategoriesByCategory_ArrayKeys,
@@ -78,57 +86,51 @@ class Task extends Component
         ]);
     }
 
-    #[On('timezoneDetected')]
-    public function setTimezone($timezone)
+    // This function is for when, livewire components get updated
+    public function updated($property, $value)
     {
-        $this->timezone = $timezone;
+        switch ($property) {
+            case 'timezone':
+                $this->dateTime->setTimezone(new DateTimeZone($this->timezone));
+                // Format them again, after the new timezone got set
+                $this->startingTimepoint = $this->dateTime->format('H:i');
+                $this->startingDatepoint = $this->dateTime->format('Y-m-d');
+                $this->endingTimepoint = $this->dateTime->format('H:i');;
+                $this->endingDatepoint = $this->dateTime->format('Y-m-d');
+                break;
 
-        // Only convert if timestamps already exist
-        if (isset($this->startingTimepoint_unix)) {
-            $this->convertTimes();
+            // Add more properties if you want :)
         }
-    }
-
-    private function convertTimes()
-    {
-        if (!isset($this->startingTimepoint_unix) || !isset($this->endingTimepoint_unix)) {
-            return;
-        }
-
-        $start = Carbon::createFromTimestamp($this->startingTimepoint_unix)
-            ->setTimezone(new DateTimeZone($this->timezone));
-
-        $end = Carbon::createFromTimestamp($this->endingTimepoint_unix)
-            ->setTimezone(new DateTimeZone($this->timezone));
-
-        $this->starting_time_local = $start->format('H:i');
-        $this->ending_time_local   = $end->format('H:i');
-
-        $minutes = abs($this->endingTimepoint_unix - $this->startingTimepoint_unix) / 60;
-        $this->duration = $minutes . ' minutes';
     }
 
     // incoming request from tasks-table anchor tag
     public function editTask($id)
     {
         $this->targetTaskIdEdit = $id;
+
         $task = DB::table('tasks')->select('tasks.*', 'categories.category', 'categories.description', 'categories.color')
             ->join('categories', 'tasks.category_id', '=', 'categories.id')
             ->where('tasks.user_id', Auth::user()->id)
             ->where('tasks.id', $id)
             ->first();
+
         $this->taskCategory = $task->category;
         $this->taskDescription = $task->description;
         $this->taskDone = $task->done;
-        // turn it into each time zone , this fix is temporary
+
         $this->startingTimepoint_unix = $task->starting_time;
         $this->endingTimepoint_unix = $task->ending_time;
-        $this->startingTimepoint =  date("H:i", $task->starting_time + 12600);
-        $this->endingTimepoint = date("H:i", $task->ending_time + 12600);
-        $this->startingDatepoint =  date("Y-m-d", $task->starting_time + 12600);
-        $this->endingDatepoint = date("Y-m-d", $task->ending_time + 12600);
-        // send back the targetTaskIdEdit to tasks-table
-        // $this->emitTo('tasks-table', 'sendBackId', $this->targetTaskIdEdit);
+
+        $dateTime = new DateTime();
+        $dateTime->setTimezone(new DateTimeZone($this->timezone));
+        $dateTime->setTimestamp($task->starting_time);
+        $this->startingDatepoint = $dateTime->format("Y-m-d");
+        $this->startingTimepoint =  $dateTime->format("H:i");
+
+        $dateTime->setTimestamp($task->ending_time);
+        $this->endingDatepoint = $dateTime->format("Y-m-d");
+        $this->endingTimepoint =  $dateTime->format("H:i");
+
         $this->dispatch('$refresh')->to('custom-chart');
     }
 
@@ -158,7 +160,6 @@ class Task extends Component
             // session()->flash('store_validator_success', 'store_validator_success');
         }
         $validatedData->validate();
-
 
         $category = $this->checkForExistingCategory(Auth::user()->id, trim($this->taskCategory), trim($this->taskDescription));
         if (is_null($category)) {
@@ -230,10 +231,10 @@ class Task extends Component
 
         $this->taskCategory = '';
         $this->taskDescription = '';
-        $this->startingTimepoint_unix = '';
-        $this->endingTimepoint_unix = '';
-        $this->startingTimepoint = '00:00';
-        $this->endingTimepoint = '00:00';
+        // $this->startingTimepoint_unix = '';
+        // $this->endingTimepoint_unix = '';
+        // $this->startingTimepoint = '00:00';
+        // $this->endingTimepoint = '00:00';
         $this->targetTaskIdEdit = '';
     }
 
@@ -291,7 +292,8 @@ class Task extends Component
     * Retrives 'categories' and 'distinct categories',
     * And Sorts them by distinct categories.
     */
-    public function sortCategoriesByCategory(){
+    public function sortCategoriesByCategory()
+    {
         // Optimized!  GG TOPOL
         $distinctCategory = DB::table('tasks')
             ->join('categories', 'tasks.category_id', '=', 'categories.id')
@@ -303,13 +305,13 @@ class Task extends Component
         $distinctCategory = json_decode(json_encode($distinctCategory), true);
         $categories = DB::table('tasks')
             ->join('categories', 'tasks.category_id', '=', 'categories.id')
-            ->select('categories.category','categories.description','categories.color', DB::raw('COUNT(*) as count'))
+            ->select('categories.category', 'categories.description', 'categories.color', DB::raw('COUNT(*) as count'))
             ->where('tasks.user_id', Auth::user()->id)
-            ->groupBy('categories.category', 'categories.description','categories.color')
+            ->groupBy('categories.category', 'categories.description', 'categories.color')
             ->orderByDesc('count')
             ->get()->toArray();
         // dd('$distinctCategory',array_column($distinctCategory,'category'),'$categories',$categories);
-        $distinctCategory = array_column($distinctCategory,'category');
+        $distinctCategory = array_column($distinctCategory, 'category');
         // If either of '' or '' is empty/null (like for example when for the first time user signs up) ignore the whole operation
         $sortedCategoriesByCategory = [];
         if (isset($categories) && !empty($categories) && isset($distinctCategory) && !empty($distinctCategory)) {
@@ -330,6 +332,42 @@ class Task extends Component
             }
             // dd($distinctCategory, $sortedCategoriesByCategory, $categories);
         }
-        return array($sortedCategoriesByCategory,$categories);
+        return array($sortedCategoriesByCategory, $categories);
+    }
+
+    public function prevPeriod()
+    {
+        // dd('prevPeriod');
+        $date = new DateTime();
+        $date->setTimezone(new DateTimeZone($this->timezone));
+        $date->setTimestamp(substr($this->startingTimepoint_unix, 0, 10));
+        $date->sub(new DateInterval('P1D'));
+        $this->startingTimepoint_unix = $date->format('U');
+        $this->startingTimepoint = $date->format('H:i');
+        $this->startingDatepoint = $date->format('Y-m-d');
+
+        $date->setTimestamp(substr($this->endingTimepoint_unix, 0, 10));
+        $date->sub(new DateInterval('P1D'));
+        $this->endingTimepoint_unix = $date->format('U');
+        $this->endingTimepoint = $date->format('H:i');
+        $this->endingDatepoint = $date->format('Y-m-d');
+    }
+
+    public function nextPeriod()
+    {
+        // dd('nextPeriod');
+        $date = new DateTime();
+        $date->setTimezone(new DateTimeZone($this->timezone));
+        $date->setTimestamp(substr($this->startingTimepoint_unix, 0, 10));
+        $date->add(new DateInterval('P1D'));
+        $this->startingTimepoint_unix = $date->format('U');
+        $this->startingTimepoint = $date->format('H:i');
+        $this->startingDatepoint = $date->format('Y-m-d');
+
+        $date->setTimestamp(substr($this->endingTimepoint_unix, 0, 10));
+        $date->add(new DateInterval('P1D'));
+        $this->endingTimepoint_unix = $date->format('U');
+        $this->endingTimepoint = $date->format('H:i');
+        $this->endingDatepoint = $date->format('Y-m-d');
     }
 }

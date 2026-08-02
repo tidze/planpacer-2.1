@@ -2,75 +2,45 @@
 
     {{-- Component Inspector --}}
     @env('local')
-    <div class="bg-black p-2 border border-amber-800">
-        {{-- A simple debugger. It's helping me remember, what component I am on. --}}
-        <div class="flex flex-col border border-amber-700 px-1 text-[12px] text-yellow-500 bg-black">
-            <span class="whitespace-nowrap">view: resources\views\livewire\task-new-design.blade.php</span>
-            <span>controller: {{ get_class($this) }}.php</span>
-        </div>
-
-        {{-- Components Debugger Information (PHP side) --}}
-        <div class="text-amber-600 text-[12px]">
-            $timezone= <span class="text-amber-100">{{ $timezone ?? 'Not Set' }}</span><br>
-            $taskCategory= <span class='text-amber-100'>{{ $taskCategory ?? 'Not Set' }}</span> <br>
-            $taskDescription= <span class="text-amber-100">{{ $taskDescription ?? 'Not Set' }}</span><br>
-            $startingTimepoint_unix= <span class="text-amber-100">{{ $startingTimepoint_unix ?? 'Not Set' }}</span><br>
-            $endingTimepoint_unix= <span class="text-amber-100">{{ $endingTimepoint_unix ?? 'Not Set' }}</span><br>
-            $startingTimepoint= <span class="text-amber-100">{{ $startingTimepoint ?? 'Not Set' }}</span><br>
-            $endingTimepoint= <span class="text-amber-100">{{ $endingTimepoint ?? 'Not Set' }}</span><br>
-            $startingDatepoint= <span class="text-amber-100">{{ $startingDatepoint ?? 'Not set' }}</span><br>
-            $endingDatepoint= <span class="text-amber-100">{{ $endingDatepoint ?? 'Not set' }}</span><br>
-            $targetTaskIdEdit= <span class="text-amber-100">{{ $targetTaskIdEdit ?? 'Not set' }}</span><br>
-            ${{-- TODO: rename these variables later. $category_distinct_desc, $category_description_distinct_desc  --}}
-            $category_distinct_desc= <span class="text-amber-100">{{ isset($category_distinct_desc) ? 'Set' : 'Not Set' }}</span><br>
-            $category_description_distinct_desc= <span class="text-amber-100">{{ isset($category_description_distinct_desc) ? $category_description_distinct_desc : 'Not Set' }}</span><br>
-            $taskDone= <span class="text-amber-100">{{ isset($taskDone) ? ($taskDone ? 'true' : 'false') : 'Not set' }}</span><br>
-            $sortedCategoriesByCategory=
-            <pre class="text-amber-100 text-[12px] overflow-auto max-h-36">{{ json_encode($sortedCategoriesByCategory, JSON_PRETTY_PRINT) }}</pre>
-            <span class="text-red-400 text-[12px]">errors:</span>
-            <pre class="text-red-300 text-[12px] overflow-auto max-h-36">{{ print_r($errors->toArray(), true) }}</pre>
-            {{-- Errors Begin --}}
-            {{-- Returns true if there is at least one validation error in the error bag. --}}
-            @if ($errors->any())
-            <div class="text-red-500">
-                <ul>
-                    {{-- $errors->all() Returns a flat array of all error messages as strings. --}}
-                    @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
+        <div class="bg-black p-2 border border-amber-800">
+            {{-- A simple debugger. It's helping me remember, what component I am on. --}}
+            <div class="flex flex-col border border-amber-700 px-1 text-[12px] text-yellow-500 bg-black">
+                <span class="whitespace-nowrap">view: resources\views\livewire\task-new-design.blade.php</span>
+                <span>controller: {{ get_class($this) }}.php</span>
             </div>
-            @endif
+            <div class="text-amber-600 text-[12px]">
+                timezone= <span class="text-amber-100">{{ $timezone ?? 'Not Set' }}</span><br>
+                taskCategory= <span class='text-amber-100'>{{ $taskCategory ?? 'Not Set' }}</span> <br>
+                taskDescription= <span class="text-amber-100">{{ $taskDescription ?? 'Not Set' }}</span><br>
+                startingTimepoint_unix= <span class="text-amber-100">{{ $startingTimepoint_unix ?? 'Not Set' }}</span><br>
+                endingTimepoint_unix= <span class="text-amber-100">{{ $endingTimepoint_unix ?? 'Not Set' }}</span><br>
+                startingTimepoint= <span class="text-amber-100">{{ $startingTimepoint ?? 'Not Set' }}</span><br>
+                endingTimepoint= <span class="text-amber-100">{{ $endingTimepoint ?? 'Not Set' }}</span><br>
+                startingDatepoint= <span class="text-amber-100">{{ $startingDatepoint ?? 'Not set' }}</span><br>
+                endingDatepoint= <span class="text-amber-100">{{ $endingDatepoint ?? 'Not set' }}</span><br>
+                targetTaskIdEdit= <span class="text-amber-100">{{ $targetTaskIdEdit ?? 'Not set' }}</span><br>
+                {{-- TODO: rename these variables later. $category_distinct_desc, $category_description_distinct_desc  --}}
+                category_distinct_desc= <span class="text-amber-100">{{ isset($category_distinct_desc) ? 'Set' : 'Not Set' }}</span><br>
+                category_description_distinct_desc= <span class="text-amber-100">{{ isset($category_description_distinct_desc) ? $category_description_distinct_desc : 'Not Set' }}</span><br>
+                taskDone= <span class="text-amber-100">{{ isset($taskDone) ? ($taskDone ? 'true' : 'false') : 'Not set' }}</span><br>
+                sortedCategoriesByCategory=
+                <pre class="text-amber-100 text-[12px] overflow-auto max-h-36">{{ json_encode($sortedCategoriesByCategory, JSON_PRETTY_PRINT) }}</pre>
+                <span class="text-red-400 text-[12px]">errors:</span>
+                <pre class="text-red-300 text-[12px] overflow-auto max-h-36">{{ print_r($errors->toArray(), true) }}</pre>
+                {{-- Errors Begin --}}
+                {{-- Returns true if there is at least one validation error in the error bag. --}}
+                @if ($errors->any())
+                    <div class="text-red-500">
+                        <ul>
+                            {{-- $errors->all() Returns a flat array of all error messages as strings. --}}
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+            </div>
         </div>
-    </div>
-
-    {{-- Components Debugger Information (JS side) --}}
-    <div class="bg-black p-2 border border-fuchsia-900">
-        {{-- Title --}}
-        <div class="flex flex-col border border-fuchsia-700 px-1 text-[12px] text-fuchsia-400 bg-black">
-            <span class="whitespace-nowrap flex justify-center">@for($i=0;$i<40;$i++)-@endfor JavaScript @for($i=0;$i<40;$i++)-@endfor</span>
-        </div>
-
-        {{-- JS Info --}}
-        <div id="" class="text-fuchsia-500 text-[11px] w-full">
-            #targetDate= <span class="text-fuchsia-200 [animation-duration:500ms] animate-none" id="targetDateDebugger">{{ $startingDatepoint }}</span><br>
-            #taskCategory= <span class="text-fuchsia-200 [animation-duration:500ms] animate-none" id="taskCategoryDebugger">{{ $taskCategory ?? 'Not Set' }}</span><br>
-            #taskDescription= <span class="text-fuchsia-200 [animation-duration:500ms] animate-none" id="taskDescriptionDebugger">{{ $taskDescription ?? 'Not Set' }}</span><br>
-
-            startingTimepoint_unix= <span class="text-fuchsia-200 [animation-duration:500ms] animate-none" id="startingTimepoint_unixDebugger">{{ $startingTimepoint_unix ?? 'Not Set' }}</span><br>
-            endingTimepoint_unix= <span class="text-fuchsia-200 [animation-duration:500ms] animate-none" id="endingTimepoint_unixDebugger">{{ $endingTimepoint_unix ?? 'Not Set' }}</span><br>
-
-            startingTimepoint= <span class="text-fuchsia-200 [animation-duration:500ms] animate-none" id="startingTimepointDebugger">{{ $startingTimepoint ?? 'Not Set' }}</span><br>
-            endingTimepoint= <span class="text-fuchsia-200 [animation-duration:500ms] animate-none" id="endingTimepointDebugger">{{ $endingTimepoint ?? 'Not Set' }}</span><br>
-            startingDatepoint= <span class="text-fuchsia-200 [animation-duration:500ms] animate-none" id="startingDatepointDebugger">{{ $startingDatepoint ?? 'Not Set' }}</span><br>
-            endingDatepoint= <span class="text-fuchsia-200 [animation-duration:500ms] animate-none" id="endingDatepointDebugger">{{ $endingDatepoint ?? 'Not Set' }}</span><br>
-            targetTaskIdEdit= <span class="text-fuchsia-200 [animation-duration:500ms] animate-none" id="targetTaskIdEditDebugger">{{ $targetTaskIdEdit ?? 'Not Set' }}</span><br>
-            category_distinct_desc= <span class="text-fuchsia-200 [animation-duration:500ms] animate-none" id="category_distinct_descDebugger">{{ $category_distinct_desc ?? 'Not Set' }}</span><br>
-            category_description_distinct_desc= <span class="text-fuchsia-200 [animation-duration:500ms] animate-none" id="category_description_distinct_descDebugger">{{ $category_description_distinct_desc ?? 'Not Set' }}</span><br>
-            taskDone= <span class="text-fuchsia-200 [animation-duration:500ms] animate-none" id="taskDoneDebugger">{{ $taskDone ?? 'Not Set' }}</span><br>
-        </div>
-    </div>
-
     @endenv
     {{-- There is this hidden input for editing a given task. When the user edits a task, the data gets into this input from backend. --}}
     <input type="hidden" id="targetTaskIdEdit" name="targetTaskIdEdit" wire:model.defer="targetTaskIdEdit" class="w-32 border-2 border-indigo-500" value="{{ $targetTaskIdEdit }}" readonly>
@@ -91,29 +61,31 @@
 
                 <div class="w-full m-0 p-0"></div>
 
-                <button class="rounded-lg border border-slate-600 bg-slate-900 px-3 py-2 active:border active:border-amber-500" id="taskPrevPeriod" {{--wire:click="prevPeriod"--}}>↺</button>
+                <button class="rounded-lg border border-slate-600 bg-slate-900 px-3 py-2" wire:click="prevPeriod">↺</button>
                 <input class="rounded-lg border border-slate-600 bg-slate-900 px-3 py-2 w-36" type="date" id="targetDate" value="{{ $startingDatepoint }}">
-                <button class="rounded-lg border border-slate-600 bg-slate-900 px-3 py-2 active:border active:border-amber-500" id="taskNextPeriod" {{--wire:click="nextPeriod"--}}>↻</button>
+                <button class="rounded-lg border border-slate-600 bg-slate-900 px-3 py-2" wire:click="nextPeriod">↻</button>
 
-                <button class="rounded-lg border border-slate-600 bg-slate-700 px-3 py-2 m-0" disabled id="setNowTime">Now</button>
-                <button class="rounded-lg border border-slate-600 bg-slate-700 px-3 py-2 m-0" disabled id="switchHours">Switch</button>
+                <button class="rounded-lg border border-slate-600 bg-slate-900 px-3 py-2 m-0" id="setNowTime">Now</button>
+                <button class="rounded-lg border border-slate-600 bg-slate-900 px-3 py-2 m-0" id="switchHours">Switch</button>
             </div>
 
             {{-- Starting and Ending Date & Time points Container --}}
-            <div class="space-y-1" x-data="{ isRotated: false, isOpen: false}">
+            <div class="space-y-1" x-data="{ isRotated: false, isOpen: false }">
+
                 {{-- Starting and Ending Date & Time points --}}
                 <div class="grid grid-cols-2 gap-0">
+
                     {{-- Starting Date & Time --}}
                     <div class="flex items-start flex-wrap gap-1 py-1">
                         <label class="text-sm text-slate-400 px-0 py-1"> Start </label>
 
                         <span class="rounded bg-yellow-700 px-2 py-1 text-xs text-amber-400">Today</span>
 
-                        <input class="rounded-lg border border-slate-600 bg-slate-900 px-3 py-2 w-36" id="startingDatepoint" type="date" value="{{ $startingDatepoint }}" >
+                        <input class="rounded-lg border border-slate-600 bg-slate-900 px-3 py-2 w-36" id="startingDate" type="date" value="{{ $startingDatepoint }}" >
 
                         <input class="rounded-lg border border-slate-600 bg-slate-900 px-3 py-2" id="startingTimepoint" type="time" value="{{ $startingTimepoint }}" wire:model.defer="startingTimepoint" />
 
-                        <button class="rounded-lg border border-slate-600 bg-slate-900 px-1 py-2 inline-flex hover:bg-gray-700 active:border active:border-amber-500" id="setNowTimeForStartingHourAndMinute">Now</button>
+                        <button class="rounded-lg border border-slate-600 bg-slate-900 px-1 py-2 inline-flex hover:bg-gray-700" id="setNowTimeForStartingHourAndMinute">Now</button>
 
                         {{-- Hidden input form, for submitting the unix timepoint --}}
                         <input class="bg-black text-center p-0 text-[15px]" id="startingTimepoint_unix" wire:model.defer="startingTimepoint_unix" name="startingTimepoint_unix" type="hidden" value="{{ $startingTimepoint_unix }}" />
@@ -125,11 +97,11 @@
 
                         <span class="rounded bg-yellow-700 px-2 py-1 text-xs text-amber-400">Today</span>
 
-                        <input class="rounded-lg border border-slate-600 bg-slate-900 px-3 py-2 w-36" id="endingDatepoint" type="date" value="{{ $endingDatepoint }}" >
+                        <input class="rounded-lg border border-slate-600 bg-slate-900 px-3 py-2 w-36" id="endingDate" type="date" value="{{ $endingDatepoint }}" >
 
                         <input class="rounded-lg border border-slate-600 bg-slate-900 px-3 py-2" id="endingTimepoint" type="time" value="{{ $endingTimepoint }}" wire:model.defer="endingTimepoint"/>
 
-                        <button class="rounded-lg border border-slate-600 bg-slate-900 px-1 py-2 inline-flex hover:bg-gray-700 active:border active:border-amber-500" id="setNowTimeForEndingHourAndMinute">Now</button>
+                        <button class="rounded-lg border border-slate-600 bg-slate-900 px-1 py-2 inline-flex hover:bg-gray-700" id="setNowTimeForEndingHourAndMinute">Now</button>
 
                         {{-- Hidden input form, for submitting the unix timepoint --}}
                         <input class="bg-black text-center p-0 text-[15px]" id="endingTimepoint_unix" wire:model.defer="endingTimepoint_unix" name="endingTimepoint_unix" type="hidden" value="{{ $endingTimepoint_unix }}" />
@@ -169,22 +141,22 @@
 
                      {{-- Minute 0~59 --}}
                     <div class="text-sm text-slate-400 inline-block"> Minute 0~59 </div>
-                    <div id="minuteTimeRangeShower" class="inline text-sm border border-amber-600 rounded-md bg-slate-800 px-2 py-0 text-amber-600" x-text="minuteTimeRangePicker"></div>
+                    <div id="minuteTimeRangeShower" class="inline text-sm border border-amber-600 rounded-md bg-slate-800 px-2 py-0 text-amber-600">0</div>
 
                     <div class="flex">
-                        <button id="minuteTimeRangePicker_prev" class="rounded-lg border border-slate-600 bg-slate-900 px-3 py-1 active:bg-amber-400" x-on:click="minuteTimeRangePicker = Math.max(0, minuteTimeRangePicker - 1);updateEndingTimePointViaTimeRangePicker(hourTimeRangePicker, minuteTimeRangePicker)">◁</button>
-                        <input  id="minuteTimeRangePicker" type="range" min="0" max="59" step="1" class="w-full" value="0" x-model.number="minuteTimeRangePicker" x-on:change="updateEndingTimePointViaTimeRangePicker(hourTimeRangePicker, minuteTimeRangePicker)"/>
-                        <button id="minuteTimeRangePicker_next" class="rounded-lg border border-slate-600 bg-slate-900 px-3 py-1 active:bg-amber-400" x-on:click="minuteTimeRangePicker = Math.min(59, minuteTimeRangePicker + 1);updateEndingTimePointViaTimeRangePicker(hourTimeRangePicker, minuteTimeRangePicker)">▷</button>
+                        <button id="minuteTimeRangePicker_prev" class="rounded-lg border border-slate-600 bg-slate-900 px-3 py-1 active:bg-amber-400">◁</button>
+                        <input  id="minuteTimeRangePicker" type="range" min="0" max="59" step="1" class="w-full" value="0"/>
+                        <button id="minuteTimeRangePicker_next" class="rounded-lg border border-slate-600 bg-slate-900 px-3 py-1 active:bg-amber-400">▷</button>
                     </div>
 
                     {{-- Hour 0~23 --}}
                     <div class="text-sm text-slate-400 inline-block"> Hour 0~23 </div>
-                    <div id="hourTimeRangeShower" class="inline text-sm border border-amber-600 rounded-md bg-slate-800 px-2 py-0 text-amber-600" x-text="hourTimeRangePicker"></div>
+                    <div id="hourTimeRangeShower" class="inline text-sm border border-amber-600 rounded-md bg-slate-800 px-2 py-0 text-amber-600">0</div>
 
                     <div class="flex">
-                        <button id="hourTimeRangePicker_prev" class="rounded-lg border border-slate-600 bg-slate-900 px-3 py-1 active:bg-amber-400" x-on:click="hourTimeRangePicker = Math.max(0, hourTimeRangePicker - 1);updateEndingTimePointViaTimeRangePicker(hourTimeRangePicker, minuteTimeRangePicker)">◁</button>
-                        <input  id="hourTimeRangePicker" type="range" min="0" max="23" step="1" class="w-full" value="0" x-model.number="hourTimeRangePicker" x-on:change="updateEndingTimePointViaTimeRangePicker(hourTimeRangePicker, minuteTimeRangePicker)"/>
-                        <button id="hourTimeRangePicker_next" class="rounded-lg border border-slate-600 bg-slate-900 px-3 py-1 active:bg-amber-400" x-on:click="hourTimeRangePicker = Math.min(23, hourTimeRangePicker + 1);updateEndingTimePointViaTimeRangePicker(hourTimeRangePicker, minuteTimeRangePicker)">▷</button>
+                        <button id="hourTimeRangePicker_prev" class="rounded-lg border border-slate-600 bg-slate-900 px-3 py-1 active:bg-amber-400">◁</button>
+                        <input  id="hourTimeRangePicker" type="range" min="0" max="23" step="1" class="w-full" value="0"/>
+                        <button id="hourTimeRangePicker_next" class="rounded-lg border border-slate-600 bg-slate-900 px-3 py-1 active:bg-amber-400">▷</button>
                     </div>
                 </div>
 
@@ -206,7 +178,7 @@
                     @enderror
 
                     <input id="taskCategory" wire:model.defer="taskCategory" name="taskCategory" type="text" placeholder="Coding, Breakfast, YouTube..."
-                        class="w-full rounded-lg border border-slate-600 bg-slate-900 px-3 py-2 focus:outline-none" />
+                        class="w-full rounded-lg border border-slate-600 bg-slate-900 px-4 py-3 focus:ring-2 focus:ring-amber-500 focus:outline-none" />
 
                     <div class="my-1 pb-2 flex overflow-auto gap-1 ">
                         @for ($i = 0; $i < count($sortedCategoriesByCategory_ArrayKeys); $i++)
@@ -226,7 +198,7 @@
                     @enderror
 
                     <textarea id="taskDescription" wire:model.defer="taskDescription" name="taskDescription" type="text" rows="3" placeholder="Played Elden Ring and had fun"
-                        class="w-full rounded-lg border border-slate-600 bg-slate-900 px-3 py-2"></textarea>
+                        class="w-full rounded-lg border border-slate-600 bg-slate-900 px-4 py-3"></textarea>
 
                     <div id="descriptionAutoSetterContainer" class="flex w-full gap-1 overflow-auto pb-2">
                         @foreach ($categories as $category)
@@ -257,7 +229,6 @@
                         </div>
                     @endif
                 </div>
-
                 {{-- Buttons --}}
                 <div class="flex gap-3 pt-2">
                     <button wire:click="store" class="flex-1 rounded-lg bg-amber-500 py-3 font-medium text-black">Done <span class="font-bold">✓</span></button>
@@ -274,6 +245,7 @@
 @script
     {{-- Get the user's timezone from the browser(js) and set it to the Livewire component property 'timezone' --}}
     <script>
+        console.log('fucntionloaded:');
         const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
         // console.log('task-new-design_timezone:',tz);
         $wire.set('timezone', tz);
@@ -282,101 +254,11 @@
 
 @push('script')
     <script>
-        const startingTimepoint_js = {
-            unix: 1700000000
-
-            setUnix(unix) {
-                this.unix = unix;
-            },
-
-            getUnix() {
-                return this.unix;
-            },
-
-            getDate() {
-
-            },
-
-            getTime() {
-
-            },
-
-            setDate(date) {
-
-            },
-
-            setTime(time) {
-
-            }
-
-        };
-
-        $('#taskNextPeriod').on('click', function() {
-            let currentDate = new Date($('#targetDate').val());
-            currentDate.setDate(currentDate.getDate() + 1);
-            let nextDate = currentDate.toISOString().split('T')[0];
-            let nextDate_unix = (newDate.getTime()).toString().substring(0, 10); // 1721053800000 -> "1721053800"
-            $('#targetDate').val(nextDate);
-            $('#startingDatepoint').val(nextDate);
-            $('#endingDatepoint').val(nextDate);
-            // $('#endingTimepoint_unix').val(nextDate_unix);
-            document.getElementById("targetDate").dispatchEvent(new Event('input'));
-            // console.log( '#' + $(this).attr('id') + ' : ' + nextDate);
-            $('#targetDateDebugger').text(nextDate);
-            pulseTargetDebugger('#targetDateDebugger');
-
-        });
-
-        $('#taskPrevPeriod').on('click', function() {
-            let currentDate = new Date($('#targetDate').val());
-            currentDate.setDate(currentDate.getDate() - 1);
-            let nextDate = currentDate.toISOString().split('T')[0];
-            $('#targetDate').val(nextDate);
-            $('#startingDatepoint').val(nextDate);
-            $('#endingDatepoint').val(nextDate);
-            document.getElementById("targetDate").dispatchEvent(new Event('input'));
-            // console.log( '#' + $(this).attr('id') + ' : ' + nextDate);
-            $('#targetDateDebugger').text(nextDate);
-            pulseTargetDebugger('#targetDateDebugger');
-        });
-
-        /*
-        * Temporarily applies a pulse animation to a given element.
-        * Each element maintains its own timeout so multiple elements can be animated independently.
-        * If the same element is triggered again before the timer finishes, the previous timer is reset.
-        */
-        function pulseTargetDebugger(element) {
-            var $element = $(element);
-            // Cancel previous animation reset timer for this element
-            clearTimeout($element.data('pulseTimeout'));
-            // First, enables the animation
-            $element.removeClass('animate-none').addClass('animate-pulse');
-            // Then after some miliseconds, gets back to the idle state
-            var timeout = setTimeout(function () {
-                $element.removeClass('animate-pulse').addClass('animate-none');
-            }, 800);
-            // storing the timeout inside the element
-            $element.data('pulseTimeout', timeout);
-        }
-
-        /* This function for the time range picker when you want to go alpine route */
-        function updateEndingTimePointViaTimeRangePicker(hour, minute) {
-            let staringTimepoint_unix_js = parseInt($("#startingTimepoint_unix").val());
-            let timeRangeDuration = (hour * 60 * 60) + (minute * 60);
-            let newEndingTimePoint_unix_js = staringTimepoint_unix_js + timeRangeDuration;
-            $("#endingTimepoint_unix").val(newEndingTimePoint_unix_js);
-            let date = new Date(newEndingTimePoint_unix_js * 1000);
-            let hours   = String(date.getHours()).padStart(2, '0');
-            let minutes = String(date.getMinutes()).padStart(2, '0');
-            let time = `${hours}:${minutes}`;
-            $('#endingTimepoint').val(time.toString());
-            document.getElementById("endingTimepoint_unix").dispatchEvent(new Event('input'));
-            updtateDuration();
-        }
-
         // The variables for category on click, shows each description for that specific category
         let sortedCategoriesByCategory_ENCODED = @json($sortedCategoriesByCategory_ENCODED);
         var sortedCategoriesByCategory_ENCODED_Parsed = (JSON.parse(sortedCategoriesByCategory_ENCODED));
+
+
 
         // For all the input[date], to be selectable with just clicking anywhere on input. (not just date picker icon). Ignoring "Power Users" >:D | Wait, that's me :(
         $("#startingDateContainer").on("click", () => {
@@ -384,16 +266,15 @@
         });
 
         $("#startingTimepoint").on("change", () => {
-            giveDateObject("#startingDatepoint", "#startingTimepoint", "#startingTimepoint_unix");
+            giveDateObject("#endingDate", "#startingTimepoint", "#startingTimepoint_unix");
             document.getElementById("startingTimepoint_unix").dispatchEvent(new Event('input'));
             document.getElementById("startingTimepoint").dispatchEvent(new Event('input'));
         });
 
         $("#endingTimepoint").on("change", () => {
-            giveDateObject("#endingDatepoint", "#endingTimepoint", "#endingTimepoint_unix");
+            giveDateObject("#endingDate", "#endingTimepoint", "#endingTimepoint_unix");
             document.getElementById("endingTimepoint_unix").dispatchEvent(new Event('input'));
             document.getElementById("endingTimepoint").dispatchEvent(new Event('input'));
-            // console.log('endingTimepoint is changing');
         });
 
         /*
@@ -499,13 +380,8 @@
             // Fixes when the clock becomes one digit number, and makes them 2 digits.
             // "0" + newDate.getHours() | 9 -> "09" / 14 -> "014" | "09" .slice(-2) -> "09" / "014" .slice(-2) -> "14"
             $('#startingTimepoint').val(("0" + newDate.getHours()).slice(-2) + ":" + ("0" + newDate.getMinutes()).slice(-2));
-            let newDateUnixTimestamp = (newDate.getTime()).toString().substring(0, 10); // 1721053800000 -> "1721053800"
-            $('#startingTimepoint_unix').val(newDateUnixTimestamp);
-            $('#startingTimepoint_unixDebugger').text(newDateUnixTimestamp);
-            pulseTargetDebugger('#startingTimepoint_unixDebugger');
-            pulseTargetDebugger('#startingTimepointDebugger');
-            pulseTargetDebugger('#startingDatepointDebugger');
-            // console.log($('#startingTimepoint_unix').val());
+            $('#startingTimepoint_unix').val((newDate.getTime()).toString().substring(0, 10)); // (1777699440000).toString().substring(0, 10) => "1777699440"
+            console.log($('#startingTimepoint_unix').val());
             // Dispatches a native input event to alert listeners of programmatic changes
             document.getElementById("startingTimepoint_unix").dispatchEvent(new Event('input'));
             updtateDuration();
@@ -520,24 +396,15 @@
              * Key note: Unix timestamp (seconds): 1721053800 (10 digits)
              * JavaScript timestamp (milliseconds): 1721053800000 (13 digits)
              */
-            let newDateUnixTimestamp = (newDate.getTime()).toString().substring(0, 10); // 1721053800000 -> "1721053800"
-            $('#endingTimepoint_unix').val(newDateUnixTimestamp);
-            // console.log('endingTimepoint',typeof $('#endingTimepoint').val(), $('#endingTimepoint').val());
-            // console.log('endingTimepoint_unix:',typeof $('#endingTimepoint_unix').val(), $('#endingTimepoint_unix').val());
-            $('#endingTimepoint_unixDebugger').text(newDateUnixTimestamp);
-            pulseTargetDebugger('#endingTimepoint_unixDebugger');
-            pulseTargetDebugger('#endingTimepointDebugger');
-            pulseTargetDebugger('#endingDatepointDebugger');
+            $('#endingTimepoint_unix').val((newDate.getTime()).toString().substring(0, 10)); // 1721053800000 -> "1721053800"
             document.getElementById("endingTimepoint_unix").dispatchEvent(new Event('input')); //
+            console.log('endingTimepoint_unix:',typeof $('#endingTimepoint_unix').val(), $('#endingTimepoint_unix').val());
+            console.log('endingTimepoint',typeof $('#endingTimepoint').val(), $('#endingTimepoint').val());
             updtateDuration();
-            // $('#endingTimepoint').trigger('change');
-
         });
 
         $('.categoryAutoSetter').on('click', function() {
             $('#taskCategory').val($(this).text().trim());
-            $('#taskCategoryDebugger').text($(this).text().trim());
-            pulseTargetDebugger('#taskCategoryDebugger');
             let arr = sortedCategoriesByCategory_ENCODED_Parsed[$(this).text().trim()];
             $("#descriptionAutoSetterContainer").html('');
 
@@ -550,18 +417,13 @@
             $('.descriptionAutoSetter').on('click', function() {
                 $('#taskDescription').val($(this).text().trim());
                 document.getElementById("taskDescription").dispatchEvent(new Event('input'));
-                $('#taskDescriptionDebugger').text($(this).text().trim());
-                pulseTargetDebugger('#taskDescriptionDebugger');
             });
-
+            
             document.getElementById("taskCategory").dispatchEvent(new Event('input'));
         });
 
-        // Because the first time, 'onclick' hasn't being set when the page load. So I added this part to cover the first time :)
         $('.descriptionAutoSetter').on('click', function() {
             $('#taskDescription').val($(this).text().trim());
-            $('#taskDescriptionDebugger').text($(this).text().trim());
-            pulseTargetDebugger('#taskDescriptionDebugger');
             document.getElementById("taskDescription").dispatchEvent(new Event('input'));
         });
 
@@ -588,9 +450,6 @@
             updtateDuration();
         });
 
-        /* This function for the time range picker when you have built with JQuery*/
-
-        /*
         $('#minuteTimeRangePicker_prev').on('click', function () {
             let minute = $('#minuteTimeRangePicker').val();
             let newMinute = Math.max(0 , parseInt(minute)-1 );
@@ -648,6 +507,6 @@
             document.getElementById("endingTimepoint_unix").dispatchEvent(new Event('input'));
             updtateDuration();
         }
-        */
+
     </script>
 @endpush

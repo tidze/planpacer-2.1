@@ -1,0 +1,113 @@
+$ php -i | grep "Loaded Configuration File"
+  └─>Loaded Configuration File => C:\php-8.5.7-Win32-vs17-x64\php.ini
+  php --ini ??
+
+# Global Package Location
+npm root -g                   # Find global npm package directory
+
+nano => Ctrl + W = search
+
+$ php -m | grep sqlite (If it returns pdo_sqlite, you are done!)
+  └─>pdo_sqlite
+
+$ composer create-project laravel/laravel planpacer-3.13
+
+$ composer require laravel/fortify
+  └─>Install Fortify via Composer
+
+$ php artisan fortify:install
+  └─>Inject Fortify’s configuration file, migration files, and actions into the app directory
+
+$ php artisan migrate
+  └─>??
+
+$ php artisan vendor:publish --provider="Laravel\Fortify\FortifyServiceProvider"
+  └─>After this, check database/migrations/ for new files
+
+$ php artisan vendor:publish --tag=fortify-config
+  └─>After this, edit config/fortify.php as needed
+
+$ mkdir -p resources/views/auth
+
+$ php artisan vendor:publish --list
+  └─>Shows everything you can publish from all packages
+
+$ php artisan route:list
+  └─>see all routes (including Fortify's)
+
+$ php artisan about
+
+tree app /f
+tree bootstrap /f
+tree config /f
+tree database /f
+tree public /f
+tree resources /f
+tree routes /f
+tree storage /f
+tree stubs /f
+tree tests /f
+
+ls -la
+
+$ php artisan migrate:status
+
+php artisan cache:clear && php artisan route:clear && php artisan view:clear && php artisan config:clear && npm run build && git add . && git status && npm run dev
+
+
+git push origin main
+
+git push -u origin main
+// The -u (or --set-upstream) is used only the first time to link your local main branch with the remote main branch. After that, plain git push works.
+
+---------------------------------------------------------
+---------------------------------------------------------
+// .html()
+// Gets (or sets) everything INSIDE the element, including HTML tags.
+
+<div id="fruit"><b>Apple</b></div>
+
+$("#fruit").html();      // "<b>Apple</b>"
+$("#fruit").html("Banana"); // Changes the inside to: Banana
+---------------------------------------------------------
+// .text()
+// Gets (or sets) only the visible text.
+// HTML tags are ignored.
+
+<div id="fruit"><b>Apple</b></div>
+
+$("#fruit").text();      // "Apple"
+$("#fruit").text("Banana"); // Changes the text to: Banana
+
+<div id="duck">minute<b>10m</b></div> $("#duck").text(); // "minute10m"
+
+.text() returns all visible text, even the text inside child elements.
+---------------------------------------------------------
+// .attr()
+// Gets* (or sets) the value of ANY HTML attribute.
+
+<div id="fruit" value="10" color="red"></div>
+
+$("#fruit").attr("value"); // "10"
+$("#fruit").attr("color"); // "red"
+$("#fruit").attr("id");    // "fruit"
+
+// And could Set* an attribute
+$("#fruit").attr("value", "20");
+// Result: <div id="fruit" value="20" color="red"></div>
+---------------------------------------------------------
+// .val()
+// Gets (or sets) the value of FORM elements.
+// Usually used with:
+// <input>
+// <textarea>
+// <select>
+// <option>
+// <button>
+
+<input id="age" value="28">
+
+$("#age").val();      // "28"
+$("#age").val("29");  // Changes the value to 29
+---------------------------------------------------------
+

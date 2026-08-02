@@ -11,9 +11,9 @@
                 <span>controller: {{ get_class($this) }}.php</span>
             </div>
 
-            {{-- Components Debugger Information --}}
+            {{-- Components Debugger Information (PHP side) --}}
             <div class="text-yellow-500 text-[11px] w-full">
-                date_default_timezone_get=<span class="text-amber-100">{{ date_default_timezone_get() }}</span><br>
+                $c_timezone= <span class="text-yellow-100">{{ $c_timezone ?? 'Not Set' }}</span><br>
                 $c_startingDatepoint_unix = <span class="text-yellow-100">{{ isset($c_startingDatepoint_unix) ? substr($c_startingDatepoint_unix, 0, 10) + 12600 . ' ' . date('Y-m-d H:i', substr($c_startingDatepoint_unix, 0, 10) + 12600) : 'Not Set' }}</span> <br>
                 $c_endingDatepoint_unix = <span class="text-yellow-100">{{ isset($c_endingDatepoint_unix) ? substr($c_endingDatepoint_unix, 0, 10) + 12600 . ' ' . date('Y-m-d H:i', substr($c_endingDatepoint_unix, 0, 10) + 12600) : 'Not Set' }}</span><br>
                 $c_startingDate = <span class="text-yellow-100">{{ isset($c_startingDate) ? $c_startingDate : 'Not Set' }}</span><br>
@@ -22,61 +22,61 @@
                 $c_endingHourpoint = <span class="text-yellow-100">{{ isset($c_endingHourpoint) ? $c_endingHourpoint : 'Not Set' }}</span><br>
                 $c_targetTaskIdForEdit = <span class="text-yellow-100">{{ isset($c_targetTaskIdForEdit) ? $c_targetTaskIdForEdit : 'Not Set' }}</span><br>
                 $now = <span class="text-yellow-100">{{ var_dump($now) }}</span><br>
-                $dailyTasks --> =
-                <pre class="text-yellow-100 max-h-64 overflow-auto">{{ isset($dailyTasks) ? print_r($dailyTasks) : 'Not Set' }}</pre><br>
+                $dailyTasks --> = <pre class="text-yellow-100 max-h-64 overflow-auto">{{ isset($dailyTasks) ? print_r($dailyTasks) : 'Not Set' }}</pre><br>
                 $taskSumOfDurations = <span class="text-yellow-100">{{ print_r($taskSumOfDurations) }}</span><br>
                 $c_flattened --> =<span class="text-yellow-100">{{ isset($c_flattened) ? print_r($c_flattened) : 'Not Set' }}</span><br>
                 {{-- $flattened = <span class="text-yellow-100">{{ var_dump($flattened) }}</span><br> --}}
-                timezone= <span class="text-yellow-100">{{ $timezone ?? 'Not Set' }}</span><br>
                 $is_date_different = <span class="text-yellow-100">{{ isset($is_date_different) ? $is_date_different : 'Not Set' }}</span><br>
             </div>
             
         </div>
     @endenv
     <div class="relative z-20 flex flex-col text-base">
-        {{-- <span id="c_customDebug" class="inline-block border border-amber-600 p-0.5 rounded hover:bg-yellow-500 hover:text-black cursor-pointer" wire:click>c_customDebug</span> --}}
-        {{-- <br> --}}
-        <div class="flex justify-center items-center">
-            <div class="border-2 flex items-center justify-center rounded-xl border-gray-500 mx-2 p-2 active:border-blue-500 active:border-2 cursor-default select-none" wire:click="prevPeriod">◄ ↺</div>
-            <div id="c_targetDate_Container" class="flex items-center justify-center p-2">
-                <input class="inline-block border-2 rounded-xl border-gray-500 bg-gray-800" id="c_targetDate" type="date" value="">
-                <label class="px-1" for="c_targetDate">Date</label>
-            </div>
-            <div class="border-2 flex items-center justify-center rounded-xl border-gray-500 mx-2 p-2 active:border-blue-500 active:border-2 cursor-default select-none" wire:click="nextPeriod">► ↻</div>
-        </div>
+        <div class="flex flex-row justify-center">
 
-        {{-- Component c_startingTimepoint --}}
-        <div class="flex">
-            {{-- for input date overlay to be clickable every where --}}
-            <div id="c_startingDateContainer" class="basis-2/5 inline-block border rounded-xl border-transparent">
-                <input id="c_startingDate" class="border-2 rounded-xl border-gray-500 bg-gray-800" wire:model.defer="c_startingDate" {{-- wire:ignore --}} type="date" value="">
+            <div class="flex items-center">
+                <div class="border-2 flex items-center justify-center rounded-xl border-gray-500 mx-2 p-2 active:border-blue-500 active:border-2 cursor-default select-none" wire:click="prevPeriod">◄ ↺</div>
             </div>
-            <div class="basis-2/5 flex">
-                <input class="inline-block w-40 bg-black text-center border-2 h-full rounded-xl border-gray-500" id="c_startingHourpoint" wire:model.defer="c_startingHourpoint" type="text">
-            </div>
-            <label class="basis-1/5 self-center" for="c_startingHourpoint">Start</label>
-            <input id="c_startingDatepoint_unix" name="c_startingDatepoint_unix" class="bg-black text-center text-[8px]" wire:model.defer="c_startingDatepoint_unix" type="hidden" value="">
-            {{-- <label for="c_startingDatepoint_unix">c_startingDatepoint_unix</label> --}}
-            {{-- @error('c_startingDatepoint_unix') --}}
-            {{-- <span class="text-red-500 text-[9px]">{{ $message }}</span> --}}
-            {{-- @enderror --}}
-        </div>
 
-        {{-- Component c_endingTimepoint --}}
-        <div class="flex">
-            {{-- for input date overlay to be clickable every where --}}
-            <div id="c_endingDateContainer" class="basis-2/5 inline-block border rounded-xl border-transparent">
-                <input id="c_endingDate" class="border-2 rounded-xl border-gray-500 bg-gray-800" wire:model.defer="c_endingDate" type="date" value="">
+            <div class="flex flex-row">
+                {{-- Component c_startingTimepoint --}}
+                <div class="">
+                    {{-- for input date overlay to be clickable every where --}}
+                    <label class="self-center" for="c_startingHourpoint">Start</label>
+                    <div id="c_startingDateContainer" class="inline-block border rounded-xl border-transparent">
+                        <input id="c_startingDate" class="border-2 rounded-xl border-gray-500 bg-gray-800" wire:model.defer="c_startingDate" {{-- wire:ignore --}} type="date" value="">
+                    </div>
+                    <div class=" flex">
+                        <input class="inline-block bg-black text-center border-2 h-full rounded-xl border-gray-500" id="c_startingHourpoint" wire:model.defer="c_startingHourpoint" type="text">
+                    </div>
+                    <input id="c_startingDatepoint_unix" name="c_startingDatepoint_unix" class="bg-black text-center text-[8px]" wire:model.defer="c_startingDatepoint_unix" type="hidden" value="">
+                    {{-- <label for="c_startingDatepoint_unix">c_startingDatepoint_unix</label> --}}
+                    {{-- @error('c_startingDatepoint_unix') --}}
+                    {{-- <span class="text-red-500 text-[9px]">{{ $message }}</span> --}}
+                    {{-- @enderror --}}
+                </div>
+
+                {{-- Component c_endingTimepoint --}}
+                <div class="">
+                    {{-- for input date overlay to be clickable every where --}}
+                    <label class="self-center" for="c_endingHourpoint">End</label>
+                    <div id="c_endingDateContainer" class="inline-block border rounded-xl border-transparent">
+                        <input id="c_endingDate" class="border-2 rounded-xl border-gray-500 bg-gray-800" wire:model.defer="c_endingDate" type="date" value="">
+                    </div>
+                    <div class="flex">
+                        <input id="c_endingHourpoint" class="bg-black text-center border-2 h-full rounded-xl border-gray-500" wire:model.defer="c_endingHourpoint" type="text">
+                    </div>
+                    <input id="c_endingDatepoint_unix" name="c_endingDatepoint_unix" class="bg-black text-white text-center w-52 p-0 text-[10px]" wire:model.defer="c_endingDatepoint_unix" type="hidden" value="">
+                    {{-- <label for="c_endingDatepoint_unix">c_endingDatepoint_unix</label> --}}
+                    {{-- @error('c_endingDatepoint_unix') --}}
+                    {{-- <span class="text-red-500 text-[9px]">{{ $message }}</span> --}}
+                    {{-- @enderror --}}
+                </div>
             </div>
-            <div class="basis-2/5 flex">
-                <input id="c_endingHourpoint" class="w-40 bg-black text-center border-2 h-full rounded-xl border-gray-500" wire:model.defer="c_endingHourpoint" type="text">
+
+            <div class="flex items-center">
+                <div class="border-2 flex items-center justify-center rounded-xl border-gray-500 mx-2 p-2 active:border-blue-500 active:border-2 cursor-default select-none" wire:click="nextPeriod">► ↻</div>
             </div>
-            <label class="basis-1/5 self-center" for="c_endingHourpoint">End</label>
-            <input id="c_endingDatepoint_unix" name="c_endingDatepoint_unix" class="bg-black text-white text-center w-52 p-0 text-[10px]" wire:model.defer="c_endingDatepoint_unix" type="hidden" value="">
-            {{-- <label for="c_endingDatepoint_unix">c_endingDatepoint_unix</label> --}}
-            {{-- @error('c_endingDatepoint_unix') --}}
-            {{-- <span class="text-red-500 text-[9px]">{{ $message }}</span> --}}
-            {{-- @enderror --}}
         </div>
 
         <div class="flex flex-row">
@@ -123,11 +123,13 @@
         {{-- <div class="text-blue-400 border-blue-700 border-l-8 p-2 bg-blue-400 bg-opacity-30 animate-pulse">Going Next Period ...</div> --}}
         {{-- </div> --}}
     </div>
+
     {{-- Dayily Graph Chart --}}
     <div class="flex flex-col">
         <div class="flex justify-end">
             <div class="flex justify-end relative pt-11 pb-2 px-9 border-2 border-red-400 border-opacity-0 w-full">
                 <div class="border-2 border-orange-800 border-opacity-50 w-[65%] h-[78vh] relative right-0 box-border">
+
                     {{-- startTimepointHandle --}}
                     <div class="w-[10%] h-[2px] bg-amber-700 border-t-2 border-t-amber-700 absolute right-full bottom-full">
                         <div class="relative flex flex-row justify-center items-center w-[45px] -translate-x-2/4 -translate-y-2/4 -rotate-90 h-10">
@@ -142,6 +144,7 @@
                             </div>
                         </div>
                     </div>
+
                     {{-- endTimepointHandle --}}
                     <div class="w-[10%] h-px bg-amber-700 border-t-2 border-t-amber-700 absolute top-full left-full">
                         <div class="relative flex flex-row justify-center items-center w-[140px] -translate-x-2/4 -translate-y-2/4 -rotate-90 h-10 -right-full">
@@ -270,6 +273,7 @@
                     @endforeach
                 @endisset
 
+
             </div>
         </div>
     </div>
@@ -308,7 +312,7 @@
 </div>
 </div>
 
-@push('script')
+@script('script')
     <script>
         // console.log('CustomChart Script Loaded.')
 
@@ -383,5 +387,11 @@
         $("#c_endingDateContainer").on("click", () => {
             document.querySelector("#c_endingDate").showPicker();
         });
+
+        {{-- Get the user's timezone from the browser(js) and set it to the Livewire component property 'c_timezone' --}}
+        const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        // console.log('custom-chart_timezone:',tz);
+        $wire.set('c_timezone', tz);
+
     </script>
-@endpush
+@endscript

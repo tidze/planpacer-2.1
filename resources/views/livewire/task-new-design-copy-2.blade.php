@@ -281,35 +281,21 @@
 @endscript
 
 @push('script')
-    <script>
-        const startingTimepoint_js = {
-            unix: 1700000000
+<script>
 
-            setUnix(unix) {
-                this.unix = unix;
-            },
 
-            getUnix() {
-                return this.unix;
-            },
 
-            getDate() {
 
-            },
 
-            getTime() {
 
-            },
 
-            setDate(date) {
 
-            },
 
-            setTime(time) {
 
-            }
 
-        };
+
+
+
 
         $('#taskNextPeriod').on('click', function() {
             let currentDate = new Date($('#targetDate').val());

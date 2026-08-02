@@ -12,7 +12,7 @@
 
             {{-- Components Debugger Information --}}
             <div class="text-amber-600 text-[12px]">
-                taskCategory= <span class='text-amber-100'>{{ $taskCategory ?? 'Not Set' }}</span> <br>
+                taskCategory= <span class='text-amber-100 '>{{ $taskCategory ?? 'Not Set' }}</span> <br>
                 taskDescription= <span class="text-amber-100">{{ $taskDescription ?? 'Not Set' }}</span><br>
                 desiredDuration= <span class="text-amber-100">{{ $desiredDuration ?? 'Not Set' }}</span><br>
                 startingTimepoint_unix= <span class="text-amber-100">{{ $startingTimepoint_unix ?? 'Not Set' }}</span><br>
@@ -29,15 +29,6 @@
                 taskDone= <span class="text-amber-100">{{ $taskDone ?? 'Not set' }}</span><br>
                 date_default_timezone_get=<span class="text-amber-100">{{ date_default_timezone_get() }}</span><br>
                 timezone= <span class="text-amber-100">{{ $timezone ?? 'Not Set' }}</span><br>
-                {{-- @if ($errors->any()) --}}
-                {{-- <div class="alert alert-danger"> --}}
-                {{-- <ul> --}}
-                {{-- @foreach ($errors->all() as $error) --}}
-                {{-- <li>{{ $error }}</li> --}}
-                {{-- @endforeach --}}
-                {{-- </ul> --}}
-                {{-- </div> --}}
-                {{-- @endif --}}
             </div>
 
         </div>
@@ -46,17 +37,22 @@
     <div class="relative z-50 p-2">
 
         <input type="hidden" id="targetTaskIdEdit" name="targetTaskIdEdit" wire:model.defer="targetTaskIdEdit" class="w-32 border-2 border-indigo-500" value="{{ $targetTaskIdEdit }}" readonly>
-        {{-- <label for="targetTaskIdEdit">targetTaskId</label>
-        @error('targetTaskIdEdit')
-            <span class="text-red-500 text-[9px]">{{ $message }}</span>
-        @enderror
-        <br>
-        @empty($targetTaskIdEdit)
-            <p>targetTaskIdEdit is empty</p>
-        @else
-            <p>targetTaskIdEdit <span class="underline">Not</span> empty</p>
-        @endempty
-        <br> --}}
+        {{--
+            <label for="targetTaskIdEdit">targetTaskId</label>
+            @error('targetTaskIdEdit')
+                <span class="text-red-500 text-[9px]">{{ $message }}</span>
+            @enderror
+            <br>
+
+            @empty($targetTaskIdEdit)
+                <p>targetTaskIdEdit is empty</p>
+            @else
+
+                <p>targetTaskIdEdit <span class="underline">Not</span> empty</p>
+            @endempty
+            <br>
+        --}}
+
         {{-- Now Here is the actual form begins --}}
         <div class="flex items-center justify-center">
             <div id="targetDateContainer" class="flex items-center justify-center p-1">
@@ -83,7 +79,7 @@
                 <div class="flex">
                     {{-- for input date overlay to be clickable every where --}}
                     <div id="startingDateContainer" class="basis-2/5 inline-block border rounded-xl border-transparent">
-                        <input {{-- wire:ignore --}} id="startingDate" type="date" class="w-36 border-2 rounded-xl border-gray-500 bg-gray-800" value="{{ $startingDatepoint }}">
+                        <input id="startingDate" type="date" class="w-36 border-2 rounded-xl border-gray-500 bg-gray-800" value="{{ $startingDatepoint }}">
                     </div>
                     <div class="basis-2/5 flex">
                         <input class = "inline-block w-32 bg-black text-center startingTimepoint border-2 h-full rounded-xl border-gray-500" id = "startingTimepoint" wire:model.defer = "startingTimepoint" type = "text"
@@ -96,10 +92,6 @@
                     <label class="basis-1/5 self-center" for="startingTimepoint">Start</label>
 
                     <input class="bg-black text-center p-0 text-[15px]" id="startingTimepoint_unix" wire:model.defer="startingTimepoint_unix" name="startingTimepoint_unix" type="hidden" value="" />
-                    {{-- <label for="starting/Timepoint_unix">startingTimepoint_unix</label> --}}
-                    {{-- @error('startingTimepoint_unix') --}}
-                    {{-- <span class="text-red-500 text-[9px]">{{ $message }}</span> --}}
-                    {{-- @enderror --}}
                 </div>
 
                 {{-- Component endingTimepoint --}}
@@ -118,16 +110,14 @@
                     <label class="basis-1/5 self-center" for="endingTimepoint">End</label>
 
                     <input name="endingTimepoint_unix" wire:model.defer="endingTimepoint_unix" id="endingTimepoint_unix" class="bg-black text-center p-0 text-[15px]" type="hidden" value="0" />
-                    {{-- <label for="startingTimepoint_unix">startingTimepoint_unix</label> --}}
-                    {{-- @error('endingTimepoint_unix') --}}
-                    {{-- <span class="text-red-500 text-[9px]">{{ $message }}</span> --}}
-                    {{-- @enderror --}}
                 </div>
+
                 {{-- Component `Full Duration` --}}
                 <div class="flex py-2">
-                    <input class="flex-1 bg-black text-center p-0 text-[16px] rounded-md" id="fullDuration_obj" type="text" value="sdf" readonly />
+                    <input class="flex-1 bg-black text-center p-0 text-[16px] rounded-md" id="fullDuration_obj" type="text" value="0" readonly />
                     <label class="px-2 py-1 text-[16px]" for="fullDuration">Full Duration</label>
                 </div>
+
                 {{-- Component `Desired Duration input range` --}}
                 <div class="flex flex-col py-2 px-1">
                     <div class="flex flex-row">
@@ -149,20 +139,17 @@
                     @enderror
 
                 </div>
+
                 <div class="flex-auto w-full">
+
+                    {{-- `Category` --}}
                     <div class="flex flex-auto justify-center items-center text-center py-1">
                         <input id="taskCategory" wire:model.defer="taskCategory" name="taskCategory" type="text"
                             class="rounded-xl text-lg inline-block flex-auto bg-black first-letter:bg-black text-center text-[9px] py-2">
                         <label class="flex-auto" for="taskCategory">Category</label>
                     </div>
 
-                    {{-- Component `Select Category` --}}
                     <div class="flex w-full overflow-auto pb-2">
-                        {{-- @foreach ($category_distinct_desc as $category) --}}
-                        {{-- <div class="py-1 px-2 border border-l-4 border-white text-white cursor-pointer rounded-lg mr-1 select-none whitespace-nowrap categoryAutoSetter" style="">{{ $category->category }} --}}
-                        {{-- </div> --}}
-                        {{-- @endforeach --}}
-
                         @for ($i = 0; $i < count($sortedCategoriesByCategory_ArrayKeys); $i++)
                             <div class="py-1 px-2 border border-l-4 border-white text-white cursor-pointer rounded-lg mr-1 select-none whitespace-nowrap categoryAutoSetter" style="">
                                 {{ $sortedCategoriesByCategory_ArrayKeys[$i] }}</div>
@@ -174,13 +161,14 @@
                             <div class="text-red-500 text-[10px]">{{ $message }}</div>
                         </div>
                     @enderror
+
+                    {{-- `Description` --}}
                     <div class="flex flex-auto justify-center items-center text-center py-1">
                         <input id="taskDescription" wire:model.defer="taskDescription" name="taskDescription" type="text"
                             class="rounded-xl text-lg inline-block flex-auto bg-black first-letter:bg-black text-center text-[9px] py-2">
                         <label class="flex-auto" for="taskDescription">Description</label>
                     </div>
 
-                    {{-- Component `Select Description` --}}
                     <div class="flex w-full overflow-auto pb-2 descriptionAutoSetterContainer">
                         @foreach ($categories as $category)
                             {{-- @foreach ($tasksOfTheCategory as $task) --}}
@@ -190,93 +178,29 @@
                             {{-- @endforeach --}}
                         @endforeach
                     </div>
+
                     @error('taskDescription')
                         <div class="flex-auto w-full text-center">
                             <div class="text-red-500 text-[10px]">{{ $message }}</div>
                         </div>
                     @enderror
 
-                    {{-- Component `Select Done/UnDone` --}}
-                    <div
-                        class="m-1
-                mb-2
-                border border-gray-500
-                {{-- px-2 --}}
-                {{-- py-2 --}}
-                flex
-                flex-row
-                justify-center
-                items-center
-                text-sm
-                font-medium
-                rounded-xl
-                text-gray-400
-                border-gray-600
-                bg-gray-800
-                hover:text-white
-                hover:bg-gray-700
-                cursor-pointer
-                {{-- ring-4 --}}
-                {{-- ring-red-500 --}}
-                {{-- focus:ring-4 --}}
-                {{-- focus:ring-opacity-100 --}}
-                {{-- focus:ring-gray-700 --}}
-                {{-- focus:z-10 --}}
-                ">
+                    {{-- `Done/UnDone` --}}
+                    <div class="m-1 mb-2 border border-gray-500 flex flex-row justify-center items-center text-sm font-medium rounded-xl text-gray-400 bg-gray-800 hover:text-white hover:bg-gray-700 cursor-pointer">
                         <label for="taskDone" class="inline-flex cursor-pointer w-full justify-center items-center px-1 py-2 select-none ring-4 ring-transparent active:ring-gray-600 border-transparent rounded-xl">
                             taskDone
                             <input type="checkbox" name="taskDone" id="taskDone" wire:model.defer="taskDone"
-                                class="
-                        cursor-pointer
-                        inline-flex
-                        px-2
-                        py-2
-                        mx-2
-                        text-sm
-                        font-medium
-                        focus:outline-none
-                        border
-                        rounded-xl
-                        focus:z-10
-                        {{-- focus:ring-4 --}}
-                        {{-- focus:ring-gray-200 --}}
-                        focus:ring-gray-700
-                        bg-gray-800
-                        text-gray-400
-                        border-gray-600
-                        {{-- hover:text-white --}}
-                        hover:bg-gray-700
-                    " />
+                                class="cursor-pointerinline-flexpx-2py-2mx-2text-smfont-mediumfocus:outline-noneborderrounded-xlfocus:z-10 focus:ring-gray-700bg-gray-800text-gray-400border-gray-600 hover:bg-gray-700" />
                         </label>
-
                     </div>
 
                 </div>
                 <div class="flex">
                     <button wire:click="store"
-                        class="flex-1
-                        px-3
-                        py-3
-                        m-1
-                        text-sm
-                        font-medium
-                      text-gray-900
-                        focus:outline-none
-                        bg-white border
-                        border-gray-200
-                        rounded-xl
-                        hover:bg-gray-100
-                        hover:text-blue-700
-                        focus:z-10
-                        focus:ring-4
-                        focus:ring-gray-200
-                        dark:focus:ring-gray-700
-                        dark:bg-gray-800
-                        dark:text-gray-400
-                        dark:border-gray-600
-                        dark:hover:text-white
-                        dark:hover:bg-gray-700">Add
-                        Task</button>
+                        class="flex-1 px-3 py-3 m-1 text-sm font-medium text-gray-900 focus:outline-none bg-white border border-gray-200 rounded-xl hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+                        Add Task
+                    </button>
+
                     <button wire:click="update"
                         class="flex-1 px-3 py-3 m-1 text-sm font-medium text-gray-900
                           focus:outline-none bg-white border border-gray-200 rounded-xl
@@ -290,13 +214,13 @@
                 {{-- Loading State Animations --}}
                 {{-- <div class="flex flex-col pt-1"> --}}
                 {{-- <div class="p-0 mb-1" wire:loading wire:target="update"> --}}
-                {{-- <div class="text-blue-400 i nline-block border-blue-700 border-l-8 p-2 bg-blue-400 bg-opacity-30 animate-pulse">Updating The Task ...</div> --}}
+                {{-- <div class="text-blue-400 inline-block border-blue-700 border-l-8 p-2 bg-blue-400 bg-opacity-30 animate-pulse">Updating The Task ...</div> --}}
                 {{-- </div> --}}
                 {{-- <div class="p-0 mb-1" wire:loading wire:target="store"> --}}
-                {{-- <div class="text-blue-400 i nline-block border-blue-700 border-l-8 p-2 bg-blue-400 bg-opacity-30 animate-pulse">Adding The Task ...</div> --}}
+                {{-- <div class="text-blue-400 inline-block border-blue-700 border-l-8 p-2 bg-blue-400 bg-opacity-30 animate-pulse">Adding The Task ...</div> --}}
                 {{-- </div> --}}
                 {{-- <div class="p-0 mb-1" wire:loading> --}}
-                {{-- <div class="text-blue-400 i nline-block border-blue-700 border-l-8 p-2 bg-blue-400 bg-opacity-30 animate-pulse">Re-Rendering ...</div> --}}
+                {{-- <div class="text-blue-400 inline-block border-blue-700 border-l-8 p-2 bg-blue-400 bg-opacity-30 animate-pulse">Re-Rendering ...</div> --}}
                 {{-- </div> --}}
                 <div>
                     @if (session()->has('store_validator_fail'))
@@ -341,20 +265,6 @@
             // console.log('component.initialized');
         });
 
-        // Onclick event
-        $(document).ready(function() {
-
-        });
-
-        function isJSON(str) {
-            try {
-                JSON.parse(str);
-                return true;
-            } catch (e) {
-                return false;
-            }
-        }
-
         // input range wasn't working in chrome so I added this part
         document.querySelectorAll('input[type="range"]').forEach((input) => {
             input.addEventListener('mousedown', () => window.getSelection().removeAllRanges());
@@ -362,11 +272,13 @@
 
         $("#startingTimepoint").on("change", () => {
             giveDateObject("#startingDate", "#startingTimepoint", "#startingTimepoint_unix");
+            setFullDuration();
             document.getElementById("startingTimepoint_unix").dispatchEvent(new Event('input'));
             document.getElementById("startingTimepoint").dispatchEvent(new Event('input'));
         });
         $("#endingTimepoint").on("change", () => {
             giveDateObject("#endingDate", "#endingTimepoint", "#endingTimepoint_unix");
+            setFullDuration();
             document.getElementById("endingTimepoint_unix").dispatchEvent(new Event('input'));
             document.getElementById("endingTimepoint").dispatchEvent(new Event('input'));
             // console.log('endingTimepoint on change');
@@ -380,6 +292,7 @@
             copyDate("#targetDate", "#endingDate");
             giveDateObject("#startingDate", "#startingTimepoint", "#startingTimepoint_unix");
             giveDateObject("#endingDate", "#endingTimepoint", "#endingTimepoint_unix");
+            setFullDuration();
             document.getElementById("endingTimepoint_unix").dispatchEvent(new Event('input'));
             document.getElementById("startingTimepoint_unix").dispatchEvent(new Event('input'));
             // document.getElementById("targetDate").dispatchEvent(new Event('input'));
@@ -389,6 +302,7 @@
 
         $("#startingDate").on("change", () => {
             giveDateObject("#startingDate", "#startingTimepoint", "#startingTimepoint_unix");
+            setFullDuration();
             document.getElementById("startingTimepoint_unix").dispatchEvent(new Event('input'));
             console.log('#startingHourpoint onChange');
         });
@@ -398,6 +312,7 @@
 
         $("#endingDate").on("change", () => {
             giveDateObject("#endingDate", "#endingTimepoint", "#endingTimepoint_unix");
+            setFullDuration();
             document.getElementById("endingTimepoint_unix").dispatchEvent(new Event('input'));
 
         });
@@ -459,7 +374,6 @@
             let unixTenDigits = date.getTime().toString();
             $(output).val(unixTenDigits.slice(0, 10));
 
-            setFullDuration();
         }
 
         function setFullDuration() {
@@ -475,11 +389,16 @@
 
         }
 
+        /*
+         * duration:546(sec) => 546 / 1000 = 0.546 => 0.546 / 60 = 0.0091 mili sec => Math.floor(0.0091) = 0 min
+         * deci(10^-1) centi(10^-2) mili(10^-3) ...
+         * 1 sec = 1000 mili sec
+         */
         function msToMin(duration) {
             return Math.floor(duration / (1000 * 60));
-            // return Math.ceil(duration / (1000 * 60));
         }
 
+        // duration=546 sec: 546/60= 9.1 min => Math.floor(9.1)= 9 min
         function secToMin(duration) {
             return Math.floor(duration / (60));
         }
@@ -514,10 +433,10 @@
 
         function dateSeperator() {
             // a purified date is a date that has no '-', '/', or any other uselesh shit
-            let purifiedDate = $("#date").val().replaceAll('-', '');
-            let year = purifiedDate.slice(0, 4);
-            let month = purifiedDate.slice(4, 6);
-            let day = purifiedDate.slice(6, 8);
+            let purifiedDate = $("#date").val().replaceAll('-', ''); // "2026-07-15" -> "20260715"
+            let year  = purifiedDate.slice(0, 4); // "20260715" -> "2026"
+            let month = purifiedDate.slice(4, 6); // "20260715" -> "07"
+            let day   = purifiedDate.slice(6, 8); // "20260715" -> "15"
             // console.log(day, month, year);
         }
 
@@ -547,13 +466,15 @@
                     '<div class="py-1 px-2 border border-l-4 border-l-transparent cursor-pointer rounded-lg mr-1 select-none whitespace-nowrap descriptionAutoSetter" style="border-color: ' + value.color +
                     '; color: ' + value.color + ';">' + value.description + '</div>');
             });
+
             $('.descriptionAutoSetter').on('click', function() {
                 $('#taskDescription').val($(this).text().trim());
                 document.getElementById("taskDescription").dispatchEvent(new Event('input'));
             });
-            document.getElementById("taskCategory").dispatchEvent(new Event('input'));
 
+            document.getElementById("taskCategory").dispatchEvent(new Event('input'));
         });
+
         $('.descriptionAutoSetter').on('click', function() {
             $('#taskDescription').val($(this).text().trim());
             document.getElementById("taskDescription").dispatchEvent(new Event('input'));
@@ -590,3 +511,12 @@
         });
     </script>
 @endpush
+
+@script
+    <script>
+        {{-- Get the user's timezone from the browser(js) and set it to the Livewire component property 'timezone' --}}
+        const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        console.log(tz);
+        $wire.set('timezone', tz);
+    </script>
+@endscript
