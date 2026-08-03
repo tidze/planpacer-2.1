@@ -1,4 +1,10 @@
-<div class="min-h-screen bg-slate-900 px-4 text-white relative">
+<div class="min-h-screen bg-slate-900 px-1 text-white relative">
+
+    <div>
+        <button id="startingTimepoint_js" class ="jackass border border-yellow-500 rounded-md p-1 text-xs text-yellow-500 bg-yellow-800 active:bg-yellow-500 active:text-yellow-800">startingTimepoint_js</button>
+        : <span id="startingTimepoint_js"></span>
+    </div>
+
 
     {{-- Component Inspector --}}
     @env('local')
@@ -48,7 +54,7 @@
     <div class="bg-black p-2 border border-fuchsia-900">
         {{-- Title --}}
         <div class="flex flex-col border border-fuchsia-700 px-1 text-[12px] text-fuchsia-400 bg-black">
-            <span class="whitespace-nowrap flex justify-center">@for($i=0;$i<40;$i++)-@endfor JavaScript @for($i=0;$i<40;$i++)-@endfor</span>
+            <span class="whitespace-nowrap flex justify-center">@for($i=0;$i<34;$i++)-@endfor JavaScript @for($i=0;$i<34;$i++)-@endfor</span>
         </div>
 
         {{-- JS Info --}}
@@ -80,7 +86,7 @@
         <div wire:loading class="absolute w-full h-full z-20 rounded-md bg-yellow-400 animate-pulse bg-opacity-30 border border-yellow-600"></div>
 
     {{-- Log Activity Modal 🤪--}}
-        <div class="p-6">
+        <div class="p-4 sm:p-6">
             <h2 class="mb-2 text-xl font-semibold">Log Activity</h2>
 
             {{-- The Current Date --}}
@@ -89,14 +95,16 @@
 
                 <span class="rounded bg-yellow-700 px-2 py-1 text-xs text-amber-400">Today</span>
 
-                <div class="w-full m-0 p-0"></div>
+                {{-- <div class="w-full m-0 p-0"></div> --}}
 
-                <button class="rounded-lg border border-slate-600 bg-slate-900 px-3 py-2 active:border active:border-amber-500" id="taskPrevPeriod" {{--wire:click="prevPeriod"--}}>↺</button>
-                <input class="rounded-lg border border-slate-600 bg-slate-900 px-3 py-2 w-36" type="date" id="targetDate" value="{{ $startingDatepoint }}">
-                <button class="rounded-lg border border-slate-600 bg-slate-900 px-3 py-2 active:border active:border-amber-500" id="taskNextPeriod" {{--wire:click="nextPeriod"--}}>↻</button>
+                <div class="flex justify-center items-center gap-1 border-yellow-400">
+                    <button class="rounded-lg border border-slate-600 bg-slate-900 px-3 py-2 active:border active:border-amber-500" id="taskPrevPeriod" {{--wire:click="prevPeriod"--}}>↺</button>
+                    <input class="rounded-lg border border-slate-600 bg-slate-900 px-3 py-2 w-36" type="date" id="targetDate" value="{{ $startingDatepoint }}">
+                    <button class="rounded-lg border border-slate-600 bg-slate-900 px-3 py-2 active:border active:border-amber-500" id="taskNextPeriod" {{--wire:click="nextPeriod"--}}>↻</button>
+                </div>
 
-                <button class="rounded-lg border border-slate-600 bg-slate-700 px-3 py-2 m-0" disabled id="setNowTime">Now</button>
-                <button class="rounded-lg border border-slate-600 bg-slate-700 px-3 py-2 m-0" disabled id="switchHours">Switch</button>
+                <button class="hidden rounded-lg border border-slate-600 bg-slate-700 px-3 py-2 m-0" disabled id="setNowTime">Now</button>
+                <button class="hidden rounded-lg border border-slate-600 bg-slate-700 px-3 py-2 m-0" disabled id="switchHours">Switch</button>
             </div>
 
             {{-- Starting and Ending Date & Time points Container --}}
@@ -111,7 +119,7 @@
 
                         <input class="rounded-lg border border-slate-600 bg-slate-900 px-3 py-2 w-36" id="startingDatepoint" type="date" value="{{ $startingDatepoint }}" >
 
-                        <input class="rounded-lg border border-slate-600 bg-slate-900 px-3 py-2" id="startingTimepoint" type="time" value="{{ $startingTimepoint }}" wire:model.defer="startingTimepoint" />
+                        <input class="w-24 sm:w-auto rounded-lg border border-slate-600 bg-slate-900 px-3 py-2" id="startingTimepoint" type="time" value="{{ $startingTimepoint }}" wire:model.defer="startingTimepoint" />
 
                         <button class="rounded-lg border border-slate-600 bg-slate-900 px-1 py-2 inline-flex hover:bg-gray-700 active:border active:border-amber-500" id="setNowTimeForStartingHourAndMinute">Now</button>
 
@@ -127,7 +135,7 @@
 
                         <input class="rounded-lg border border-slate-600 bg-slate-900 px-3 py-2 w-36" id="endingDatepoint" type="date" value="{{ $endingDatepoint }}" >
 
-                        <input class="rounded-lg border border-slate-600 bg-slate-900 px-3 py-2" id="endingTimepoint" type="time" value="{{ $endingTimepoint }}" wire:model.defer="endingTimepoint"/>
+                        <input class="w-24 sm:w-auto rounded-lg border border-slate-600 bg-slate-900 px-3 py-2" id="endingTimepoint" type="time" value="{{ $endingTimepoint }}" wire:model.defer="endingTimepoint"/>
 
                         <button class="rounded-lg border border-slate-600 bg-slate-900 px-1 py-2 inline-flex hover:bg-gray-700 active:border active:border-amber-500" id="setNowTimeForEndingHourAndMinute">Now</button>
 
@@ -260,9 +268,10 @@
 
                 {{-- Buttons --}}
                 <div class="flex gap-3 pt-2">
-                    <button wire:click="store" class="flex-1 rounded-lg bg-amber-500 py-3 font-medium text-black">Done <span class="font-bold">✓</span></button>
+                    <button wire:click="store" class="flex-1 rounded-lg bg-amber-500 font-medium text-black">Add <span class="font-bold">✓</span></button>
+                    <button wire:click="update" class="flex-1 rounded-lg bg-yellow-500 font-medium text-black">Update <span class="font-bold">✓</span></button>
 
-                    <button class="rounded-lg border border-slate-600 px-5 py-3">Close X</button>
+                    <button class="rounded-lg border border-slate-600 px-3 py-2">Close X</button>
                 </div>
             </div>
         </div>
@@ -282,9 +291,11 @@
 
 @push('script')
     <script>
-        const startingTimepoint_js = {
-            unix: 1700000000
 
+
+        const startingTimepoint_js = {
+            unix: @js($startingTimepoint_unix),
+            time_zone: @js($timezone),
             setUnix(unix) {
                 this.unix = unix;
             },
@@ -294,28 +305,61 @@
             },
 
             getDate() {
+                const date = new Date(this.unix * 1000);
 
+                // return date 2026-12-45
+                return date.toLocaleDateString('en-CA', {
+                    year: 'numeric',
+                    month: '2-digit',
+                    day: '2-digit',
+                    timeZone: this.time_zone
+                });
             },
 
             getTime() {
+                const date = new Date(this.unix * 1000);
 
+                // return time 00:00
+                return date.toLocaleTimeString([], {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    hour12: false,
+                    timeZone: this.time_zone
+                });
             },
 
-            setDate(date) {
-
+            setDate(newDate) {
+                // set the date but keep the time
+                // set the new unix
+                const date = new Date(this.unix * 1000); // Tue Aug 02 2026 14:30:00
+                const parts = newDate.split("-"); // ["2026", "12", "25"]
+                const year = Number(parts[0]);    // 2026
+                const month = Number(parts[1]);   // 12
+                const day = Number(parts[2]);     // 25
+                date.setFullYear(year);   // Tue Aug 02 2026 14:30 -> Fri Aug 02 2026 14:30 (year changes)
+                date.setMonth(month - 1); // Aug(8) -> Dec(11) (JS months: Jan=0 ... Dec=11)
+                date.setDate(day);        // Dec 02 -> Dec 25
+                this.unix = Math.floor(date.getTime() / 1000); // Date object -> milliseconds -> seconds
             },
 
             setTime(time) {
-
-            }
+                // set the time but keep the date
+                // set the new unix
+            },
 
         };
+
+        $('.jackass').on('click',function(){
+            console.log('jackass is being clicked');
+            console.log(star);
+            $(this).next('span').text(startingTimepoint_js);
+        });
 
         $('#taskNextPeriod').on('click', function() {
             let currentDate = new Date($('#targetDate').val());
             currentDate.setDate(currentDate.getDate() + 1);
             let nextDate = currentDate.toISOString().split('T')[0];
-            let nextDate_unix = (newDate.getTime()).toString().substring(0, 10); // 1721053800000 -> "1721053800"
+            // let nextDate_unix = (newDate.getTime()).toString().substring(0, 10); // 1721053800000 -> "1721053800"
             $('#targetDate').val(nextDate);
             $('#startingDatepoint').val(nextDate);
             $('#endingDatepoint').val(nextDate);

@@ -28,27 +28,23 @@
                 {{-- $flattened = <span class="text-yellow-100">{{ var_dump($flattened) }}</span><br> --}}
                 $is_date_different = <span class="text-yellow-100">{{ isset($is_date_different) ? $is_date_different : 'Not Set' }}</span><br>
             </div>
-            
+
         </div>
     @endenv
     <div class="relative z-20 flex flex-col text-base">
         <div class="flex flex-row justify-center">
 
             <div class="flex items-center">
-                <div class="border-2 flex items-center justify-center rounded-xl border-gray-500 mx-2 p-2 active:border-blue-500 active:border-2 cursor-default select-none" wire:click="prevPeriod">◄ ↺</div>
+                <div class="border-2 flex items-center justify-center rounded-xl border-gray-500 mx-0 sm:mx-2 p-2 active:border-blue-500 active:border-2 cursor-default select-none" wire:click="prevPeriod">◄ ↺</div>
             </div>
 
-            <div class="flex flex-row">
+            <div class="flex">
                 {{-- Component c_startingTimepoint --}}
-                <div class="">
+                <div class="flex flex-col">
                     {{-- for input date overlay to be clickable every where --}}
-                    <label class="self-center" for="c_startingHourpoint">Start</label>
-                    <div id="c_startingDateContainer" class="inline-block border rounded-xl border-transparent">
-                        <input id="c_startingDate" class="border-2 rounded-xl border-gray-500 bg-gray-800" wire:model.defer="c_startingDate" {{-- wire:ignore --}} type="date" value="">
-                    </div>
-                    <div class=" flex">
-                        <input class="inline-block bg-black text-center border-2 h-full rounded-xl border-gray-500" id="c_startingHourpoint" wire:model.defer="c_startingHourpoint" type="text">
-                    </div>
+                    <label class="px-2 py-1 border border-slate-500 rounded-lg inline-block" for="c_startingHourpoint">Start</label>
+                    <input id="c_startingDate" class="w-36 border-2 rounded-xl border-gray-500 bg-gray-800" wire:model.defer="c_startingDate" {{-- wire:ignore --}} type="date" value="">
+                    <input id="c_startingHourpoint" class="w-36 bg-black text-center border-2 rounded-xl border-gray-500"wire:model.defer="c_startingHourpoint" type="text">
                     <input id="c_startingDatepoint_unix" name="c_startingDatepoint_unix" class="bg-black text-center text-[8px]" wire:model.defer="c_startingDatepoint_unix" type="hidden" value="">
                     {{-- <label for="c_startingDatepoint_unix">c_startingDatepoint_unix</label> --}}
                     {{-- @error('c_startingDatepoint_unix') --}}
@@ -57,16 +53,12 @@
                 </div>
 
                 {{-- Component c_endingTimepoint --}}
-                <div class="">
+                <div class="flex flex-col">
                     {{-- for input date overlay to be clickable every where --}}
-                    <label class="self-center" for="c_endingHourpoint">End</label>
-                    <div id="c_endingDateContainer" class="inline-block border rounded-xl border-transparent">
-                        <input id="c_endingDate" class="border-2 rounded-xl border-gray-500 bg-gray-800" wire:model.defer="c_endingDate" type="date" value="">
-                    </div>
-                    <div class="flex">
-                        <input id="c_endingHourpoint" class="bg-black text-center border-2 h-full rounded-xl border-gray-500" wire:model.defer="c_endingHourpoint" type="text">
-                    </div>
-                    <input id="c_endingDatepoint_unix" name="c_endingDatepoint_unix" class="bg-black text-white text-center w-52 p-0 text-[10px]" wire:model.defer="c_endingDatepoint_unix" type="hidden" value="">
+                    <label class="px-2 py-1 border border-slate-500 rounded-lg inline-block" for="c_endingHourpoint">End</label>
+                    <input id="c_endingDate" class="w-36 border-2 rounded-xl border-gray-500 bg-gray-800" wire:model.defer="c_endingDate" {{-- wire:ignore --}} type="date" value="">
+                    <input id="c_endingHourpoint" class="w-36 bg-black text-center border-2 rounded-xl border-gray-500"wire:model.defer="c_endingHourpoint" type="text">
+                    <input id="c_endingDatepoint_unix" name="c_endingDatepoint_unix" class="bg-black text-center text-[8px]" wire:model.defer="c_endingDatepoint_unix" type="hidden" value="">
                     {{-- <label for="c_endingDatepoint_unix">c_endingDatepoint_unix</label> --}}
                     {{-- @error('c_endingDatepoint_unix') --}}
                     {{-- <span class="text-red-500 text-[9px]">{{ $message }}</span> --}}
@@ -75,7 +67,7 @@
             </div>
 
             <div class="flex items-center">
-                <div class="border-2 flex items-center justify-center rounded-xl border-gray-500 mx-2 p-2 active:border-blue-500 active:border-2 cursor-default select-none" wire:click="nextPeriod">► ↻</div>
+                <div class="border-2 flex items-center justify-center rounded-xl border-gray-500 mx-0 sm:mx-2 p-2 active:border-blue-500 active:border-2 cursor-default select-none" wire:click="nextPeriod">► ↻</div>
             </div>
         </div>
 
