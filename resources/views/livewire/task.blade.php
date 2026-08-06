@@ -1,4 +1,4 @@
-<div class="relative border-4 border-slate-600 text-white flex-1">
+    <div class="relative border-4 border-slate-600 text-white flex-1">
 
     <div wire:loading class="bg-blue-400 bg-opacity-30 animate-pulse absolute w-full h-full z-0 -m-1"></div>
     @env('local')

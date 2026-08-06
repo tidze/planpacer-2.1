@@ -178,7 +178,6 @@
     <script>
         {{-- Get the user's timezone from the browser(js) and set it to the Livewire component property 'c_timezone' --}}
         const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-        console.log(tz);
         $wire.set('c_timezone', tz);
     </script>
 @endscript
