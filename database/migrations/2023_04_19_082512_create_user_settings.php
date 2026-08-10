@@ -16,8 +16,8 @@ return new class extends Migration
             $table->foreignId('user_id')->references('id')->on('users');
             $table->time('day_start')->default('08:00:00');
             $table->time('day_end')->default('23:00:00');
-            $table->time('estimated_day_start')->default('08:00:00');
-            $table->time('estimated_day_end')->default('23:00:00');
+            $table->time('estimated_day_start')->nullable();
+            $table->time('estimated_day_end')->nullable();
             $table->string('timezone', 50)->default('UTC');
             $table->timestamps();
         });

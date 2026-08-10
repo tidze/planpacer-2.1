@@ -18,8 +18,8 @@ Notice that these predictions are less "You will do X tomorrow" and more:
 That feels more useful and less creepy.
 
 -------------------------------To-Do-------------------------------
+~ The maxminm Duration should be 23h59m. Because Currently hour InputTimeRanger only can handle this much. 
 ~ Fixing Documentation on code Blocks
-~ Making the task-new-desing work with the controller and model.
 ~ Timezone asynconus with $wire.set() So how does I am still getting "Asia/Tehran" timezone?
 
 # READMEs, don't just write setup instructions—explain why you chose your database schema,
@@ -70,6 +70,7 @@ X Make All the clocktime pickers component into only one component
 ? Category Combiner(I don't know what this is... You meant group categories? You could do that with color though)
 
 ----------Done----------
+✓ 1405/05/17 14:10 Making the task-new-desing work with the controller and model.
 ✓ 1405/04/20 23:30 Switched back to old views for now, till the new ones works finally.
 ✓ 1405/04/20 23:30 Fixed the Debugging information for all the old views of components.
 ✓ 1405/04/11 23:11 Removed DesiredDuration from the whole code base

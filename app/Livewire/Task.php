@@ -99,7 +99,7 @@ class Task extends Component
                 $this->endingDatepoint = $this->dateTime->format('Y-m-d');
                 break;
 
-            // Add more properties if you want :)
+                // Add more properties if you want :)
         }
     }
 
@@ -130,6 +130,14 @@ class Task extends Component
         $dateTime->setTimestamp($task->ending_time);
         $this->endingDatepoint = $dateTime->format("Y-m-d");
         $this->endingTimepoint =  $dateTime->format("H:i");
+
+        $this->dispatch('loadTaskJS', [
+            'starting_unix' => $this->startingTimepoint_unix,
+            'ending_unix' => $this->endingTimepoint_unix,
+            'category' => $this->taskCategory,
+            'description' => $this->taskDescription,
+            'done' => $this->taskDone,
+        ]);
 
         $this->dispatch('$refresh')->to('custom-chart');
     }

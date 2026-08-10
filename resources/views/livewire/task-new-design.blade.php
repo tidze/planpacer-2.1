@@ -60,7 +60,7 @@
             <div class="flex flex-wrap items-center gap-1 mb-1">
                 <label class="text-sm text-slate-400" for="targetDate"> Date </label>
 
-                <span class="rounded bg-yellow-700 px-2 py-1 text-xs text-amber-400">Today</span>
+                <span id="targetDifferenceText" class="rounded bg-yellow-700 px-2 py-1 text-xs text-amber-400">Today</span>
 
                 <div class="w-full m-0 p-0"></div>
 
@@ -75,8 +75,7 @@
             </div>
 
             {{-- Starting and Ending Date & Time points Container --}}
-            <div class="space-y-1"
-                x-data="{ isRotated: false, isOpen: false }">
+            <div class="space-y-1" x-data="{ isRotated: false, isOpen: false }">
                 {{-- Starting and Ending Date & Time points --}}
                 <div class="grid grid-cols-2 gap-0">
 
@@ -84,14 +83,15 @@
                     <div class="flex items-start flex-wrap gap-0 sm:gap-1">
                         <label class="text-sm text-slate-400 px-0 py-1"> Start </label>
 
-                        <span class="rounded bg-yellow-700 px-2 py-1 text-xs text-amber-400">Today</span>
+                        <span id="startingDifferenceText" class="rounded bg-yellow-700 px-2 py-1 text-xs text-amber-400">Today</span>
 
                         <input class="mb-[0.05rem] rounded-lg border border-slate-600 bg-slate-900 px-3 py-2 w-36" id="startingDatepoint" type="date" value="{{ $startingDatepoint }}">
 
                         <input class="w-32 sm:w-auto rounded-lg border border-slate-600 bg-slate-900 px-3 py-2" id="startingTimepoint" type="time" value="{{ $startingTimepoint }}"
                             wire:model.defer="startingTimepoint" />
 
-                        <button class="rounded-lg border border-slate-600 bg-slate-900 px-1 py-3 text-xs sm:text-base sm:px-1 sm:py-2 inline-flex hover:bg-gray-700 active:border active:border-amber-500" id="setNowTimeForStartingHourAndMinute">Now</button>
+                        <button class="rounded-lg border border-slate-600 bg-slate-900 px-1 py-3 text-xs sm:text-base sm:px-1 sm:py-2 inline-flex hover:bg-gray-700 active:border active:border-amber-500"
+                            id="setNowTimeForStartingHourAndMinute">Now</button>
 
                         {{-- Hidden input form, for submitting the unix timepoint --}}
                         <input class="bg-black text-center p-0 text-[15px]" id="startingTimepoint_unix" wire:model.defer="startingTimepoint_unix" name="startingTimepoint_unix" type="hidden"
@@ -102,14 +102,14 @@
                     <div class="flex items-start flex-wrap gap-0 sm:gap-1">
                         <label class="text-sm text-slate-400 px-0 py-1"> End </label>
 
-                        <span class="rounded bg-yellow-700 px-2 py-1 text-xs text-amber-400">Today</span>
+                        <span id="endingDifferenceText" class="rounded bg-yellow-700 px-2 py-1 text-xs text-amber-400">Today</span>
 
                         <input class="mb-[0.05rem] rounded-lg border border-slate-600 bg-slate-900 px-3 py-2 w-36" id="endingDatepoint" type="date" value="{{ $endingDatepoint }}">
 
-                        <input class="w-32 sm:w-auto rounded-lg border border-slate-600 bg-slate-900 px-3 py-2" id="endingTimepoint" type="time" value="{{ $endingTimepoint }}"
-                            wire:model.defer="endingTimepoint" />
+                        <input class="w-32 sm:w-auto rounded-lg border border-slate-600 bg-slate-900 px-3 py-2" id="endingTimepoint" type="time" value="{{ $endingTimepoint }}" wire:model.defer="endingTimepoint" />
 
-                        <button class="rounded-lg border border-slate-600 bg-slate-900 px-1 py-3 text-xs sm:text-base sm:px-1 sm:py-2 inline-flex hover:bg-gray-700 active:border active:border-amber-500" id="setNowTimeForEndingHourAndMinute">Now</button>
+                        <button class="rounded-lg border border-slate-600 bg-slate-900 px-1 py-3 text-xs sm:text-base sm:px-1 sm:py-2 inline-flex hover:bg-gray-700 active:border active:border-amber-500"
+                            id="setNowTimeForEndingHourAndMinute">Now</button>
 
                         {{-- Hidden input form, for submitting the unix timepoint --}}
                         <input class="bg-black text-center p-0 text-[15px]" id="endingTimepoint_unix" wire:model.defer="endingTimepoint_unix" name="endingTimepoint_unix" type="hidden"
@@ -127,6 +127,7 @@
                         </div>
                     </x-suggestion-chip>
 
+                    <x-suggestion-chip id="reverseRangeInput" class="border-l border-r-4" color="null" minute="10">Reverse</x-suggestion-chip>
                     <x-suggestion-chip class="timeBlockAutoSetter" minute="10">10m</x-suggestion-chip>
                     <x-suggestion-chip class="timeBlockAutoSetter" minute="15">15m</x-suggestion-chip>
                     <x-suggestion-chip class="timeBlockAutoSetter" minute="30">30m</x-suggestion-chip>
@@ -139,38 +140,26 @@
                 </div>
 
                 {{-- TimeRangePicker --}}
-                <div class="border border-amber-800 rounded-md p-1"
-                    id="timeRangePicker"
-                    x-show="isOpen"
-                    x-transition:enter="transition-colors duration-500"
-                    x-transition:enter-start="bg-amber-400"
-                    x-transition:enter-end="bg-transparent"
-                    x-data="{ minuteTimeRangePicker: 0, hourTimeRangePicker: 0 }">
+                <div id="timeRangePicker" class="border border-amber-800 rounded-md p-1">
 
                     {{-- Minute 0~59 --}}
                     <div class="text-sm text-slate-400 inline-block"> Minute 0~59 </div>
-                    <div id="minuteTimeRangeShower" class="inline text-sm border border-amber-600 rounded-md bg-slate-800 px-2 py-0 text-amber-600" x-text="minuteTimeRangePicker"></div>
+                    <div id="minuteTimeRangeShower" class="inline text-sm border border-amber-600 rounded-md bg-slate-800 px-2 py-0 text-amber-600"></div>
 
                     <div class="flex">
-                        <button id="minuteTimeRangePicker_prev" class="rounded-lg border border-slate-600 bg-slate-900 px-3 py-1 active:bg-amber-400"
-                            x-on:click="minuteTimeRangePicker = Math.max(0, minuteTimeRangePicker - 1);updateEndingTimePointViaTimeRangePicker(hourTimeRangePicker, minuteTimeRangePicker)">◁</button>
-                        <input id="minuteTimeRangePicker" type="range" min="0" max="59" step="1" class="w-full" value="0" x-model.number="minuteTimeRangePicker"
-                            x-on:change="updateEndingTimePointViaTimeRangePicker(hourTimeRangePicker, minuteTimeRangePicker)" />
-                        <button id="minuteTimeRangePicker_next" class="rounded-lg border border-slate-600 bg-slate-900 px-3 py-1 active:bg-amber-400"
-                            x-on:click="minuteTimeRangePicker = Math.min(59, minuteTimeRangePicker + 1);updateEndingTimePointViaTimeRangePicker(hourTimeRangePicker, minuteTimeRangePicker)">▷</button>
+                        <button id="minuteTimeRangePicker_prev" class="rounded-lg border border-slate-600 bg-slate-900 px-3 py-1 active:bg-amber-400">◁</button>
+                        <input id="minuteTimeRangePicker" type="range" min="0" max="59" step="1" class="w-full" value="0" />
+                        <button id="minuteTimeRangePicker_next" class="rounded-lg border border-slate-600 bg-slate-900 px-3 py-1 active:bg-amber-400">▷</button>
                     </div>
 
                     {{-- Hour 0~23 --}}
                     <div class="text-sm text-slate-400 inline-block"> Hour 0~23 </div>
-                    <div id="hourTimeRangeShower" class="inline text-sm border border-amber-600 rounded-md bg-slate-800 px-2 py-0 text-amber-600" x-text="hourTimeRangePicker"></div>
+                    <div id="hourTimeRangeShower" class="inline text-sm border border-amber-600 rounded-md bg-slate-800 px-2 py-0 text-amber-600"></div>
 
                     <div class="flex">
-                        <button id="hourTimeRangePicker_prev" class="rounded-lg border border-slate-600 bg-slate-900 px-3 py-1 active:bg-amber-400"
-                            x-on:click="hourTimeRangePicker = Math.max(0, hourTimeRangePicker - 1);updateEndingTimePointViaTimeRangePicker(hourTimeRangePicker, minuteTimeRangePicker)">◁</button>
-                        <input id="hourTimeRangePicker" type="range" min="0" max="23" step="1" class="w-full" value="0" x-model.number="hourTimeRangePicker"
-                            x-on:change="updateEndingTimePointViaTimeRangePicker(hourTimeRangePicker, minuteTimeRangePicker)" />
-                        <button id="hourTimeRangePicker_next" class="rounded-lg border border-slate-600 bg-slate-900 px-3 py-1 active:bg-amber-400"
-                            x-on:click="hourTimeRangePicker = Math.min(23, hourTimeRangePicker + 1);updateEndingTimePointViaTimeRangePicker(hourTimeRangePicker, minuteTimeRangePicker)">▷</button>
+                        <button id="hourTimeRangePicker_prev" class="rounded-lg border border-slate-600 bg-slate-900 px-3 py-1 active:bg-amber-400">◁</button>
+                        <input id="hourTimeRangePicker" type="range" min="0" max="23" step="1" class="w-full" value="0" />
+                        <button id="hourTimeRangePicker_next" class="rounded-lg border border-slate-600 bg-slate-900 px-3 py-1 active:bg-amber-400">▷</button>
                     </div>
                 </div>
 
@@ -178,7 +167,7 @@
                 <div class="p-0">
                     <label class="text-sm text-slate-400" for="Duration">Duration</label>
                     <br>
-                    <input class="rounded-lg border border-slate-600 bg-slate-900 px-3 py-2" id="Duration" type="text" value="0" readonly />
+                    <input id="duration" class="rounded-lg border border-slate-600 bg-slate-900 px-3 py-2" type="text" value="0" readonly />
                 </div>
 
                 {{-- Category (taskCategory) --}}
@@ -266,13 +255,17 @@
         // console.log('task-new-design_timezone:',tz);
         $wire.set('timezone', tz);
 
+        Livewire.on('loadTaskJS', (task) => {
+            task_js.load(task[0]);
+        });
+
         /*
-        * task_js.starting.getUnix();         // 1700000000
-        * task_js.starting.getDate();         // "2026-08-02"
-        * task_js.starting.getTime();         // "14:30"
-        * task_js.starting.setDate("2026-12-25");
-        * task_js.starting.setTime("16:45");
-        */
+         * task_js.starting.getUnix();         // 1700000000
+         * task_js.starting.getDate();         // "2026-08-02"
+         * task_js.starting.getTime();         // "14:30"
+         * task_js.starting.setDate("2026-12-25");
+         * task_js.starting.setTime("16:45");
+         */
         function createTimePoint(unix, timeZone) {
             return {
                 unix: unix,
@@ -292,13 +285,14 @@
                     // Sets the date but keep the time. Set the new unix
                     const date = new Date(this.unix * 1000); // Tue Aug 02 2026 14:30:00
                     const parts = newDate.split("-"); // ["2026", "12", "25"]
-                    const year = Number(parts[0]);    // 2026
-                    const month = Number(parts[1]);   // 12
-                    const day = Number(parts[2]);     // 25
-                    date.setFullYear(year);   // Tue Aug 02 2026 14:30 -> Fri Aug 02 2026 14:30 (year changes)
+                    const year = Number(parts[0]); // 2026
+                    const month = Number(parts[1]); // 12
+                    const day = Number(parts[2]); // 25
+                    date.setFullYear(year); // Tue Aug 02 2026 14:30 -> Fri Aug 02 2026 14:30 (year changes)
                     date.setMonth(month - 1); // Aug(8) -> Dec(11) (JS months: Jan=0 ... Dec=11)
-                    date.setDate(day);        // Dec 02 -> Dec 25
+                    date.setDate(day); // Dec 02 -> Dec 25
                     this.unix = Math.floor(date.getTime() / 1000); // Date object -> milliseconds -> seconds
+                    task_js.duration.updateSelf();
                 },
 
                 // return time 00:00
@@ -311,45 +305,100 @@
                         timeZone: this.time_zone
                     });
                 },
+                // setTime(16:45)
                 setTime(newTime) {
                     // Sets the time but keep the date. Set the new unix
                     const date = new Date(this.unix * 1000); // Tue Aug 02 2026 14:30:00
-                    const parts = newTime.split(":");     // ["16", "45"]
-                    const hour = Number(parts[0]);        // 16
-                    const minute = Number(parts[1]);      // 45
-                    date.setHours(hour);                  // 14:30 -> 16:30
-                    date.setMinutes(minute);              // 16:30 -> 16:45
+                    const parts = newTime.split(":"); // ["16", "45"]
+                    const hour = Number(parts[0]); // 16
+                    const minute = Number(parts[1]); // 45
+                    date.setHours(hour); // 14:30 -> 16:30
+                    date.setMinutes(minute); // 16:30 -> 16:45
                     this.unix = Math.floor(date.getTime() / 1000); // 1796316300000 -> 1796316300
+                    task_js.duration.updateSelf();
                 },
                 getUnix() {
-                    return this.unix;
+                    return parseInt(this.unix);
                 },
                 setUnix(unix) {
                     this.unix = unix;
+                    task_js.duration.updateSelf();
                 },
+                // It always compares. What you may ask? Either the starting or ending. With what? The current time.
+                // So starting/ending > current => 1 day after
+                getDayDifference() {
+                    let current_Date = new Date();
+                    let this_Unix = new Date(this.unix * 1000);
+
+                    current_Date.setHours(0, 0, 0, 0);
+                    this_Unix.setHours(0, 0, 0, 0);
+
+                    let difference = this_Unix.getTime() - current_Date.getTime();
+
+                    return Math.round(difference / (1000 * 60 * 60 * 24));
+                }
 
             };
         }
 
         /*
-        * task_js.starting.getDate();
-        * task_js.ending.setTime("18:30");
-        *
-        * task_js.setCategory(2);
-        * task_js.setDescription("Buy milk");
-        * task_js.setDone(false);
-        *
-        * task_js.load(task);
-        * task_js.reset();
-        */
+         * task_js.starting.getDate();
+         * task_js.ending.setTime("18:30");
+         *
+         * task_js.setCategory(2);
+         * task_js.setDescription("Buy milk");
+         * task_js.setDone(false);
+         *
+         * task_js.load(task);
+         * task_js.reset();
+         */
         const task_js = {
             starting: createTimePoint(@js($startingTimepoint_unix), $wire.get('timezone')),
             ending: createTimePoint(@js($endingTimepoint_unix), $wire.get('timezone')),
+            duration: {
+                unix: 0,
+                hour: 0,
+                minute: 0,
+                reverse: false,
+
+                setHour(hour) {
+                    this.hour = Number(hour);
+                    this.applyChanges();
+                    this.updateSelf();
+                },
+
+                setMinute(minute) {
+                    this.minute = Number(minute);
+                    this.applyChanges();
+                    this.updateSelf();
+                },
+
+                applyChanges() {
+                    this.unix = parseInt(this.hour * 60 * 60) + parseInt(this.minute * 60);
+
+                    if (!this.reverse) {
+                        task_js.ending.setUnix(task_js.starting.getUnix() + this.unix);
+                    } else {
+                        task_js.starting.setUnix(task_js.ending.getUnix() - this.unix);
+                    }
+                },
+
+                updateSelf() {
+                    let difference = task_js.ending.getUnix() - task_js.starting.getUnix();
+
+                    difference = Math.abs(difference);
+
+                    this.unix = Math.floor(difference);
+                    this.hour = Math.floor(difference / 3600);
+                    this.minute = Math.floor((difference / 60) % 60);
+                }
+            },
             category: null,
             description: null,
             done: true,
+            onUpdate: null,
             setCategory(category) {
-                    this.category = category;
+                this.category = category;
             },
             getCategory() {
                 return this.category;
@@ -361,19 +410,23 @@
                 return this.description;
             },
             setDone(done) {
-                    this.done = done;
+                this.done = done;
             },
             getDone() {
                 return this.done;
             },
             load(task) {
+                console.log(JSON.stringify(task_js, null, 4));
+
                 this.starting.setUnix(task.starting_unix);
                 this.ending.setUnix(task.ending_unix);
                 this.setCategory(task.category);
                 this.setDescription(task.description);
                 this.setDone(task.done);
+
+                syncUIWithTaskJS();
             },
-            reset(){
+            reset() {
                 this.starting.setUnix(@js($startingTimepoint_unix));
                 this.ending.setUnix(@js($endingTimepoint_unix));
                 this.setCategory("");
@@ -386,28 +439,92 @@
 
         console.log(JSON.stringify(task_js, null, 4));
 
+
+        $('#reverseRangeInput').on('click', function() {
+            task_js.duration.reverse = !task_js.duration.reverse;
+            $(this).toggleClass('border-red-400 text-red-400', task_js.duration.reverse);
+            // console.log('id:', $(this).attr('id'), task_js.duration.reverse);
+        });
+
+        $('#minuteTimeRangePicker').on('input', function() {
+            // console.log($(this).attr('id'));
+            let currentMinute = Number($(this).val());
+            task_js.duration.setMinute(currentMinute);
+            syncUIWithTaskJS();
+        });
+
+        $('#minuteTimeRangePicker_prev').on('click', function() {
+            // console.log($(this).attr('id'));
+
+            let currentMinute = Number($('#minuteTimeRangePicker').val());
+            task_js.duration.setMinute(Math.max(0, currentMinute - 1));
+            syncUIWithTaskJS();
+
+            console.log(JSON.stringify(task_js, null, 4));
+        });
+
+        $('#minuteTimeRangePicker_next').on('click', function() {
+            // console.log($(this).attr('id'));
+
+            let currentMinute = Number($('#minuteTimeRangePicker').val());
+            task_js.duration.setMinute(Math.min(59, currentMinute + 1));
+            syncUIWithTaskJS();
+
+            console.log(JSON.stringify(task_js, null, 4));
+        });
+
+        $('#hourTimeRangePicker').on('input', function() {
+            // console.log($(this).attr('id'));
+            let currentHour = Number($(this).val());
+            task_js.duration.setHour(currentHour);
+            syncUIWithTaskJS();
+        });
+
+        $('#hourTimeRangePicker_prev').on('click', function() {
+            // console.log($(this).attr('id'));
+            let currentHour = Number($('#hourTimeRangePicker').val());
+            task_js.duration.setHour(Math.max(0, currentHour - 1));
+            syncUIWithTaskJS();
+
+            console.log(JSON.stringify(task_js, null, 4));
+        });
+
+        $('#hourTimeRangePicker_next').on('click', function() {
+            // console.log($(this).attr('id'));
+            let currentHour = Number($('#hourTimeRangePicker').val());
+            task_js.duration.setHour(Math.min(23, currentHour + 1));
+            syncUIWithTaskJS();
+
+            console.log(JSON.stringify(task_js, null, 4));
+        });
+
+        $('#reverseRangeInput').on('click', function() {
+            // console.log($(this).attr('id'));
+        });
+
+
         $('#taskCategory').on('input', function() {
             task_js.setCategory($(this).val());
-            console.log(JSON.stringify(task_js, null, 4));
+            // console.log(JSON.stringify(task_js, null, 4));
         });
 
         $('#taskDescription').on('input', function() {
             task_js.setDescription($(this).val());
-            console.log(JSON.stringify(task_js, null, 4));
+            // console.log(JSON.stringify(task_js, null, 4));
         });
 
         $("#startingTimepoint").on("input", function() {
             task_js.starting.setTime($(this).val());
-            updateDuration();
+            syncUIWithTaskJS();
             dispatchInputEvent("startingTimepoint_unix");
-            console.log(JSON.stringify(task_js, null, 4));
+            // console.log(JSON.stringify(task_js, null, 4));
         });
 
         $("#endingTimepoint").on("input", function() {
             task_js.ending.setTime($(this).val());
-            updateDuration();
+            syncUIWithTaskJS();
             dispatchInputEvent("endingTimepoint_unix");
-            console.log(JSON.stringify(task_js, null, 4));
+            // console.log(JSON.stringify(task_js, null, 4));
         });
 
         // Go to next interval
@@ -422,8 +539,8 @@
             let newEndingDate = new Date(task_js.ending.getUnix() * 1000);
             newEndingDate.setDate(newEndingDate.getDate() + 1);
             task_js.ending.setUnix(Math.floor(newEndingDate.getTime() / 1000));
-            syncInputsWithTaskJS();
-            console.log(JSON.stringify(task_js, null, 4));
+            syncUIWithTaskJS();
+            // console.log(JSON.stringify(task_js, null, 4));
         });
 
         $('#taskPrevPeriod').on('click', function() {
@@ -437,24 +554,23 @@
             let newEndingDate = new Date(task_js.ending.getUnix() * 1000);
             newEndingDate.setDate(newEndingDate.getDate() - 1);
             task_js.ending.setUnix(Math.floor(newEndingDate.getTime() / 1000));
-            syncInputsWithTaskJS();
-            console.log(JSON.stringify(task_js, null, 4));
+            syncUIWithTaskJS();
+            // console.log(JSON.stringify(task_js, null, 4));
         });
 
         $('#targetDate').on('input', function() {
             task_js.starting.setDate($(this).val());
             task_js.ending.setDate($(this).val());
-            syncInputsWithTaskJS();
-            console.log(JSON.stringify(task_js, null, 4));
+            syncUIWithTaskJS();
+            // console.log(JSON.stringify(task_js, null, 4));
         });
 
         $('#targetDateNowButton').on('click', function() {
             let newDate = new Date(); // Wed Jul 15 2026 21:04:19 GMT+0330 (Iran Standard Time) | 2026-07-15T18:27:23.925Z ( toISOString() )
             task_js.starting.setDate(newDate.toISOString().split('T')[0]); // "2026-07-15"
-            task_js.ending.setDate(newDate.toISOString().split('T')[0]);   // "2026-07-15"
-            syncInputsWithTaskJS();
-            updateDuration();
-            console.log(JSON.stringify(task_js, null, 4));
+            task_js.ending.setDate(newDate.toISOString().split('T')[0]); // "2026-07-15"
+            syncUIWithTaskJS();
+            // console.log(JSON.stringify(task_js, null, 4));
         });
 
         $('#swapTimesOnly').on('click', function() {
@@ -464,9 +580,8 @@
             task_js.starting.setUnix(endingUnix);
             task_js.ending.setUnix(startingUnix);
 
-            syncInputsWithTaskJS();
-            updateDuration();
-            console.log(JSON.stringify(task_js, null, 4));
+            syncUIWithTaskJS();
+            // console.log(JSON.stringify(task_js, null, 4));
         });
 
         /**
@@ -480,9 +595,8 @@
             let hours = ("0" + newDate.getHours()).slice(-2); // 21 -> "021" -> "21"
             let minutes = ("0" + newDate.getMinutes()).slice(-2); // 4 -> "04"
             task_js.starting.setTime(hours + ":" + minutes);
-            syncInputsWithTaskJS();
-            updateDuration();
-            console.log(JSON.stringify(task_js, null, 4));
+            syncUIWithTaskJS();
+            // console.log(JSON.stringify(task_js, null, 4));
         });
 
         $('#setNowTimeForEndingHourAndMinute').on('click', function() {
@@ -491,23 +605,22 @@
             let hours = ("0" + newDate.getHours()).slice(-2); // 21 -> "021" -> "21"
             let minutes = ("0" + newDate.getMinutes()).slice(-2); // 4 -> "04"
             task_js.ending.setTime(hours + ":" + minutes);
-            syncInputsWithTaskJS();
-            updateDuration();
-            console.log(JSON.stringify(task_js, null, 4));
+            syncUIWithTaskJS();
+            // console.log(JSON.stringify(task_js, null, 4));
         });
 
         $("#startingDatepoint").on("input", function() {
             task_js.starting.setDate($(this).val());
-            updateDuration();
+            syncUIWithTaskJS();
             dispatchInputEvent("startingTimepoint_unix");
-            console.log(JSON.stringify(task_js, null, 4));
+            // console.log(JSON.stringify(task_js, null, 4));
         });
 
         $("#endingDatepoint").on("input", function() {
             task_js.ending.setDate($(this).val());
-            updateDuration();
+            syncUIWithTaskJS();
             dispatchInputEvent("endingTimepoint_unix");
-            console.log(JSON.stringify(task_js, null, 4));
+            // console.log(JSON.stringify(task_js, null, 4));
         });
 
         $('.categoryAutoSetter').on('click', function() {
@@ -527,46 +640,64 @@
             $('.descriptionAutoSetter').on('click', function() {
                 let descriptionText = $(this).text().trim();
                 task_js.setDescription(descriptionText);
-                syncInputsWithTaskJS();
+                syncUIWithTaskJS();
             });
 
-            syncInputsWithTaskJS();
+            syncUIWithTaskJS();
         });
 
-        $('#descriptionAutoSetterContainer').on('click','.descriptionAutoSetter', function () {
-                let descriptionText = $(this).text().trim();
-                task_js.setDescription(descriptionText);
-                syncInputsWithTaskJS();
-            }
-        );
+        $('#descriptionAutoSetterContainer').on('click', '.descriptionAutoSetter', function() {
+            let descriptionText = $(this).text().trim();
+            task_js.setDescription(descriptionText);
+            syncUIWithTaskJS();
+        });
 
         // Because the first time, 'onclick' hasn't being set when the page load. So I added this part to cover the first time :)
         $('.descriptionAutoSetter').on('click', function() {
             // Set the taskDescription input value to the clicked descriptionAutoSetter text
             let descriptionText = $(this).text().trim();
             task_js.setDescription(descriptionText);
-            syncInputsWithTaskJS();
+            syncUIWithTaskJS();
         });
 
         $(".timeBlockAutoSetter").on("click", function() {
             // Get the block time duration in seconds. (ex: 10m * 60 = 600s, 60m * 60 = 3600s)
-            let blockTimeDuration = ($(this).attr('minute') * 60);
+            let blockTimeDuration = Number($(this).attr('minute') * 60);
             // Now we have a block time. We want to add this to the 'endingTimepoint_unix'. But we need to get the 'staringTimepoint_unix' first, then add the 'blockTimeDuration' to it.
-            let currentUnix = task_js.starting.getUnix();
-            // Add the 'blockTimeDuration' to the 'staringTimepoint_unix_js' to get the new 'endingTimePoint_unix_js'
-            // Note that we are adding seconds to seconds. No need to create a new js date object, where it has milliseconds. We are working with seconds here.
-            // we need to actually adding the values and not putting together two stings.
-            let newUnix = parseInt(currentUnix) + parseInt(blockTimeDuration);
+            if(!task_js.duration.reverse) {
+                let currentUnix = task_js.starting.getUnix();
+                // Note that we are adding seconds to seconds. No need to create a new js date object, where it has milliseconds. We are working with seconds here.
+                // we need to actually adding the values and not putting together two stings. I don't trust myself with javascript >:(
+                let newUnix = parseInt(currentUnix) + parseInt(blockTimeDuration);
 
-            task_js.ending.setUnix(newUnix);
+                task_js.ending.setUnix(newUnix);
+            } else {
+                let currentUnix = task_js.ending.getUnix();
+                // Note that we are adding seconds to seconds. No need to create a new js date object, where it has milliseconds. We are working with seconds here.
+                // we need to actually adding the values and not putting together two stings. I don't trust myself with javascript >:(
+                let newUnix = parseInt(currentUnix) - parseInt(blockTimeDuration);
 
-            syncInputsWithTaskJS();
-            updateDuration();
+                task_js.starting.setUnix(newUnix);
+            }
+
+            syncUIWithTaskJS();
         });
+
+        function formatToTextDayDifference(days) {
+            if (days === 0) {
+                return "Today";
+            }
+            if (days > 0) {
+                return `${days} day${days > 1 ? "s" : ""} after`;
+            }
+
+            let absolute = Math.abs(days);
+            return `${absolute} day${absolute > 1 ? "s" : ""} ago`;
+        }
 
         /* This function for the time range picker when you want to go alpine route */
         // function updateEndingTimePointViaTimeRangePicker(hour, minute) {
-        window.updateEndingTimePointViaTimeRangePicker = function (hour, minute) {
+        window.updateEndingTimePointViaTimeRangePicker = function(hour, minute) {
             let staringTimepoint_unix_js = task_js.starting.getUnix();
             let timeRangeDuration = (hour * 60 * 60) + (minute * 60);
 
@@ -574,8 +705,7 @@
 
             task_js.ending.setUnix(newEndingTimePoint_unix_js);
 
-            syncInputsWithTaskJS();
-            updateDuration();
+            syncUIWithTaskJS();
         }
 
         function dispatchInputEvent(elementId) {
@@ -585,7 +715,7 @@
         // update the next inputs with the new date
         // you know what? we need a function to sync the task_js object, with the inputs.
         // you know what we also need? we need to trigger the input event for the inputs, so that the Livewire component can catch the changes.
-        function syncInputsWithTaskJS() {
+        function syncUIWithTaskJS() {
             $('#targetDate').val(task_js.starting.getDate());
 
             $('#startingDatepoint').val(task_js.starting.getDate());
@@ -603,17 +733,22 @@
 
             $('#taskDescription').val(task_js.getDescription());
             dispatchInputEvent('taskDescription');
-        }
 
-        /**
-         * Updates the duration field based on the difference between the starting and ending Unix timepoints.
-         */
-        function updateDuration() {
-            let startingUnix = task_js.starting.getUnix();
-            let endingUnix = task_js.ending.getUnix();
-            let durationInSeconds = Math.abs(endingUnix - startingUnix);
-            formatDuration = formatSecondsToDaysHMS(durationInSeconds);
-            $('#Duration').val(formatDuration);
+            // Duration range inputs
+            $('#hourTimeRangePicker').val(task_js.duration.hour);
+            $('#minuteTimeRangePicker').val(task_js.duration.minute);
+
+            $('#hourTimeRangeShower').text(task_js.duration.hour);
+            $('#minuteTimeRangeShower').text(task_js.duration.minute);
+
+            // Updates the duration field based on the difference between the starting and ending Unix timepoints.
+            let formatDuration = formatSecondsToDaysHMS(task_js.duration.unix);
+            $('#duration').val(formatDuration);
+
+            // Updates the 'day difference text' for starting, ending, and target pills.
+            $('#endingDifferenceText').text(formatToTextDayDifference(task_js.ending.getDayDifference()));
+            $('#startingDifferenceText').text(formatToTextDayDifference(task_js.starting.getDayDifference()));
+            $('#targetDifferenceText').text(formatToTextDayDifference(task_js.starting.getDayDifference()));
         }
 
         /**
@@ -652,7 +787,6 @@
             // Combines all calculated units into the final format | 3 + " " + "01" + ":" + "01" + ":" + "05" + "." + 0 => "3 01:01:05.0"
             return day + " " + hours + ":" + minutes + ":" + seconds + "." + milliseconds;
         }
-
     </script>
 @endscript
 
@@ -685,6 +819,5 @@
         $("#startingDateContainer").on("click", () => {
             // document.querySelector("#startingDate").showPicker();
         });
-
     </script>
 @endpush
