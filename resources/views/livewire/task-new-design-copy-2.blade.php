@@ -165,7 +165,8 @@
                      x-transition:enter="transition-colors duration-500"
                      x-transition:enter-start="bg-amber-400"
                      x-transition:enter-end="bg-transparent"
-                     x-data="{ minuteTimeRangePicker: 0 , hourTimeRangePicker: 0 }">
+                     x-data="{ minuteTimeRangePicker: 0 , hourTimeRangePicker: 0 }"
+                     >
 
                      {{-- Minute 0~59 --}}
                     <div class="text-sm text-slate-400 inline-block"> Minute 0~59 </div>

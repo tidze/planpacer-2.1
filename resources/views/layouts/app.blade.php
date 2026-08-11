@@ -7,6 +7,8 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta name="robots" content="noindex">
     <title>{{ config('app.name', 'Laravel Default Value') }}</title>
+    <link rel="manifest" href="{{ asset('icon-manifest.json') }}">
+    <link rel="icon" type="image/png" href="{{ asset('icons/PlanPacer_icon_512.png') }}">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @stack('script-head')
     <style>
@@ -40,7 +42,7 @@
         <main>
             {{ $slot }}
         </main>
-        
+
     </div>
     <script type="text/javascript" src="{{ asset('js/jquery.min.js') }}"></script>
     @stack('script')

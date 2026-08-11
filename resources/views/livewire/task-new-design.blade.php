@@ -140,12 +140,17 @@
                 </div>
 
                 {{-- TimeRangePicker --}}
-                <div id="timeRangePicker" class="border border-amber-800 rounded-md p-1">
+                <div id="timeRangePicker"
+                     class="border border-amber-300 rounded-md p-2"
+                     x-show="isOpen"
+                     x-transition:enter="transition-colors duration-500"
+                     x-transition:enter-start="bg-amber-400/50"
+                     x-transition:enter-end="bg-transparent"
+                    >
 
                     {{-- Minute 0~59 --}}
                     <div class="text-sm text-slate-400 inline-block"> Minute 0~59 </div>
-                    <div id="minuteTimeRangeShower" class="inline text-sm border border-amber-600 rounded-md bg-slate-800 px-2 py-0 text-amber-600"></div>
-
+                    <div id="minuteTimeRangeShower" class="inline text-sm border border-amber-400 rounded-md bg-slate-800 px-2 py-0 text-amber-400"></div>
                     <div class="flex">
                         <button id="minuteTimeRangePicker_prev" class="rounded-lg border border-slate-600 bg-slate-900 px-3 py-1 active:bg-amber-400">◁</button>
                         <input id="minuteTimeRangePicker" type="range" min="0" max="59" step="1" class="w-full" value="0" />
@@ -154,8 +159,7 @@
 
                     {{-- Hour 0~23 --}}
                     <div class="text-sm text-slate-400 inline-block"> Hour 0~23 </div>
-                    <div id="hourTimeRangeShower" class="inline text-sm border border-amber-600 rounded-md bg-slate-800 px-2 py-0 text-amber-600"></div>
-
+                    <div id="hourTimeRangeShower" class="inline text-sm border border-amber-400 rounded-md bg-slate-800 px-2 py-0 text-amber-400"></div>
                     <div class="flex">
                         <button id="hourTimeRangePicker_prev" class="rounded-lg border border-slate-600 bg-slate-900 px-3 py-1 active:bg-amber-400">◁</button>
                         <input id="hourTimeRangePicker" type="range" min="0" max="23" step="1" class="w-full" value="0" />
@@ -416,13 +420,14 @@
                 return this.done;
             },
             load(task) {
-                console.log(JSON.stringify(task_js, null, 4));
+                // console.log(JSON.stringify(task_js, null, 4));
 
                 this.starting.setUnix(task.starting_unix);
                 this.ending.setUnix(task.ending_unix);
                 this.setCategory(task.category);
                 this.setDescription(task.description);
                 this.setDone(task.done);
+                this.duration.reverse = false;
 
                 syncUIWithTaskJS();
             },
@@ -437,7 +442,7 @@
 
         task_js.reset();
 
-        console.log(JSON.stringify(task_js, null, 4));
+        // console.log(JSON.stringify(task_js, null, 4));
 
 
         $('#reverseRangeInput').on('click', function() {
@@ -460,7 +465,7 @@
             task_js.duration.setMinute(Math.max(0, currentMinute - 1));
             syncUIWithTaskJS();
 
-            console.log(JSON.stringify(task_js, null, 4));
+            //console.log(JSON.stringify(task_js, null, 4));
         });
 
         $('#minuteTimeRangePicker_next').on('click', function() {
@@ -470,7 +475,7 @@
             task_js.duration.setMinute(Math.min(59, currentMinute + 1));
             syncUIWithTaskJS();
 
-            console.log(JSON.stringify(task_js, null, 4));
+            // console.log(JSON.stringify(task_js, null, 4));
         });
 
         $('#hourTimeRangePicker').on('input', function() {
@@ -486,7 +491,7 @@
             task_js.duration.setHour(Math.max(0, currentHour - 1));
             syncUIWithTaskJS();
 
-            console.log(JSON.stringify(task_js, null, 4));
+            // console.log(JSON.stringify(task_js, null, 4));
         });
 
         $('#hourTimeRangePicker_next').on('click', function() {
@@ -495,7 +500,7 @@
             task_js.duration.setHour(Math.min(23, currentHour + 1));
             syncUIWithTaskJS();
 
-            console.log(JSON.stringify(task_js, null, 4));
+           // console.log(JSON.stringify(task_js, null, 4));
         });
 
         $('#reverseRangeInput').on('click', function() {
@@ -787,6 +792,7 @@
             // Combines all calculated units into the final format | 3 + " " + "01" + ":" + "01" + ":" + "05" + "." + 0 => "3 01:01:05.0"
             return day + " " + hours + ":" + minutes + ":" + seconds + "." + milliseconds;
         }
+
     </script>
 @endscript
 
