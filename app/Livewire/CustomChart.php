@@ -16,14 +16,14 @@ use Carbon\Carbon;
 class CustomChart extends Component
 {
     // 1681892041 ▼
-    public $c_startingDatepoint_unix;
-    public $c_endingDatepoint_unix;
+    public $c_startingTimepoint_unix;
+    public $c_endingTimepoint_unix;
     // 2023-04-19 ▼
-    public $c_startingDate;
-    public $c_endingDate;
+    public $c_startingDatepoint;
+    public $c_endingDatepoint;
     // 00:00 ▼
-    public $c_startingHourpoint;
-    public $c_endingHourpoint;
+    public $c_startingTimepoint;
+    public $c_endingTimepoint;
 
     public $dailyTasks;
     public $c_flattened;
@@ -40,35 +40,32 @@ class CustomChart extends Component
 
     public $confirming;
 
-    public $startingDatetime;
-    public $endingDatetime;
     public $tasksSortedByDescription_Sum;
 
-    public string $c_timezone;
+    public string $c_timezone = 'UTC';
+
+    public DateTime $date;
 
     public function mount()
     {
-        $date = new DateTime();
-        $date->setTimezone(new DateTimeZone('Asia/Tehran'));
-        $date->setTime(7, 0, 0);
-        // $this->startingDatetime = $date;
-        $this->c_startingDatepoint_unix = $date->format('U');
-        $this->c_startingHourpoint = $date->format('H:i');
-        $this->c_startingDate = $date->format('Y-m-d');
+        $this->date = new DateTime();
+        $this->date->setTimezone(new DateTimeZone($this->c_timezone));
+        $this->date->setTime(8, 0, 0);
 
-        $date->add(new DateInterval('P1D'));
-        $date->setTime(03, 00, 0);
-        // $this->endingDatetime = $date;
-        $this->c_endingDatepoint_unix = $date->format('U');
-        $this->c_endingHourpoint = $date->format('H:i');
-        $this->c_endingDate = $date->format('Y-m-d');
+        $this->c_startingTimepoint_unix = $this->date->format('U');
+        $this->c_startingTimepoint = $this->date->format('H:i');
+        $this->c_startingDatepoint = $this->date->format('Y-m-d');
+
+        $this->date = new DateTime();
+        $this->date->add(new DateInterval('P1D'));
+        $this->date->setTime(02, 00, 0);
+        $this->c_endingTimepoint_unix = $this->date->format('U');
+        $this->c_endingTimepoint = $this->date->format('H:i');
+        $this->c_endingDatepoint = $this->date->format('Y-m-d');
 
         $this->c_flattened = false;
 
-        // $date->setTimestamp(time());
-        // $this->now['unix'] = $date->format('U');
         $this->calcNow();
-        // dd($this->now['unix']);
     }
 
     public function render()
@@ -102,7 +99,6 @@ class CustomChart extends Component
     {
         $this->c_flattened = !$this->c_flattened;
     }
-
     public function setTopOffsetToZero()
     {
         foreach ($this->dailyTasks as &$task) {
@@ -131,9 +127,9 @@ class CustomChart extends Component
                     substr($task['starting_time'], 0, 10)
             );
             $deltaForDenumerator = abs(
-                substr($this->c_startingDatepoint_unix, 0, 10)
+                substr($this->c_startingTimepoint_unix, 0, 10)
                     -
-                    substr($this->c_endingDatepoint_unix, 0, 10)
+                    substr($this->c_endingTimepoint_unix, 0, 10)
             );
 
             $task['height'] = "height:" .
@@ -157,14 +153,14 @@ class CustomChart extends Component
         foreach ($this->dailyTasks as &$task) {
             $task = json_decode(json_encode($task), true);
             $deltaForNumerator = abs(
-                substr($this->c_startingDatepoint_unix, 0, 10)
+                substr($this->c_startingTimepoint_unix, 0, 10)
                     -
                     substr($task['starting_time'], 0, 10)
             );
             $deltaForDenumerator = abs(
-                substr($this->c_startingDatepoint_unix, 0, 10)
+                substr($this->c_startingTimepoint_unix, 0, 10)
                     -
-                    substr($this->c_endingDatepoint_unix, 0, 10)
+                    substr($this->c_endingTimepoint_unix, 0, 10)
             );
             $task['top'] = "top:" .
                 substr(
@@ -184,14 +180,14 @@ class CustomChart extends Component
     {
         $this->c_flattened = false;
 
-        (is_null($this->c_startingDatepoint_unix) || is_null($this->c_endingDatepoint_unix)) ?
+        (is_null($this->c_startingTimepoint_unix) || is_null($this->c_endingTimepoint_unix)) ?
             dd('Parameter has not been found!') :
             $this->dailyTasks = DB::table('tasks')
             ->select('tasks.*', 'categories.category', 'categories.description', 'categories.color')
             ->join('categories', 'tasks.category_id', '=', 'categories.id')
             ->where('tasks.user_id', Auth::user()->id)
-            ->where('starting_time', '>=', substr($this->c_startingDatepoint_unix, 0, 10))
-            ->where('starting_time', '<', substr($this->c_endingDatepoint_unix, 0, 10))
+            ->where('starting_time', '>=', substr($this->c_startingTimepoint_unix, 0, 10))
+            ->where('starting_time', '<', substr($this->c_endingTimepoint_unix, 0, 10))
             ->orderBy('starting_time')
             ->get()->toArray();
 
@@ -205,7 +201,6 @@ class CustomChart extends Component
                 }
             }
         }
-
 
         $tasksSortedByDescription_Sum = [];
         foreach ($tasksSortedByDescription as $key => $value) {
@@ -251,51 +246,78 @@ class CustomChart extends Component
         $this->calcTaskTopOffset();
         $this->c_targetTaskIdForEdit = '';
         $this->calcNow();
-        // dd($this->now);
+        // dd($this->dailyTasks);
     }
 
     public function getTimeAndDate() {}
 
     public function setTimeAndDate() {}
 
-    public function isDateDifferent_Changer()
+    // This function is for when, livewire components get updated
+    public function updated($property, $value)
     {
-        // detects if the dates are not equal
+        switch ($property) {
+            case 'c_timezone':
+                $this->date = new DateTime();
+                $this->date->setTimezone(new DateTimeZone($this->c_timezone));
+                // Format them again, after the new timezone got set
+
+                $this->date->setTimezone(new DateTimeZone($this->c_timezone));
+                $this->date->setTime(8, 0, 0);
+
+                $this->c_startingTimepoint_unix = $this->date->format('U');
+                $this->c_startingTimepoint = $this->date->format('H:i');
+                $this->c_startingDatepoint = $this->date->format('Y-m-d');
+
+                $this->date = new DateTime();
+                $this->date->setTimezone(new DateTimeZone($this->c_timezone));
+                $this->date->setTime(02, 00, 0);
+
+                $this->date->add(new DateInterval('P1D'));
+
+                $this->c_endingTimepoint_unix = $this->date->format('U');
+                $this->c_endingTimepoint = $this->date->format('H:i');
+                $this->c_endingDatepoint = $this->date->format('Y-m-d');
+
+                break;
+
+                // Add more properties if you want :)
+        }
     }
 
     public function prevPeriod()
     {
         $date = new DateTime();
-        $date->setTimezone(new DateTimeZone('Asia/Tehran'));
-        $date->setTimestamp(substr($this->c_startingDatepoint_unix, 0, 10));
+        $date->setTimezone(new DateTimeZone($this->c_timezone));
+        $date->setTimestamp(substr($this->c_startingTimepoint_unix, 0, 10));
         $date->sub(new DateInterval('P1D'));
-        $this->c_startingDatepoint_unix = $date->format('U');
-        $this->c_startingHourpoint = $date->format('H:i');
-        $this->c_startingDate = $date->format('Y-m-d');
+        $this->c_startingTimepoint_unix = $date->format('U');
+        $this->c_startingTimepoint = $date->format('H:i');
+        $this->c_startingDatepoint = $date->format('Y-m-d');
 
-        $date->setTimestamp(substr($this->c_endingDatepoint_unix, 0, 10));
+        $date->setTimestamp(substr($this->c_endingTimepoint_unix, 0, 10));
         $date->sub(new DateInterval('P1D'));
-        $this->c_endingDatepoint_unix = $date->format('U');
-        $this->c_endingHourpoint = $date->format('H:i');
-        $this->c_endingDate = $date->format('Y-m-d');
+        $this->c_endingTimepoint_unix = $date->format('U');
+        $this->c_endingTimepoint = $date->format('H:i');
+        $this->c_endingDatepoint = $date->format('Y-m-d');
         $this->getTask();
     }
 
     public function nextPeriod()
     {
         $date = new DateTime();
-        $date->setTimezone(new DateTimeZone('Asia/Tehran'));
-        $date->setTimestamp(substr($this->c_startingDatepoint_unix, 0, 10));
+        $date->setTimezone(new DateTimeZone($this->c_timezone));
+        $date->setTimestamp(substr($this->c_startingTimepoint_unix, 0, 10));
         $date->add(new DateInterval('P1D'));
-        $this->c_startingDatepoint_unix = $date->format('U');
-        $this->c_startingHourpoint = $date->format('H:i');
-        $this->c_startingDate = $date->format('Y-m-d');
+        $this->c_startingTimepoint_unix = $date->format('U');
+        $this->c_startingTimepoint = $date->format('H:i');
+        $this->c_startingDatepoint = $date->format('Y-m-d');
 
-        $date->setTimestamp(substr($this->c_endingDatepoint_unix, 0, 10));
+        $date->setTimestamp(substr($this->c_endingTimepoint_unix, 0, 10));
         $date->add(new DateInterval('P1D'));
-        $this->c_endingDatepoint_unix = $date->format('U');
-        $this->c_endingHourpoint = $date->format('H:i');
-        $this->c_endingDate = $date->format('Y-m-d');
+        $this->c_endingTimepoint_unix = $date->format('U');
+        $this->c_endingTimepoint = $date->format('H:i');
+        $this->c_endingDatepoint = $date->format('Y-m-d');
         $this->getTask();
     }
 
@@ -310,22 +332,23 @@ class CustomChart extends Component
         $this->c_targetTaskIdForEdit = $id;
     }
 
+    // Now indicador for the current selected time
     public function calcNow()
     {
         $date = new DateTime();
-        $date->setTimezone(new DateTimeZone('Asia/Tehran'));
+        $date->setTimezone(new DateTimeZone($this->c_timezone));
         $date->setTimestamp(time());
         $this->now['unix'] = $date->format('U');
 
         $deltaForNumerator = abs(
-            substr($this->c_startingDatepoint_unix, 0, 10)
+            substr($this->c_startingTimepoint_unix, 0, 10)
                 -
                 substr($this->now['unix'], 0, 10)
         );
         $deltaForDenumerator = abs(
-            substr($this->c_startingDatepoint_unix, 0, 10)
+            substr($this->c_startingTimepoint_unix, 0, 10)
                 -
-                substr($this->c_endingDatepoint_unix, 0, 10)
+                substr($this->c_endingTimepoint_unix, 0, 10)
         );
         $this->now['top'] = "top:" .
             substr(
@@ -341,15 +364,15 @@ class CustomChart extends Component
             . "%";
 
         if (
-            ($this->now['unix'] >= $this->c_startingDatepoint_unix)
+            ($this->now['unix'] >= $this->c_startingTimepoint_unix)
             &&
-            ($this->now['unix'] <= $this->c_endingDatepoint_unix)
+            ($this->now['unix'] <= $this->c_endingTimepoint_unix)
         ) {
             $this->now['visible'] = 'visible';
         } else {
             $this->now['visible'] = 'hidden';
         }
-        // dd($this->now, $this->c_startingDatepoint_unix, $this->c_endingDatepoint_unix);
+        // dd($this->now, $this->c_startingTimepoint_unix, $this->c_endingTimepoint_unix);
     }
 
     public function confirmDelete($id)
