@@ -5,7 +5,9 @@
 
             <!-- Animated gradient background -->
             <div class="absolute inset-0 bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900">
-                <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width="60" height="60" xmlns="http://www.w3.org/2000/svg"%3E%3Cdefs%3E%3Cpattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse"%3E%3Cpath d="M 60 0 L 0 0 0 60" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="1"/%3E%3C/pattern%3E%3C/defs%3E%3Crect width="100%25" height="100%25" fill="url(%23grid)" /%3E%3C/svg%3E')]"></div>
+                <div class="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width="60" height="60" xmlns="http://www.w3.org/2000/svg"%3E%3Cdefs%3E%3Cpattern id="grid" width="60" height="60"
+                    patternUnits="userSpaceOnUse"%3E%3Cpath d="M 60 0 L 0 0 0 60" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="1"/%3E%3C/pattern%3E%3C/defs%3E%3Crect width="100%25" height="100%25"
+                    fill="url(%23grid)" /%3E%3C/svg%3E')]"></div>
             </div>
 
             <!-- Floating orbs -->
@@ -55,22 +57,28 @@
                         </svg>
                         Customized Dashboard
                     </div>
-                    <div class="flex items-center gap-2 text-slate-300">
-                        <svg class="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                    <div class="flex items-center gap-2 text-slate-400">
+                        <svg class="w-4 h-4 text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z">
+                            </path>
                         </svg>
-                        Get Feedback From Ai
+
+                        <span>AI Feedback</span>
+
+                        <span class="text-[10px] font-medium uppercase tracking-wide text-violet-400/80 border border-violet-400/20 bg-violet-400/5 px-1.5 py-0.5 rounded">
+                            Coming Soon
+                        </span>
                     </div>
                 </div>
 
                 <!-- Action buttons -->
                 <div class="flex flex-col sm:flex-row justify-center gap-4 pt-4">
                     <a href="{{ route('dashboard') }}"
-                       class="group relative px-6 py-3 bg-gradient-to-r from-amber-500 to-amber-600 rounded-lg font-semibold text-slate-900 transition-all duration-300 hover:shadow-[0_0_30px_rgba(245,158,11,0.3)] active:translate-y-0">
+                        class="group relative px-6 py-3 bg-gradient-to-r from-amber-500 to-amber-600 rounded-lg font-semibold text-slate-900 transition-all duration-300 hover:shadow-[0_0_30px_rgba(245,158,11,0.3)] active:translate-y-0">
                         <span class="relative z-10">Get Started</span>
                     </a>
                     <a href="{{ url('/register') }}"
-                       class="px-6 py-3 flex justify-center items-center border border-white/20 rounded-lg font-medium text-slate-300 duration-300 hover:bg-white/5 hover:border-white/40 hover:text-white">
+                        class="px-6 py-3 flex justify-center items-center border border-white/20 rounded-lg font-medium text-slate-300 duration-300 hover:bg-white/5 hover:border-white/40 hover:text-white">
                         Create Account
                     </a>
                 </div>
@@ -94,9 +102,17 @@
 
     <style>
         @keyframes gradient {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
+
+            0%,
+            100% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
         }
+
         .animate-gradient {
             background-size: 200% 200%;
             animation: gradient 3s ease infinite;

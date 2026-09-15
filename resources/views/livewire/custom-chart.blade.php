@@ -284,8 +284,11 @@
     @isset($taskSumOfDurations)
         <div class="text-sm text-amber-400">// Category Summary</div>
         @foreach ($taskSumOfDurations as $category => $duration)
-            <div class="text-sm">{{ $category }} <span class="text-amber-400">{{ substr($duration / 3600, 0, 4) }}</span> h<span> &nbsp; | &nbsp; </span><span
-                    class="text-amber-600">{{ (substr($duration / 3600, 0, 4) / (($c_endingTimepoint_unix - $c_startingTimepoint_unix) / 60 / 60)) * 100 }}</span> % </div>
+            <div class="text-sm">{{ $category }}
+                <span class="text-amber-400">{{ substr($duration / 3600, 0, 4) }}</span> h
+                <span> &nbsp; | &nbsp; </span>
+                <span class="text-amber-600">{{ substr( ( (substr($duration / 3600, 0, 4) / ( ( ($c_endingTimepoint_unix - $c_startingTimepoint_unix) / 60 / 60) ) * 100 ) ),0,4) }}</span> %
+            </div>
         @endforeach
         {{-- This if statement needs fix. --}}
         <div class="text-sm text-amber-400">// Total Summary</div>

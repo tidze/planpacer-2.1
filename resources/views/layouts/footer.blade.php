@@ -1,15 +1,15 @@
 <div class="text-center text-sm text-gray-500 sm:text-right box-border">
-    <a href="#" class="text-blue-600 hover:underline">Home</a>
-    {{-- <a href="#" class="text-blue-600 hover:underline">fa</a> --}}
-    <span>
-        Built with Laravel v{{ Illuminate\Foundation\Application::VERSION }} (PHP v{{ PHP_VERSION }})
-    </span>
-    <br>
-    <span>
-        Livewire
-    </span>
-    <a class="text-blue-600 hover:underline" href="https://laravel-livewire.com/">Livewire</a>
-    <br>
-    {{-- <span>Contanct Me : tidze.gh@gmail.com @include('aboutme_link')</span> --}}
+
+    <span class="text-gray-400">Built with:</span>
+
+    <span class="text-orange-400"><a class="text-yellow-400 hover:underline" href="https://www.php.net/">PHP</a> v{{ PHP_VERSION }}</span>
+
+    <span class="text-gray-400"> | </span>
+
+    <span class="text-orange-400"><a class="text-yellow-400 hover:underline" href="https://laravel.com/">Laravel</a> v{{ Illuminate\Foundation\Application::VERSION }}</span>
+
+    <span class="text-gray-400"> | </span>
+
+    <span class="text-orange-400"><a class="text-yellow-400 hover:underline" href="https://livewire.laravel.com/">Livewire</a> {{ \Composer\InstalledVersions::getPrettyVersion('livewire/livewire') }}</span>
 
 </div>

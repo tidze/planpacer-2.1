@@ -18,7 +18,13 @@ Notice that these predictions are less "You will do X tomorrow" and more:
 That feels more useful and less creepy.
 
 -------------------------------To-Do-------------------------------
-~ The maxminm Duration should be 23h59m. Because Currently hour InputTimeRanger only can handle this much. 
+New* # Smooth Category color+database normalization
+New* # TasksTable-> latest added tasks + pagination
+New* # Changing your name + password
+New* # Daily inspiration ai massages from llama.cpp
+New* # Fix the ReadMe file on github
+
+~ The maxminm Duration should be 23h59m. Because Currently hour InputTimeRanger only can handle this much.
 ~ Fixing Documentation on code Blocks
 ~ Timezone asynconus with $wire.set() So how does I am still getting "Asia/Tehran" timezone?
 

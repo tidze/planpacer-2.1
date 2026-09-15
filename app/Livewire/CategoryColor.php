@@ -10,22 +10,35 @@ use Livewire\WithPagination;
 class CategoryColor extends Component
 {
     use WithPagination;
-    public $targetCategoryId;
-    public $categoryColor;
-    public $categoryId;
+
     public $user_id;
-    public $category;
-    public $categoryDescription;
+
+    public $editingCategoryId = null;
+    public $categoryId = null;
+    public $category = null;
+    public $categoryColor = null; // #ffffff
+    public $categoryDescription = null;
 
     protected $listeners = ['$refresh'];
 
     public function render()
     {
+        $allCategories = DB::table('categories')
+                    ->select('categories.*')
+                    ->where('categories.user_id', Auth::user()->id)
+                    ->orderBy('categories.category', 'asc')
+                    ->get();
+
+        $distinctCategories = DB::table('categories')
+                    ->select('categories.category','categories.id')
+                    ->where('categories.user_id', Auth::user()->id)
+                    ->distinct()
+                    ->orderBy('categories.category', 'asc')
+                    ->get();
+        // dd($distinctCategories,$allCategories);
         return view('livewire.category-color', [
-            'allCategories' => DB::table('categories')->select('categories.*')
-                ->where('categories.user_id', Auth::user()->id)
-                ->orderByDesc('categories.id')
-                ->paginate(5)
+            'allCategories' => $allCategories,
+            'distinctCategories' => $distinctCategories,
         ]);
     }
 
@@ -35,12 +48,18 @@ class CategoryColor extends Component
         // dd($categories);
         // Assign the values from db into sync variables with livewire form
         $this->user_id = $categories->user_id;
-        $this->targetCategoryId = $categories->id;
+        $this->editingCategoryId = $categories->id;
         $this->categoryId = $categories->id;
         $this->category = $categories->category;
-        $this->categoryDescription = $categories->description;
         $this->categoryColor = $categories->color;
+        $this->categoryDescription = $categories->description;
     }
+
+    public function resetEditValues()
+    {
+        $this->reset(['editingCategoryId', 'categoryId', 'category', 'categoryColor', 'categoryDescription']);
+    }
+
     public function storeOrUpdate()
     {
         // dd('storeOrUpdate');
@@ -54,19 +73,15 @@ class CategoryColor extends Component
             ]);
 
         // Refresh the `tasks-table.blade.php`
-        // $this->emitTo('tasks-table','z$refresh');
+
         if($update){
             session()->flash('successfull_message', 'Category Updated Successfully');
         }else{
             session()->flash('unsuccessfull_message', 'Update Was Unsuccessfull');
         }
         // Clear the livewire variables
-        $this->user_id ='';
-        $this->targetCategoryId ='';
-        $this->categoryId ='';
-        $this->category ='';
-        $this->categoryDescription ='';
-        $this->categoryColor ='';
+
+        $this->resetEditValues();
         // Send a message that the record has been updated.
     }
 }
